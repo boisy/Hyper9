@@ -120,6 +120,9 @@ extension CPU {
         if postByte & 0x40 == 0x40 {
             U = pullWordFromS()
         }
+        if postByte & 0x80 == 0x80 {
+            PC = pullWordFromS()
+        }
 
         return false
     }

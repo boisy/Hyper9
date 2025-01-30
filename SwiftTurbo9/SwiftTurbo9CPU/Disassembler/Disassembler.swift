@@ -90,9 +90,17 @@ class Disassembler: CPU {
 
     func disassemble(instructionCount : UInt = UInt.max, startPC : UInt16 = UInt16.max) -> [String] {
         var numberOfInstructionsToDisassemble = instructionCount
+        let oldPC = PC
+        let oldA = A
+        let oldB = B
+        let oldDP = DP
+        let oldCC = CC
+        let oldX = X
+        let oldY = Y
+        let oldU = U
+        let oldS = S
         operations = []
 
-        let oldPC = PC
         if startPC != UInt16.max {
             PC = startPC
         }
@@ -146,7 +154,16 @@ class Disassembler: CPU {
                 }
             }
         }
+        
         PC = oldPC
+        A = oldA
+        B = oldB
+        X = oldX
+        Y = oldY
+        U = oldU
+        S = oldS
+        DP = oldDP
+        CC = oldCC
 
         // Map operations to String and return it.
         return operations.map { $0.asCode }
