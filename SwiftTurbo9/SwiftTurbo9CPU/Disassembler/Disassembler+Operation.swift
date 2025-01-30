@@ -64,7 +64,8 @@ extension Disassembler {
         private func instructionBytes() -> String {
             var result = ""
             
-            result = String(format: "%@%02X%@%@", preByte.description, opcode, operand.hexDescription, postOperand.hexDescription)
+            result = String(format: "%@%02X%@", preByte.description, opcode, operand.hexDescription)
+            
             return result
         }
 

@@ -37,7 +37,6 @@ extension CPU {
     ///
     /// Condition codes: Not affected.
     func jsr(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
-        PC -= 1
         pushToS(word: PC)
         PC = addressAbsolute
 
