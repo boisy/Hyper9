@@ -11,6 +11,8 @@ extension CPU {
         setNegativeFlag(using: diff)
         let addResult = Int8(bitPattern: value).addingReportingOverflow(Int8(bitPattern: UInt8(memory & 0xFF)))
         setCC(.overflow, addResult.overflow)
+        // If register is less than memory, then set carry flag to true.
+        setCC(.carry, value < memory)
     }
 
     private func compareMemoryAgainst(_ value: UInt16) {
