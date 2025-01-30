@@ -179,19 +179,19 @@ class Disassembler: CPU {
         case .inh:
             return .none
         case .imm8:
-            return .immediate8(readByte(PC - 1))
+            return .immediate8(readByte(PC &- 1))
         case .imm16:
-            return .immediate16(readWord(PC - 2))
+            return .immediate16(readWord(PC &- 2))
         case .dir:
-            return .direct(readByte(PC - 1))
+            return .direct(readByte(PC &- 1))
         case .ext:
-            return .extended(readWord(PC - 2))
+            return .extended(readWord(PC &- 2))
         case .ind:
-            return .indexed(readByte(PC - 1 - offset))
+            return .indexed(readByte(PC &- 1 &- offset))
         case .rel8:
-            return .relative8(readByte(PC - 1))
+            return .relative8(readByte(PC &- 1))
         case .rel16:
-            return .relative16(readWord(PC - 2))
+            return .relative16(readWord(PC &- 2))
         }
     }
 }
