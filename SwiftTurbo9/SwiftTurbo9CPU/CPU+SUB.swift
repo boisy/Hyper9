@@ -46,24 +46,24 @@ extension CPU {
     private func subtract(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         // Overflow using `UInt8` results in an exception being thrown.
         // "Cheat" and use `UInt16` when adding instead.
-        var valueToAdd: UInt16 = 0
+        var valueToSubtract: UInt16 = 0
         
         switch addressMode
         {
         case .imm8:
-            valueToAdd = readByte(addressAbsolute).asWord
+            valueToSubtract = readByte(addressAbsolute).asWord
         case .dir:
-            valueToAdd = readByte(addressAbsolute).asWord
+            valueToSubtract = readByte(addressAbsolute).asWord
         case .ind:
-            valueToAdd = readByte(addressAbsolute).asWord
+            valueToSubtract = readByte(addressAbsolute).asWord
         case .ext:
-            valueToAdd = readByte(addressAbsolute).asWord
+            valueToSubtract = readByte(addressAbsolute).asWord
         default:
-            valueToAdd = 0
+            valueToSubtract = 0
         }
         var newValue : UInt16 = 0
         
-        newValue = register.asWord + valueToAdd
+        newValue = register.asWord &- valueToSubtract
 
         // Set negative flag, if highest bit is set.
         setNegativeFlag(using: newValue)
@@ -74,7 +74,7 @@ extension CPU {
         // Set overflow flag.
         // This flag should be set if the addition overflow in `Int8`, aka. if the result goes out of bounds of (-128 <-> +127).
         // Cast both `acc` and `valueToAdd` to `Int8`, add them and check if there's an overflow.
-        let addResult = Int8(bitPattern: register).addingReportingOverflow(Int8(bitPattern: UInt8(valueToAdd & 0xFF)))
+        let addResult = Int8(bitPattern: register).addingReportingOverflow(Int8(bitPattern: UInt8(valueToSubtract & 0xFF)))
         setCC(.overflow, addResult.overflow)
 
         // Set carry flag.
@@ -229,25 +229,25 @@ extension CPU {
     func subd(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
         // Overflow using `UInt8` results in an exception being thrown.
         // "Cheat" and use `UInt16` when adding instead.
-        var valueToAdd: UInt16 = 0
+        var valueToSubtract: UInt16 = 0
         
         switch addressMode
         {
         case .imm8:
-            valueToAdd = readWord(addressAbsolute)
+            valueToSubtract = readWord(addressAbsolute)
             PC = PC &+ 1
         case .dir:
-            valueToAdd = readWord(addressAbsolute)
+            valueToSubtract = readWord(addressAbsolute)
         case .ind:
-            valueToAdd = readWord(addressAbsolute)
+            valueToSubtract = readWord(addressAbsolute)
         case .ext:
-            valueToAdd = readWord(addressAbsolute)
+            valueToSubtract = readWord(addressAbsolute)
         default:
-            valueToAdd = 0
+            valueToSubtract = 0
         }
         var newValue : UInt16 = 0
         
-        newValue = UInt16(truncatingIfNeeded: Int(D) + Int(valueToAdd))
+        newValue = UInt16(truncatingIfNeeded: Int(D) &- Int(valueToSubtract))
 
         // Set negative flag, if highest bit is set.
         setNegativeFlag(using: newValue >> 8)
@@ -258,7 +258,7 @@ extension CPU {
         // Set overflow flag.
         // This flag should be set if the addition overflow in `Int16`, aka. if the result goes out of bounds of (-32768 <-> +32767).
         // Cast both `D` and `valueToAdd` to `Int16`, add them and check if there's an overflow.
-        let addResult = Int16(bitPattern: D).addingReportingOverflow(Int16(bitPattern: valueToAdd))
+        let addResult = Int16(bitPattern: D).addingReportingOverflow(Int16(bitPattern: valueToSubtract))
         setCC(.overflow, addResult.overflow)
 
         // Set carry flag.
