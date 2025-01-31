@@ -192,10 +192,8 @@ extension CPU {
         {
         case .imm8:
             valueToAdd = readWord(addressAbsolute)
-            PC = PC &+ 1
         case .imm16:
             valueToAdd = readWord(addressAbsolute)
-            PC = PC &+ 2
         case .dir:
             valueToAdd = readWord(addressAbsolute)
         case .ind:
