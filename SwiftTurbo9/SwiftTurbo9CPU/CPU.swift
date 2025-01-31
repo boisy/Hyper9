@@ -80,6 +80,10 @@ class CPU : ObservableObject {
         }
     }
     
+    var memoryDump: String {
+        self.bus.ramDump(address: 0, numBytes: 256)
+    }
+    
     /// The 16-bit index register `X`.
     @Published var X: UInt16 = 0x00
     

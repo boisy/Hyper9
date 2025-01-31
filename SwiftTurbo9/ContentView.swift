@@ -14,6 +14,7 @@ struct ContentView: View {
 
     var body: some View {
         HStack {
+            MemoryView()
             RegisterView()
                 .frame(width: 120)
             VStack {
