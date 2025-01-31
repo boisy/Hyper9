@@ -81,7 +81,7 @@ class CPU : ObservableObject {
     }
     
     var memoryDump: String {
-        self.bus.ramDump(address: 0, numBytes: 1024)
+        self.bus.ramDump(address: 0, numBytes: 0x600)
     }
     
     /// The 16-bit index register `X`.

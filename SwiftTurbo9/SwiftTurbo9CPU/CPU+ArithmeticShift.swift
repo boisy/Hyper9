@@ -17,7 +17,6 @@ extension CPU {
             setCC(.carry, value & 0x80 == 0x80)
             value = value << 1
             setCC(.overflow, xor == 1)
-            setCC(.carry, value > 255)
         } else {
             setCC(.carry, value & 0x01 == 0x01)
             value = value >> 1
