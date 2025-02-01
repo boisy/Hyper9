@@ -14,13 +14,16 @@ struct ContentView: View {
 
     var body: some View {
         HStack {
-            MemoryView()
-            RegisterView()
-                .frame(width: 120)
+            VStack {
+                MemoryView()
+                TerminalView()
+            }
             VStack {
                 ScrollView {
-                    DisassemblyView()
-                        .monospaced()
+                    HStack {
+                        RegisterView()
+                        DisassemblyView()
+                    }
                 }
                 HStack {
                     Button("Step") {
@@ -68,6 +71,13 @@ struct ContentView: View {
             .padding()
             .task {
                 let _ = disassembler.disassemble(instructionCount: 2)
+            }
+        }
+        .onAppear() {
+            do {
+                try reload()
+            } catch {
+                
             }
         }
     }

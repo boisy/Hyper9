@@ -28,6 +28,7 @@ struct RegisterView : View {
                 }.monospaced()
             }
         }
+        .frame(width: 120)
     }
 }
 

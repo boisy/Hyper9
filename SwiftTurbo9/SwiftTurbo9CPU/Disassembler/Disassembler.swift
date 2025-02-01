@@ -144,8 +144,8 @@ class Disassembler: CPU {
                 }
 
                 if opcode.0 == .swi2 {
-                    let operand = getOperand(using: .imm8, offset: PC)
                     PC = PC &+ 1
+                    let operand = getOperand(using: .imm8, offset: PC)
                     let os9 = OpCode(.swi2, .imm8, 1)
                     let operation = Operation(offset: offset, preByte: prebyte, opcode: opcodeByte, instruction: os9.0, operand: operand, postOperand: postOperand)
                     operations.append(operation)

@@ -13,6 +13,7 @@ struct DisassemblyView: View {
                             .foregroundColor(disassembler.PC == disassembler.operations[index].offset ? .blue : .primary) // Highlight active line
                         //                        .animation(.easeInOut, value: highlightedLineIndex)
                     }
+                    .monospaced()
                 }
                 .padding()
             }
