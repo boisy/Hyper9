@@ -304,12 +304,6 @@ class CPU : ObservableObject {
         NMI = false
     }
 
-    func continueExection(to: UInt16) throws {
-        while PC != to {
-            try step()
-        }
-    }
-    
     func step() throws {
         // Increment clock cycles.
         clockCycles = clockCycles + 1
