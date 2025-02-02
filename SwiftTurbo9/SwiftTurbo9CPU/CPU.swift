@@ -55,6 +55,14 @@ enum Register {
 }
 
 class CPU : ObservableObject {
+    let SWI3Vector: UInt16 = 0xFFF2
+    let SWI2Vector: UInt16 = 0xFFF4
+    let FIRQVector: UInt16 = 0xFFF6
+    let IRQVector: UInt16 = 0xFFF8
+    let SWIVector: UInt16 = 0xFFFA
+    let NMIVector: UInt16 = 0xFFFC
+    let RESETVector: UInt16 = 0xFFFE
+
     /// The 16-bit program counter PC.
     @Published var PC: UInt16 = 0x0000
     
@@ -98,7 +106,24 @@ class CPU : ObservableObject {
     
     /// The 8-bit condition code register `CC`.
     @Published var CC: UInt8 = 0x00
-    var clockCycles: Int = 0
+    
+    /// The interrupt input line
+    var IRQ: Bool = false
+    private var previousInstructionIRQState: Bool = false
+    
+    /// The fast interrupt input line
+    var FIRQ : Bool = false
+    private var previousInstructionFIRQState: Bool = false
+
+    /// The non-maskable interrupt input line
+    var NMI : Bool = false
+    private var previousInstructionNMIState: Bool = false
+
+    @Published var clockCycles: UInt = 0
+    var totalInstructionCycles: Int = 0
+    var instructionsExecuted: UInt = 0
+    let cyclesPerInterrupt: UInt = 1000
+    var syncToInterrupt = false
     
     /// The string respresentation of the register `CC`.
     var ccString : String {
@@ -152,6 +177,7 @@ class CPU : ObservableObject {
         flags: UInt8 = 0x00
     ) {
         self.bus = bus
+        self.bus.cpu = self
         self.PC = pc
         self.S = stackPointer
         self.A = A
@@ -163,31 +189,31 @@ class CPU : ObservableObject {
         self.CC = flags
         
         // Initialize Turbo9 SWI3 vector
-        writeWord(0xFFF2, data: 0x0100)
+        writeWord(SWI3Vector, data: 0x0100)
         
         // Initialize Turbo9 SWI2 vector
-        writeWord(0xFFF4, data: 0x0100)
+        writeWord(SWI2Vector, data: 0x0100)
         
         // Initialize Turbo9 FIRQ vector
-        writeWord(0xFFF6, data: 0x0100)
+        writeWord(FIRQVector, data: 0x0100)
         
         // Initialize Turbo9 IRQ vector
-        writeWord(0xFFF8, data: 0x0100)
+        writeWord(IRQVector, data: 0x0100)
         
         // Initialize Turbo9 SWI vector
-        writeWord(0xFFFA, data: 0x0100)
+        writeWord(SWIVector, data: 0x0100)
         
         // Initialize Turbo9 NMI vector
-        writeWord(0xFFFC, data: 0x0100)
+        writeWord(NMIVector, data: 0x0100)
         
         // Initialize Turbo9 RESET vector
-        writeWord(0xFFFE, data: 0x0000)
+        writeWord(RESETVector, data: 0x0000)
     }
     
     /// Reset the CPU.
     func reset() throws {
         // Fetch the address at the reset vector
-        let addr = readWord(0xFFFE)
+        let addr = readWord(RESETVector)
         A = 0
         B = 0
         X = 0
@@ -197,6 +223,85 @@ class CPU : ObservableObject {
         DP = 0
         CC = 0
         PC = addr
+        instructionsExecuted = 0
+    }
+
+    /// Assert the interrupt
+    func assertIRQ() {
+        if syncToInterrupt == false {
+            pushToS(word: PC)
+            pushToS(word: U)
+            pushToS(word: Y)
+            pushToS(word: X)
+            pushToS(byte: DP)
+            pushToS(byte: B)
+            pushToS(byte: A)
+            setCC(.entire, true)
+            pushToS(byte: CC)
+        }
+        // Mask the IRQ and FIRQ after pushing the CC onto the stack
+        setCC(.irq, true)
+        setCC(.firq, true)
+        PC = readWord(IRQVector)
+        IRQ = true
+        syncToInterrupt = false
+        deassertIRQ()
+    }
+
+    /// Assert the fast interrupt
+    func assertFIRQ() {
+        if syncToInterrupt == false {
+            pushToS(word: PC)
+            setCC(.entire, false)
+            pushToS(byte: CC)
+        }
+        // Mask the IRQ and FIRQ after pushing the CC onto the stack
+        setCC(.irq, true)
+        setCC(.firq, true)
+        PC = readWord(FIRQVector)
+        FIRQ = true
+        syncToInterrupt = false
+        deassertFIRQ()
+    }
+
+    /// Assert the non-maskable interrupt
+    func assertNMI() {
+        if syncToInterrupt == false {
+            pushToS(word: PC)
+            pushToS(word: U)
+            pushToS(word: Y)
+            pushToS(word: X)
+            pushToS(byte: DP)
+            pushToS(byte: B)
+            pushToS(byte: A)
+            setCC(.entire, true)
+            pushToS(byte: CC)
+        }
+        // Mask the IRQ and FIRQ after pushing the CC onto the stack
+        setCC(.irq, true)
+        setCC(.firq, true)
+        PC = readWord(NMIVector)
+        NMI = true
+        syncToInterrupt = false
+        deassertNMI()
+    }
+
+    /// Deassert the interrupt.
+    func deassertIRQ() {
+        previousInstructionIRQState = false
+        IRQ = false
+    }
+
+    /// Deassert the fast Interrupt.
+    func deassertFIRQ() {
+        previousInstructionFIRQState = false
+        FIRQ = false
+    }
+
+    /// Deassert the non-maskable Interrupt.
+    func deassertNMI() {
+        previousInstructionNMIState = false
+        NMI = false
     }
 
     func continueExection(to: UInt16) throws {
@@ -205,32 +310,61 @@ class CPU : ObservableObject {
         }
     }
     
-    func step(count: Int = 1) throws {
-        for _ in 0..<count {
-            var opcode : OpCode
-            let opcodeByte = readByte(PC)
-            PC = PC &+ 1
-            
-            if opcodeByte != 0x00 {
-                if opcodeByte == 0x10 {
-                    let opcodeByte = readByte(PC)
-                    opcode = Self.opcodes10[Int(opcodeByte)]
-                    PC = PC &+ 1
-                } else if opcodeByte == 0x11 {
-                    let opcodeByte = readByte(PC)
-                    opcode = Self.opcodes11[Int(opcodeByte)]
-                    PC = PC &+ 1
-                } else {
-                    opcode = Self.opcodes[Int(opcodeByte)]
-                }
-                
-                let extraClockCycles = setupAddressing(using: opcode.1)
-                let shouldIncludeExtraClockCycles = try perform(instruction: opcode.0, addressMode: opcode.1)
-                
-                // Increase clock cycles and add extra cycles, if needed.
-                // Extra cycles usually happens if a page boundry was crossed.
-                clockCycles += opcode.2 + (shouldIncludeExtraClockCycles ? extraClockCycles : 0)
+    func step() throws {
+        // Increment clock cycles.
+        clockCycles = clockCycles + 1
+        
+        bus.refresh()
+        
+        // Check if non-maskable interrupt preempts our execution
+        if previousInstructionNMIState == false && NMI == true {
+            // NMI is TRUE and we aren't currently in an NMI state
+            previousInstructionNMIState = true
+            PC = readWord(NMIVector)
+        } else
+        // Check if interrupt preempts our execution
+        if readCC(.irq) == false && previousInstructionIRQState == false && IRQ == true {
+            // IRQ is TRUE, IRQs are unmasked, and we aren't currently in an IRQ state
+            // Push all registers on the stack.
+            previousInstructionIRQState = true
+            PC = readWord(IRQVector)
+        } else
+        // Check if fast interrupt preempts our execution
+        if readCC(.firq) == false && previousInstructionFIRQState == false && FIRQ == true {
+            // IFRQ is FTRUE, IRQs are unmasked, and we aren't currently in a FIRQ state
+            previousInstructionFIRQState = true
+            PC = readWord(FIRQVector)
+        }
+        
+        // If SYNC or CWAI has executed, this flag will be set, so we just return
+        if syncToInterrupt == true {
+            return
+        }
+        
+        var opcode : OpCode
+        let opcodeByte = readByte(PC)
+        PC = PC &+ 1
+        
+        if opcodeByte != 0x00 {
+            if opcodeByte == 0x10 {
+                let opcodeByte = readByte(PC)
+                opcode = Self.opcodes10[Int(opcodeByte)]
+                PC = PC &+ 1
+            } else if opcodeByte == 0x11 {
+                let opcodeByte = readByte(PC)
+                opcode = Self.opcodes11[Int(opcodeByte)]
+                PC = PC &+ 1
+            } else {
+                opcode = Self.opcodes[Int(opcodeByte)]
             }
+            
+            let extraClockCycles = setupAddressing(using: opcode.1)
+            let shouldIncludeExtraClockCycles = try perform(instruction: opcode.0, addressMode: opcode.1)
+            instructionsExecuted = instructionsExecuted + 1
+            
+            // Increase clock cycles and add extra cycles, if needed.
+            // Extra cycles usually happens if a page boundry was crossed.
+            totalInstructionCycles += opcode.2 + (shouldIncludeExtraClockCycles ? extraClockCycles : 0)
         }
     }
     
@@ -240,6 +374,7 @@ class CPU : ObservableObject {
         if count == UInt.max {
             while true {
                 try step()
+                RunLoop.current.run(mode: .default, before: Date())
             }
         } else {
             while (counter > 0) {
@@ -282,7 +417,7 @@ class CPU : ObservableObject {
     ///   - data: A word.
     func writeWord(_ address: UInt16, data: UInt16) {
         bus.write(address, data: data.highByte)
-        bus.write(address + 1, data: data.lowByte)
+        bus.write(address &+ 1, data: data.lowByte)
     }
     
     // MARK: - Flags

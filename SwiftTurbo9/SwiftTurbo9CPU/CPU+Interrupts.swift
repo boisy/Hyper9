@@ -16,7 +16,6 @@ extension CPU {
     /// Condition codes: Affected according to the operation.
     func cwai(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
         let result = andcc(addressMode: addressMode)
-        
         pushToS(word: PC)
         pushToS(word: U)
         pushToS(word: Y)
@@ -24,10 +23,9 @@ extension CPU {
         pushToS(byte: DP)
         pushToS(byte: B)
         pushToS(byte: A)
-//        pushToS(byte: CCFlag.RawValue)
-
-        // TODO: Wait for interrupt
-        
+        setCC(.entire, true)
+        pushToS(byte:CC)
+        syncToInterrupt = true
         return result
     }
 
@@ -45,7 +43,7 @@ extension CPU {
     ///
     /// Condition codes: Not affected.
     func sync(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
-        // TODO: Wait for interrupt
+        syncToInterrupt = true
         return true
     }
 }

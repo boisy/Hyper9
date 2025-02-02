@@ -7,10 +7,104 @@
 
 import SwiftUI
 
+struct StatisticsView: View {
+    @EnvironmentObject var disassembler: Disassembler
+    
+    var body: some View {
+        HStack {
+            Text("Instruction count:")
+            TextField("",  value: $disassembler.instructionsExecuted, format: .number)
+                .disabled(true)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+        }
+    }
+}
+
+struct ControlView: View {
+    @EnvironmentObject var disassembler: Disassembler
+    @State var gotoAddress : UInt16 = 0
+
+    var body: some View {
+        HStack {
+            Button("IRQ") {
+                if disassembler.readCC(.firq) == false {
+                    disassembler.assertIRQ()
+                }
+            }
+            Button("FIRQ") {
+                if disassembler.readCC(.firq) == false {
+                    disassembler.assertFIRQ()
+                }
+            }
+            Button("NMI") {
+                disassembler.assertNMI()
+            }
+            Button("TimerIRQ") {
+                if disassembler.readCC(.irq) == false {
+                    disassembler.bus.invokeTimer()
+                }
+            }
+            Button("Step") {
+                do {
+                    try disassembler.step()
+                } catch {
+                    
+                }
+            }
+            Button("Step x10") {
+                do {
+                    for _ in 1...10 {
+                        try disassembler.step()
+                    }
+                } catch {
+                    
+                }
+            }
+            Button("Step x100") {
+                do {
+                    for _ in 1...100 {
+                        try disassembler.step()
+                    }
+                } catch {
+                    
+                }
+            }
+            HStack {
+                Hex16TextField(label: "Go to:", number: $gotoAddress)
+                
+                Button("Go") {
+                    do {
+                        while disassembler.PC != UInt16(gotoAddress) && disassembler.syncToInterrupt == false {
+                            for _ in 1..<1000 {
+                                try disassembler.step()
+                            }
+                        }
+                    } catch {
+                        
+                    }
+                }
+            }
+            Button("Reload") {
+                do {
+                    try reload()
+                    try disassembler.reset()
+                } catch {
+                    
+                }
+            }
+        }
+    }
+    
+    func reload() throws {
+        do {
+            try disassembler.reload(filePath: "/Users/boisy/Projects/turbos/ports/turbo9sim/turbos_image")
+        }
+    }
+}
+
 struct ContentView: View {
     @State var niceDisassembly : String = ""
     @EnvironmentObject var disassembler: Disassembler
-    @State var gotoAddress : UInt16 = 0
 
     var body: some View {
         HStack {
@@ -25,48 +119,8 @@ struct ContentView: View {
                         DisassemblyView()
                     }
                 }
-                HStack {
-                    Button("Step") {
-                        do {
-                            try disassembler.step()
-                        } catch {
-                            
-                        }
-                    }
-                    Button("Step x10") {
-                        do {
-                            try disassembler.step(count: 10)
-                        } catch {
-                            
-                        }
-                    }
-                    Button("Step x100") {
-                        do {
-                            try disassembler.step(count: 100)
-                        } catch {
-                            
-                        }
-                    }
-                    HStack {
-                        Hex16TextField(label: "Go to:", number: $gotoAddress)
-
-                        Button("Go") {
-                            do {
-                                try disassembler.continueExection(to: gotoAddress)
-                            } catch {
-                                
-                            }
-                        }
-                    }
-                    Button("Reload") {
-                        do {
-                            try reload()
-                            try disassembler.reset()
-                        } catch {
-                            
-                        }
-                    }
-                }
+                StatisticsView()
+                ControlView()
             }
             .padding()
             .task {
@@ -79,6 +133,9 @@ struct ContentView: View {
             } catch {
                 
             }
+        }
+        .onReceive(disassembler.$PC) { newValue in
+            disassembler.checkDisassembly()
         }
     }
     

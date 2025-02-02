@@ -184,18 +184,6 @@ class Disassembler: CPU {
         }
     }
     
-    override func continueExection(to: UInt16) throws {
-        while PC != to {
-            try super.step()
-        }
-        checkDisassembly()
-    }
-    
-    override func step(count: Int = 1) throws {
-        try super.step(count: count)
-        checkDisassembly()
-    }
-    
     // MARK: - Private methods
 
     private func getOperand(using addressMode: AddressMode, offset: UInt16) -> Operand {
