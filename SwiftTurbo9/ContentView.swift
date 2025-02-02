@@ -51,6 +51,7 @@ struct ControlView: View {
                     
                 }
             }
+            .disabled(disassembler.syncToInterrupt == true)
             Button("Step x10") {
                 do {
                     for _ in 1...10 {
@@ -60,6 +61,7 @@ struct ControlView: View {
                     
                 }
             }
+            .disabled(disassembler.syncToInterrupt == true)
             Button("Step x100") {
                 do {
                     for _ in 1...100 {
@@ -69,6 +71,7 @@ struct ControlView: View {
                     
                 }
             }
+            .disabled(disassembler.syncToInterrupt == true)
             HStack {
                 Hex16TextField(label: "Go to:", number: $gotoAddress)
                 
@@ -84,6 +87,7 @@ struct ControlView: View {
                     }
                 }
             }
+            .disabled(disassembler.syncToInterrupt == true)
             Button("Reload") {
                 do {
                     try reload()
