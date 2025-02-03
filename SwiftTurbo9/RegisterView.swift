@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct RegisterView : View {
-    @EnvironmentObject var disassembler : Disassembler
+    @EnvironmentObject var model: Turbo9ViewModel
+
     let labelWidth = 28.0
     var body: some View {
         VStack {
-            Hex8TextField(label: "A:", number: $disassembler.A)
-            Hex8TextField(label: "B:", number: $disassembler.B)
-            Hex8TextField(label: "DP:", number: $disassembler.DP)
-            Hex16TextField(label: "X:", number: $disassembler.X)
-            Hex16TextField(label: "Y:", number: $disassembler.Y)
-            Hex16TextField(label: "U:", number: $disassembler.U)
-            Hex16TextField(label: "S:", number: $disassembler.S)
-            Hex16TextField(label: "PC:", number: $disassembler.PC)
+            Hex8TextField(label: "A:", number: $model.A, update: {model.turbo9.A = model.A})
+            Hex8TextField(label: "B:", number: $model.B, update: {model.turbo9.B = model.B})
+            Hex8TextField(label: "DP:", number: $model.DP, update: {model.turbo9.DP = model.DP})
+            Hex16TextField(label: "X:", number: $model.X, update: {model.turbo9.X = model.X})
+            Hex16TextField(label: "Y:", number: $model.Y, update: {model.turbo9.Y = model.Y})
+            Hex16TextField(label: "U:", number: $model.U, update: {model.turbo9.U = model.U})
+            Hex16TextField(label: "S:", number: $model.S, update: {model.turbo9.S = model.S})
+            Hex16TextField(label: "PC:", number: $model.PC, update: {model.turbo9.PC = model.PC})
             HStack {
                 Text("CC:")
                     .frame(width: labelWidth)
-                TextField(text: $disassembler.ccString) {
+                TextField(text: $model.ccString) {
                     
                 }.monospaced()
             }

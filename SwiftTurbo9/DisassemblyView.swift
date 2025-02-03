@@ -1,23 +1,24 @@
 import SwiftUI
 
 struct DisassemblyView: View {
-    @EnvironmentObject var disassembler : Disassembler
+    @EnvironmentObject var model : Turbo9ViewModel
     
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach(disassembler.operations.indices, id: \.self) { index in
-                        Text((disassembler.PC == disassembler.operations[index].offset ? " -> " : "    ") + disassembler.operations[index].asCode)
-                            .font(.body)
-                            .foregroundColor(disassembler.PC == disassembler.operations[index].offset ? .blue : .primary) // Highlight active line
-                            .background(disassembler.PC == disassembler.operations[index].offset ? .yellow : .clear) // Highlight active line
-                        //                        .animation(.easeInOut, value: highlightedLineIndex)
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(model.operations.indices, id: \.self) { index in
+                        HStack {
+                            let showCurrentInstruction = (model.PC == model.operations[index].offset) && model.running == false
+                            Text((showCurrentInstruction ? " -> " : "    ") + model.operations[index].asCode)
+                                .monospaced()
+                                .font(Font.system(size:12, design: .default))
+                                .foregroundColor(showCurrentInstruction ? .blue : .primary) // Highlight active line
+                                .background(showCurrentInstruction ? .yellow : .clear) // Highlight active line
+                            //                        .animation(.easeInOut, value: highlightedLineIndex)
+                        }
                     }
-                    .monospaced()
-                    .frame(width: 320, alignment: .leading)
                 }
-                .padding()
             }
         }
     }

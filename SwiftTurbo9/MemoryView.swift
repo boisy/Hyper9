@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct MemoryView: View {
-    @EnvironmentObject var disassembler : Disassembler
-    
+    @EnvironmentObject var model: Turbo9ViewModel
+
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 VStack(alignment: .leading) {
-                        Text(disassembler.memoryDump)
+                        Text(model.memoryDump)
                             .font(.body)
                     }
                 .monospaced()

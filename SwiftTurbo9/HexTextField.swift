@@ -3,6 +3,7 @@ import SwiftUI
 struct Hex8TextField: View {
     var label = "??"
     @Binding var number: UInt8
+    public var update: (() -> Void) = {}
 
     var body: some View {
         HStack {
@@ -37,6 +38,7 @@ struct Hex8TextField: View {
                     // Attempt to parse as hexadecimal
                     if let hexNumber = UInt8(input, radix: 16) {
                         number = hexNumber
+                        update()
                     }
                     #endif
                 }
@@ -49,6 +51,7 @@ struct Hex8TextField: View {
 struct Hex16TextField: View {
     var label = "??"
     @Binding var number: UInt16
+    public var update: (() -> Void) = {}
 
     var body: some View {
         HStack {
@@ -77,14 +80,43 @@ struct Hex16TextField: View {
                         // Attempt to parse as decimal
                         if let decNumber = UInt16(input, radix: 10) {
                             number = decNumber
+                            update()
                         }
                     }
 #else
-// Attempt to parse as hexadecimal
-if let hexNumber = UInt16(input, radix: 16) {
-    number = hexNumber
-}
+                    // Attempt to parse as hexadecimal
+                    if let hexNumber = UInt16(input, radix: 16) {
+                        number = hexNumber
+                        update()
+                    }
 #endif
+                }
+            ))
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+        }
+    }
+}
+
+struct DecTextField: View {
+    var label = "??"
+    @Binding var number: UInt16
+
+    var body: some View {
+        HStack {
+            Text(label)
+                .frame(width: 28)
+            TextField("", text: Binding<String>(
+                get: {
+                    // Display the number as a decimal string
+                    String(format: "%d", number)
+                },
+                set: { newValue in
+                    let input = newValue.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                    
+                    // Attempt to parse as decimal
+                    if let decNumber = UInt16(input, radix: 10) {
+                        number = decNumber
+                    }
                 }
             ))
             .textFieldStyle(RoundedBorderTextFieldStyle())

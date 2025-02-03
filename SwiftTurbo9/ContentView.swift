@@ -6,14 +6,115 @@
 //
 
 import SwiftUI
+import Turbo9Sim
+
+class Turbo9ViewModel: ObservableObject {
+    @Published var A: UInt8 = 0x00
+    @Published var B: UInt8 = 0x00
+    @Published var DP: UInt8 = 0x00
+    @Published var X: UInt16 = 0x0000
+    @Published var Y: UInt16 = 0x0000
+    @Published var U: UInt16 = 0x0000
+    @Published var S: UInt16 = 0x0000
+    @Published var PC: UInt16 = 0x0000
+    @Published var ccString: String = ""
+    @Published var instructionsExecuted: UInt = 0
+    @Published var operations: [Disassembler.Turbo9Operation] = []
+    @Published var memoryDump: String = ""
+    public var turbo9 = Disassembler()
+    public var updateUI: (() -> Void) = {}
+    public var output : UInt8 = 0
+    @Published public var outputString = ""
+    private var outputBuffer = ""
+    @Published var running = false
+    
+    func disassemble(instructionCount: UInt) {
+        let _ = turbo9.disassemble(instructionCount: instructionCount)
+        updateUI()
+    }
+    
+    func step() {
+        do {
+            try turbo9.step()
+            if self.turbo9.bus.outputTerminalCharacter != 0x00 {
+                self.outputBuffer += String(format: "%c", (self.turbo9.bus.outputTerminalCharacter))
+                self.turbo9.bus.outputTerminalCharacter = 0x00
+                DispatchQueue.main.async {
+                    self.updateUI()
+                }
+            }
+        } catch {
+            
+        }
+    }
+
+    func reload() {
+        do {
+            try turbo9.reset()
+            outputString = ""
+            updateUI()
+        } catch {
+            
+        }
+    }
+
+    func reload(filePath: String) {
+        do {
+            try turbo9.reload(filePath: filePath)
+        } catch {
+            
+        }
+    }
+
+    func reset() {
+        do {
+            try turbo9.reset()
+        } catch {
+            
+        }
+    }
+
+    init() {
+        // Set the model’s update callback to update the published property.
+        updateUI = { [weak self] in
+            // Make sure to update on the main thread.
+            DispatchQueue.main.async {
+                if let self = self {
+                    self.A = self.turbo9.A
+                    self.B = self.turbo9.B
+                    self.DP = self.turbo9.DP
+                    self.X = self.turbo9.X
+                    self.Y = self.turbo9.Y
+                    self.U = self.turbo9.U
+                    self.S = self.turbo9.S
+                    self.ccString = self.turbo9.ccString
+                    self.PC = self.turbo9.PC
+                    self.instructionsExecuted = self.turbo9.instructionsExecuted
+                    self.memoryDump = self.turbo9.memoryDump
+                    self.operations = self.turbo9.operations
+                    self.outputString = self.outputBuffer
+                }
+            }
+        }
+    }
+
+    func startTask() {
+        do {
+            try turbo9.step()
+            updateUI()
+        } catch {
+            
+        }
+    }
+}
 
 struct StatisticsView: View {
-    @EnvironmentObject var disassembler: Disassembler
-    
+    @EnvironmentObject var model: Turbo9ViewModel
+
     var body: some View {
         HStack {
             Text("Instruction count:")
-            TextField("",  value: $disassembler.instructionsExecuted, format: .number)
+            TextField("",  value: $model.instructionsExecuted, format: .number)
                 .disabled(true)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
         }
@@ -21,94 +122,93 @@ struct StatisticsView: View {
 }
 
 struct ControlView: View {
-    @EnvironmentObject var disassembler: Disassembler
+    @EnvironmentObject var model: Turbo9ViewModel
     @State var gotoAddress : UInt16 = 0
+    @State var stepCount : UInt16 = 1
+    @State var go = false
+    @State var goLabel = "Go"
 
     var body: some View {
         HStack {
             Button("IRQ") {
-                if disassembler.readCC(.firq) == false {
-                    disassembler.assertIRQ()
-                }
+                model.turbo9.assertIRQ()
+                model.updateUI()
             }
+
             Button("FIRQ") {
-                if disassembler.readCC(.firq) == false {
-                    disassembler.assertFIRQ()
-                }
+                model.turbo9.assertFIRQ()
+                model.updateUI()
             }
+
             Button("NMI") {
-                disassembler.assertNMI()
+                model.turbo9.assertNMI()
+                model.updateUI()
             }
+
             Button("TimerIRQ") {
-                if disassembler.readCC(.irq) == false {
-                    disassembler.bus.invokeTimer()
-                }
+                model.turbo9.bus.invokeTimer()
+                model.updateUI()
             }
+
             Button("Step") {
-                do {
-                    try disassembler.step()
-                } catch {
-                    
-                }
-            }
-            .disabled(disassembler.syncToInterrupt == true)
-            Button("Step x10") {
-                do {
-                    for _ in 1...10 {
-                        try disassembler.step()
+                if stepCount > 0 {
+                    for _ in 1...stepCount {
+                        model.step()
                     }
-                } catch {
-                    
+                    model.updateUI()
                 }
             }
-            .disabled(disassembler.syncToInterrupt == true)
-            Button("Step x100") {
-                do {
-                    for _ in 1...100 {
-                        try disassembler.step()
-                    }
-                } catch {
-                    
-                }
-            }
-            .disabled(disassembler.syncToInterrupt == true)
+            .disabled(go == true)
+            DecTextField(label: "Count:", number: $stepCount)
+
             HStack {
                 Hex16TextField(label: "Go to:", number: $gotoAddress)
                 
-                Button("Go") {
-                    do {
-                        while disassembler.PC != UInt16(gotoAddress) && disassembler.syncToInterrupt == false {
-                            for _ in 1..<1000 {
-                                try disassembler.step()
-                            }
+                Button(goLabel) {
+                    if go == true {
+                        go = false
+                        goLabel = "Go"
+                        model.updateUI()
+                    } else {
+                        go = true
+                        goLabel = "Stop"
+                    }
+                    model.running = true
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        while go == true && model.turbo9.PC != UInt16(gotoAddress) {
+                            model.step()
                         }
-                    } catch {
-                        
+
+                        DispatchQueue.main.async {
+                            model.running = false
+                            go = false
+                            goLabel = "Go"
+                            model.updateUI()
+                        }
                     }
                 }
+
             }
-            .disabled(disassembler.syncToInterrupt == true)
+            
             Button("Reload") {
-                do {
-                    try reload()
-                    try disassembler.reset()
-                } catch {
-                    
-                }
+                    model.reload()
+                    model.reset()
             }
+            .disabled(go == true)
         }
-    }
-    
-    func reload() throws {
-        do {
-            try disassembler.reload(filePath: "/Users/boisy/Projects/turbos/ports/turbo9sim/turbos_image")
-        }
+/*
+ .onChange(of: model.PC) { newValue in
+                    print("Text changed to: \(newValue)")
+            model.turbo9.PC = newValue
+                    // Perform any additional actions when the text changes.
+                }
+ */
     }
 }
 
 struct ContentView: View {
     @State var niceDisassembly : String = ""
-    @EnvironmentObject var disassembler: Disassembler
+    @EnvironmentObject var model: Turbo9ViewModel
 
     var body: some View {
         HStack {
@@ -117,18 +217,25 @@ struct ContentView: View {
                 TerminalView()
             }
             VStack {
-                ScrollView {
-                    HStack {
-                        RegisterView()
+                HStack {
+                    RegisterView()
+                    ScrollView {
                         DisassemblyView()
                     }
                 }
-                StatisticsView()
+                    if model.running == true {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .scaleEffect(1.5) // Optional: makes the spinner larger
+                            .padding()
+                    }
                 ControlView()
+                StatisticsView()
             }
             .padding()
             .task {
-                let _ = disassembler.disassemble(instructionCount: 2)
+                let _ = model.disassemble(instructionCount: 2)
+                model.updateUI()
             }
         }
         .onAppear() {
@@ -138,14 +245,14 @@ struct ContentView: View {
                 
             }
         }
-        .onReceive(disassembler.$PC) { newValue in
-            disassembler.checkDisassembly()
+        .onReceive(model.$PC) { newValue in
+            model.turbo9.checkDisassembly()
         }
     }
     
     func reload() throws {
         do {
-            try disassembler.reload(filePath: "/Users/boisy/Projects/turbos/ports/turbo9sim/turbos_image")
+            model.reload(filePath: "/Users/boisy/Projects/turbos/ports/turbo9sim/turbos_uio.img")
         }
     }
 }
@@ -153,5 +260,4 @@ struct ContentView: View {
 
  #Preview {
     ContentView()
-         .environmentObject(Disassembler())
 }

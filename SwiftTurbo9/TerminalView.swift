@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TerminalView: View {
-    @EnvironmentObject var disassembler : Disassembler
+    @EnvironmentObject var model: Turbo9ViewModel
     @State private var accumulatedString: String = "" // The accumulated string
     
     private let charWidth: CGFloat = 6    // estimated width of one character
@@ -33,16 +33,9 @@ struct TerminalView: View {
                  .padding()
             }
         }
-        // Listen for changes in outputChar.
-        .onReceive(disassembler.bus.$outputTerminalCharacter) { newValue in
-            if newValue >= 0x20 && newValue <= 0x7F {
-                // Convert UInt8 to Character using UnicodeScalar.
-                let scalar = UnicodeScalar(newValue)
-                let char = Character(scalar)
-                // Append the character to our display string.
-                accumulatedString.append(char)
+        .onReceive(model.$outputString) { newValue in
+                accumulatedString = newValue
             }
-        }
     }
 }
     
