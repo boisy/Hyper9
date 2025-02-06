@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestCLRAB {
     @Test func test_clra() async throws {

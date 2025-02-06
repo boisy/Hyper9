@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestSEX {
     @Test func test_sex_positive() async throws {

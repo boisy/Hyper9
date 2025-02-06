@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestROLA {
     @Test func test_rola_carry_set() async throws {

@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestANDA {
     @Test func test_anda_immediate() async throws {

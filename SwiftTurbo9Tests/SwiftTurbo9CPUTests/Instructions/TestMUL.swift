@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestMUL {
     @Test func test_multiply_negative_result() async throws {

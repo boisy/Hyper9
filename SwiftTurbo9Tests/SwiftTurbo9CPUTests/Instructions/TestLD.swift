@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestLDAB {
     @Test func test_A_it_loads_memory() async throws {

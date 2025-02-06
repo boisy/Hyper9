@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DocumentView.swift
 //  SwiftTurbo9
 //
 //  Created by Boisy Pitre on 1/22/25.
@@ -7,6 +7,50 @@
 
 import SwiftUI
 import Turbo9Sim
+import UniformTypeIdentifiers
+
+struct DocumentView: View {
+    // Bind to the document so changes are automatically saved.
+    @Binding var document: SimDocument
+    @EnvironmentObject var model: Turbo9ViewModel
+
+    var body: some View {
+        HStack {
+            VStack {
+                MemoryView()
+                TerminalView()
+            }
+            .frame(width:640, height: 640)
+
+            VStack {
+                ZStack {
+                    if model.running == true {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .scaleEffect(1.5) // Optional: makes the spinner larger
+                            .padding()
+                    }
+                    DisassemblyView()
+                }
+                RegisterView()
+                ControlView()
+                StatisticsView()
+            }
+            .frame(width:640, height: 640)
+            .padding()
+            .task {
+                let _ = model.disassemble(instructionCount: 2)
+                model.updateUI()
+            }
+        }
+        .onAppear() {
+        }
+        .onReceive(model.$PC) { newValue in
+            model.turbo9.checkDisassembly()
+        }
+    }
+}
+
 
 class Turbo9ViewModel: ObservableObject {
     @Published var A: UInt8 = 0x00
@@ -21,7 +65,7 @@ class Turbo9ViewModel: ObservableObject {
     @Published var instructionsExecuted: UInt = 0
     @Published var operations: [Disassembler.Turbo9Operation] = []
     @Published var memoryDump: String = ""
-    public var turbo9 = Disassembler()
+    public var turbo9 = Disassembler(program: [UInt8].init(repeating: 0x00, count: 65536), logPath: "/Users/boisy/turbo9.log")
     public var updateUI: (() -> Void) = {}
     public var output : UInt8 = 0
     @Published public var outputString = ""
@@ -36,31 +80,16 @@ class Turbo9ViewModel: ObservableObject {
     func step() {
         do {
             try turbo9.step()
-            if self.turbo9.bus.outputTerminalCharacter != 0x00 {
-                self.outputBuffer += String(format: "%c", (self.turbo9.bus.outputTerminalCharacter))
-                self.turbo9.bus.outputTerminalCharacter = 0x00
-                DispatchQueue.main.async {
-                    self.updateUI()
-                }
-            }
         } catch {
             
         }
     }
 
-    func reload() {
+    func load(url: URL) {
         do {
-            try turbo9.reset()
+            try turbo9.load(url: url)
             outputString = ""
             updateUI()
-        } catch {
-            
-        }
-    }
-
-    func reload(filePath: String) {
-        do {
-            try turbo9.reload(filePath: filePath)
         } catch {
             
         }
@@ -75,6 +104,13 @@ class Turbo9ViewModel: ObservableObject {
     }
 
     init() {
+        let outputHandler = BusHandler(address: 0xFF00, handler: { value in
+            self.outputBuffer += String(format: "%c", value)
+            DispatchQueue.main.async {
+                self.updateUI()
+            }
+        })
+        turbo9.bus.addHandler(handler: outputHandler)
         // Set the model’s update callback to update the published property.
         updateUI = { [weak self] in
             // Make sure to update on the main thread.
@@ -127,29 +163,29 @@ struct ControlView: View {
     @State var stepCount : UInt16 = 1
     @State var go = false
     @State var goLabel = "Go"
-
+    
     var body: some View {
         HStack {
             Button("IRQ") {
                 model.turbo9.assertIRQ()
                 model.updateUI()
             }
-
+            
             Button("FIRQ") {
                 model.turbo9.assertFIRQ()
                 model.updateUI()
             }
-
+            
             Button("NMI") {
                 model.turbo9.assertNMI()
                 model.updateUI()
             }
-
+            
             Button("TimerIRQ") {
                 model.turbo9.bus.invokeTimer()
                 model.updateUI()
             }
-
+            
             Button("Step") {
                 if stepCount > 0 {
                     for _ in 1...stepCount {
@@ -160,7 +196,7 @@ struct ControlView: View {
             }
             .disabled(go == true)
             DecTextField(label: "Count:", number: $stepCount)
-
+            
             HStack {
                 Hex16TextField(label: "Go to:", number: $gotoAddress)
                 
@@ -178,7 +214,7 @@ struct ControlView: View {
                         while go == true && model.turbo9.PC != UInt16(gotoAddress) {
                             model.step()
                         }
-
+                        
                         DispatchQueue.main.async {
                             model.running = false
                             go = false
@@ -187,77 +223,42 @@ struct ControlView: View {
                         }
                     }
                 }
-
+                
             }
             
-            Button("Reload") {
-                    model.reload()
-                    model.reset()
+            Button("Load") {
+                let openPanel = NSOpenPanel()
+                openPanel.title = "Choose an image file"
+                openPanel.showsHiddenFiles = false
+                openPanel.canChooseDirectories = false
+                openPanel.canChooseFiles = true
+                openPanel.allowsMultipleSelection = false
+                openPanel.allowedContentTypes = [UTType(filenameExtension: "img")!]
+
+                openPanel.begin { (result) in
+                    if result == .OK, let url = openPanel.url {
+                        // Use the selected file URL
+                        model.load(url: url)
+                    } else {
+                        // User canceled the selection
+                    }
+                }
+                model.reset()
+            }
+            .disabled(go == true)
+
+            Button("Reset") {
+                model.reset()
+                model.updateUI()
             }
             .disabled(go == true)
         }
-/*
- .onChange(of: model.PC) { newValue in
-                    print("Text changed to: \(newValue)")
-            model.turbo9.PC = newValue
-                    // Perform any additional actions when the text changes.
-                }
- */
+        /*
+         .onChange(of: model.PC) { newValue in
+         print("Text changed to: \(newValue)")
+         model.turbo9.PC = newValue
+         // Perform any additional actions when the text changes.
+         }
+         */
     }
-}
-
-struct ContentView: View {
-    @State var niceDisassembly : String = ""
-    @EnvironmentObject var model: Turbo9ViewModel
-
-    var body: some View {
-        HStack {
-            VStack {
-                MemoryView()
-                TerminalView()
-            }
-            VStack {
-                HStack {
-                    RegisterView()
-                    ScrollView {
-                        DisassemblyView()
-                    }
-                }
-                    if model.running == true {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .scaleEffect(1.5) // Optional: makes the spinner larger
-                            .padding()
-                    }
-                ControlView()
-                StatisticsView()
-            }
-            .padding()
-            .task {
-                let _ = model.disassemble(instructionCount: 2)
-                model.updateUI()
-            }
-        }
-        .onAppear() {
-            do {
-                try reload()
-            } catch {
-                
-            }
-        }
-        .onReceive(model.$PC) { newValue in
-            model.turbo9.checkDisassembly()
-        }
-    }
-    
-    func reload() throws {
-        do {
-            model.reload(filePath: "/Users/boisy/Projects/turbos/ports/turbo9sim/turbos_uio.img")
-        }
-    }
-}
-
-
- #Preview {
-    ContentView()
 }

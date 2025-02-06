@@ -11,7 +11,7 @@ struct TerminalView: View {
     @EnvironmentObject var model: Turbo9ViewModel
     @State private var accumulatedString: String = "" // The accumulated string
     
-    private let charWidth: CGFloat = 6    // estimated width of one character
+    private let charWidth: CGFloat = 7    // estimated width of one character
     private let lineHeight: CGFloat = 12   // estimated height of one line
 
     var body: some View {
@@ -26,16 +26,15 @@ struct TerminalView: View {
                  .frame(
                      width: CGFloat(80) * charWidth,
                      height: CGFloat(24) * lineHeight,
-                     alignment: .topLeading
+                     alignment: .leading
                  )
                  .border(Color.gray)
                  .background(Color.black.opacity(0.05))
-                 .padding()
             }
         }
         .onReceive(model.$outputString) { newValue in
-                accumulatedString = newValue
-            }
+            accumulatedString = newValue
+        }
     }
 }
     

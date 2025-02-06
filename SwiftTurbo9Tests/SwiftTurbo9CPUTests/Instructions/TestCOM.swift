@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestCOMA {
     @Test func test_coma_negative_true_carry_true() async throws {

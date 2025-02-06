@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestStatusRegister {
     private var cpu = CPU(flags: 0x00)

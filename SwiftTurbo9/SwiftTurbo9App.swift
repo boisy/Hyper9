@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 @main
 struct SwiftTurbo9App: App {
     @StateObject private var disassembler = Turbo9ViewModel()
-    //Disassembler(filePath: "/Users/boisy/Projects/turbos/ports/turbo9sim/turbos_image", pc: 0xf014)
 
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        DocumentGroup(newDocument: SimDocument()) { file in
+            // Pass the document binding to your view.
+            DocumentView(document: file.$document)
                 .environmentObject(disassembler)
         }
     }
 }
+
+

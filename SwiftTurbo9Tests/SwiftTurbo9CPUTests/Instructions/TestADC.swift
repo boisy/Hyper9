@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestADCA {
     @Test func test_adca_immediate_flags_false() async throws {

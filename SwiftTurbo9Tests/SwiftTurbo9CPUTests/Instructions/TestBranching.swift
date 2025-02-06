@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestBCC {
     @Test func test_bcc_with_carry_clear() async throws {

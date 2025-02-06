@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestCMPA {
     @Test func test_cmpa_negative_true_carry_true() async throws {

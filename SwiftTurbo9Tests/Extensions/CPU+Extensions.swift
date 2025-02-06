@@ -1,4 +1,4 @@
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 extension CPU {
     static func create(

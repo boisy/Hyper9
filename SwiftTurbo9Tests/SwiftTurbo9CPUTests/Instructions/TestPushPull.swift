@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 /*
  IFF b7 of postbyte set, then:    SP' ← SP-1, (SP) ← PCL

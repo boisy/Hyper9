@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct Test0BitConstantOffsetFromRegisterAddressMode {
     @Test func test_0_bit_offset_of_x() async throws {

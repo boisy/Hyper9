@@ -1,5 +1,5 @@
 import Testing
-@testable import SwiftTurbo9
+@testable import Turbo9Sim
 
 struct TestLEAX {
     @Test func test_leax_8bit_constant_offset_from_PC() async throws {
