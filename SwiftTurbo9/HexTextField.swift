@@ -9,6 +9,7 @@ struct Hex8TextField: View {
         HStack {
             Text(label)
                 .frame(width: 28)
+                .multilineTextAlignment(.trailing)
             TextField("", text: Binding<String>(
                 get: {
                     // Display the number as a hex string with leading "$"
@@ -44,6 +45,7 @@ struct Hex8TextField: View {
                 }
             ))
             .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 44)
         }
     }
 }
@@ -57,6 +59,7 @@ struct Hex16TextField: View {
         HStack {
             Text(label)
                 .frame(width: 28)
+                .multilineTextAlignment(.trailing)
             TextField("", text: Binding<String>(
                 get: {
                     // Display the number as a hex string with leading "$"
@@ -93,6 +96,7 @@ struct Hex16TextField: View {
                 }
             ))
             .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 64)
         }
     }
 }
@@ -126,7 +130,9 @@ struct DecTextField: View {
 
 struct HexBoundTextField_Previews: PreviewProvider {
     static var previews: some View {
-        @State var n : UInt16 = 3
-        Hex16TextField(number: $n)
+        @State var n8 : UInt8 = 23
+        @State var n16 : UInt16 = 3233
+        Hex8TextField(number: $n8)
+        Hex16TextField(number: $n16)
     }
 }

@@ -22,6 +22,7 @@ struct DocumentView: View {
             }
             .frame(width:640, height: 640)
 
+            RegisterView()
             VStack {
                 ZStack {
                     if model.running == true {
@@ -32,7 +33,6 @@ struct DocumentView: View {
                     }
                     DisassemblyView()
                 }
-                RegisterView()
                 ControlView()
                 StatisticsView()
             }
@@ -261,4 +261,10 @@ struct ControlView: View {
          }
          */
     }
+}
+
+#Preview {
+    let model = Turbo9ViewModel()
+    DocumentView(document: .constant(SimDocument()))
+        .environmentObject(model)
 }
