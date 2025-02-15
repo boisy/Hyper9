@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		684F6DC92D60CB3200EF4315 /* Turbo9.pxd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Turbo9.pxd; sourceTree = "<group>"; };
 		6888ABF32D413E9F004DC040 /* SwiftTurbo9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTurbo9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC042D413EA2004DC040 /* SwiftTurbo9Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftTurbo9Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC0E2D413EA2004DC040 /* SwiftTurbo9UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftTurbo9UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +82,7 @@
 		6888ABEA2D413E9F004DC040 = {
 			isa = PBXGroup;
 			children = (
+				684F6DC92D60CB3200EF4315 /* Turbo9.pxd */,
 				6888AD362D414B30004DC040 /* SwiftTurbo9.xctestplan */,
 				6888ABF52D413E9F004DC040 /* SwiftTurbo9 */,
 				6888AC072D413EA2004DC040 /* SwiftTurbo9Tests */,

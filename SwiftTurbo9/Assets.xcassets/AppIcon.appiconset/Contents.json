@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "cpu2.png",
+      "filename" : "Turbo9 8.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "cpu2 7.png",
+      "filename" : "Turbo9 7.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "cpu2 8.png",
+      "filename" : "Turbo9 6.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -51,37 +51,37 @@
       "size" : "32x32"
     },
     {
-      "filename" : "cpu2 4.png",
+      "filename" : "Turbo9 5.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "cpu2 5.png",
+      "filename" : "Turbo9 4.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "cpu2 6.png",
+      "filename" : "Turbo9.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "cpu2 1.png",
+      "filename" : "Turbo9 3.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "cpu2 3.png",
+      "filename" : "Turbo9 2.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "cpu2 2.png",
+      "filename" : "Turbo9 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"
