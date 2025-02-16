@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     func setupAddressing(using addressMode: AddressMode) {
         switch addressMode {
         case .inh: inh()
@@ -15,7 +15,7 @@ extension CPU {
     }
 }
 
-private extension CPU {
+private extension Turbo9CPU {
     /// Inherent addressing mode.
     private func inh() {
     }

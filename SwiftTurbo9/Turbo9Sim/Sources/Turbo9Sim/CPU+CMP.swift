@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func compareMemoryAgainst(_ value: UInt8) {
         let memory = readByte(addressAbsolute)
 

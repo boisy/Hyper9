@@ -3,7 +3,7 @@ import Testing
 
 struct TestBCC {
     @Test func test_bcc_with_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.carry, false)
@@ -13,7 +13,7 @@ struct TestBCC {
     }
     
     @Test func test_bcc_with_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.carry, true)
@@ -25,7 +25,7 @@ struct TestBCC {
 
 struct TestLBCC {
     @Test func test_lbcc_with_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.carry, false)
@@ -35,7 +35,7 @@ struct TestLBCC {
     }
     
     @Test func test_lbcc_with_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.carry, true)
@@ -47,7 +47,7 @@ struct TestLBCC {
 
 struct TestBCS {
     @Test func test_bcs_with_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.carry, false)
@@ -57,7 +57,7 @@ struct TestBCS {
     }
     
     @Test func test_bcs_with_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.carry, true)
@@ -69,7 +69,7 @@ struct TestBCS {
 
 struct TestLBCS {
     @Test func test_lbcs_with_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.carry, false)
@@ -79,7 +79,7 @@ struct TestLBCS {
     }
     
     @Test func test_lbcs_with_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.carry, true)
@@ -91,7 +91,7 @@ struct TestLBCS {
 
 struct TestBEQ {
     @Test func test_beq_with_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, false)
@@ -101,7 +101,7 @@ struct TestBEQ {
     }
     
     @Test func test_beq_with_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, true)
@@ -113,7 +113,7 @@ struct TestBEQ {
 
 struct TestLBEQ {
     @Test func test_lbeq_with_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, false)
@@ -123,7 +123,7 @@ struct TestLBEQ {
     }
     
     @Test func test_lbeq_with_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, true)
@@ -135,7 +135,7 @@ struct TestLBEQ {
     
 struct TestBGE {
     @Test func test_bge_with_negative_clear_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -146,7 +146,7 @@ struct TestBGE {
     }
     
     @Test func test_bge_with_negative_clear_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -157,7 +157,7 @@ struct TestBGE {
     }
     
     @Test func test_bge_with_negative_set_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -168,7 +168,7 @@ struct TestBGE {
     }
     
     @Test func test_bge_with_negative_set_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -181,7 +181,7 @@ struct TestBGE {
 
 struct TestLBGE {
     @Test func test_lbge_with_negative_clear_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -192,7 +192,7 @@ struct TestLBGE {
     }
     
     @Test func test_lbge_with_negative_clear_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -203,7 +203,7 @@ struct TestLBGE {
     }
     
     @Test func test_lbge_with_negative_set_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -214,7 +214,7 @@ struct TestLBGE {
     }
     
     @Test func test_lbge_with_negative_set_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -227,7 +227,7 @@ struct TestLBGE {
 
 struct TestBGT {
     @Test func test_bgt_with_negative_clear_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -239,7 +239,7 @@ struct TestBGT {
     }
     
     @Test func test_bgt_with_negative_clear_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -251,7 +251,7 @@ struct TestBGT {
     }
     
     @Test func test_bgt_with_negative_clear_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -263,7 +263,7 @@ struct TestBGT {
     }
     
     @Test func test_bgt_with_negative_clear_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -275,7 +275,7 @@ struct TestBGT {
     }
     
     @Test func test_bgt_with_negative_set_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -287,7 +287,7 @@ struct TestBGT {
     }
     
     @Test func test_bgt_with_negative_set_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -299,7 +299,7 @@ struct TestBGT {
     }
     
     @Test func test_bgt_with_negative_set_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -311,7 +311,7 @@ struct TestBGT {
     }
     
     @Test func test_bgt_with_negative_set_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -325,7 +325,7 @@ struct TestBGT {
 
 struct TestLBGT {
     @Test func test_lbgt_with_negative_clear_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -337,7 +337,7 @@ struct TestLBGT {
     }
     
     @Test func test_lbgt_with_negative_clear_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -349,7 +349,7 @@ struct TestLBGT {
     }
     
     @Test func test_lbgt_with_negative_clear_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -361,7 +361,7 @@ struct TestLBGT {
     }
     
     @Test func test_lbgt_with_negative_clear_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -373,7 +373,7 @@ struct TestLBGT {
     }
     
     @Test func test_lbgt_with_negative_set_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -385,7 +385,7 @@ struct TestLBGT {
     }
     
     @Test func test_lbgt_with_negative_set_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -397,7 +397,7 @@ struct TestLBGT {
     }
     
     @Test func test_lbgt_with_negative_set_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -409,7 +409,7 @@ struct TestLBGT {
     }
     
     @Test func test_lbgt_with_negative_set_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -423,7 +423,7 @@ struct TestLBGT {
 
 struct TestBHI {
     @Test func test_bhi_with_zero_clear_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, false)
@@ -434,7 +434,7 @@ struct TestBHI {
     }
     
     @Test func test_bhi_with_zero_clear_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, false)
@@ -445,7 +445,7 @@ struct TestBHI {
     }
     
     @Test func test_bhi_with_zero_set_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, true)
@@ -456,7 +456,7 @@ struct TestBHI {
     }
     
     @Test func test_bhi_with_zero_set_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, true)
@@ -469,7 +469,7 @@ struct TestBHI {
 
 struct TestLBHI {
     @Test func test_lbhi_with_zero_clear_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, false)
@@ -480,7 +480,7 @@ struct TestLBHI {
     }
     
     @Test func test_lbhi_with_zero_clear_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, false)
@@ -491,7 +491,7 @@ struct TestLBHI {
     }
     
     @Test func test_lbhi_with_zero_set_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, true)
@@ -502,7 +502,7 @@ struct TestLBHI {
     }
     
     @Test func test_lbhi_with_zero_set_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, true)
@@ -515,7 +515,7 @@ struct TestLBHI {
 
 struct TestBLE {
     @Test func test_ble_with_negative_clear_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -527,7 +527,7 @@ struct TestBLE {
     }
     
     @Test func test_ble_with_negative_clear_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -539,7 +539,7 @@ struct TestBLE {
     }
     
     @Test func test_ble_with_negative_clear_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -551,7 +551,7 @@ struct TestBLE {
     }
     
     @Test func test_ble_with_negative_clear_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -563,7 +563,7 @@ struct TestBLE {
     }
     
     @Test func test_ble_with_negative_set_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -575,7 +575,7 @@ struct TestBLE {
     }
     
     @Test func test_ble_with_negative_set_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -587,7 +587,7 @@ struct TestBLE {
     }
     
     @Test func test_ble_with_negative_set_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -599,7 +599,7 @@ struct TestBLE {
     }
     
     @Test func test_ble_with_negative_set_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -613,7 +613,7 @@ struct TestBLE {
 
 struct TestLBLE {
     @Test func test_lble_with_negative_clear_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -625,7 +625,7 @@ struct TestLBLE {
     }
     
     @Test func test_lble_with_negative_clear_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -637,7 +637,7 @@ struct TestLBLE {
     }
     
     @Test func test_lble_with_negative_clear_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -649,7 +649,7 @@ struct TestLBLE {
     }
     
     @Test func test_lble_with_negative_clear_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -661,7 +661,7 @@ struct TestLBLE {
     }
     
     @Test func test_lble_with_negative_set_and_overflow_clear_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -673,7 +673,7 @@ struct TestLBLE {
     }
     
     @Test func test_lble_with_negative_set_and_overflow_clear_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -685,7 +685,7 @@ struct TestLBLE {
     }
     
     @Test func test_lble_with_negative_set_and_overflow_set_and_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -697,7 +697,7 @@ struct TestLBLE {
     }
     
     @Test func test_lble_with_negative_set_and_overflow_set_and_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -711,7 +711,7 @@ struct TestLBLE {
 
 struct TestBLO {
     @Test func test_blo_with_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.carry, true)
@@ -721,7 +721,7 @@ struct TestBLO {
     }
     
     @Test func test_blo_with_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.carry, false)
@@ -733,7 +733,7 @@ struct TestBLO {
 
 struct TestLBLO {
     @Test func test_lblo_with_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.carry, true)
@@ -743,7 +743,7 @@ struct TestLBLO {
     }
     
     @Test func test_blo_with_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.carry, false)
@@ -755,7 +755,7 @@ struct TestLBLO {
 
 struct TestBLS {
     @Test func test_bls_with_zero_clear_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, false)
@@ -766,7 +766,7 @@ struct TestBLS {
     }
     
     @Test func test_bls_with_zero_clear_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, false)
@@ -777,7 +777,7 @@ struct TestBLS {
     }
     
     @Test func test_bls_with_zero_set_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, true)
@@ -788,7 +788,7 @@ struct TestBLS {
     }
     
     @Test func test_bls_with_zero_set_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, true)
@@ -801,7 +801,7 @@ struct TestBLS {
 
 struct TestLBLS {
     @Test func test_lbls_with_zero_clear_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, false)
@@ -812,7 +812,7 @@ struct TestLBLS {
     }
     
     @Test func test_lbls_with_zero_clear_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, false)
@@ -823,7 +823,7 @@ struct TestLBLS {
     }
     
     @Test func test_lbls_with_zero_set_and_carry_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, true)
@@ -834,7 +834,7 @@ struct TestLBLS {
     }
     
     @Test func test_lbls_with_zero_set_and_carry_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, true)
@@ -847,7 +847,7 @@ struct TestLBLS {
 
 struct TestBLT {
     @Test func test_blt_with_negative_clear_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -858,7 +858,7 @@ struct TestBLT {
     }
     
     @Test func test_blt_with_negative_clear_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -869,7 +869,7 @@ struct TestBLT {
     }
     
     @Test func test_blt_with_negative_set_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -880,7 +880,7 @@ struct TestBLT {
     }
     
     @Test func test_blt_with_negative_set_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -893,7 +893,7 @@ struct TestBLT {
 
 struct TestLBLT {
     @Test func test_lblt_with_negative_clear_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -904,7 +904,7 @@ struct TestLBLT {
     }
     
     @Test func test_lblt_with_negative_clear_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -915,7 +915,7 @@ struct TestLBLT {
     }
     
     @Test func test_lblt_with_negative_set_and_overflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -926,7 +926,7 @@ struct TestLBLT {
     }
     
     @Test func test_lblt_with_negative_set_and_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -939,7 +939,7 @@ struct TestLBLT {
 
 struct TestBMI {
     @Test func test_bmi_with_negative_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -949,7 +949,7 @@ struct TestBMI {
     }
     
     @Test func test_bmi_with_negative_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -961,7 +961,7 @@ struct TestBMI {
 
 struct TestLBMI {
     @Test func test_lbmi_with_negative_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -971,7 +971,7 @@ struct TestLBMI {
     }
     
     @Test func test_lbmi_with_negative_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -983,7 +983,7 @@ struct TestLBMI {
 
 struct TestBNE {
     @Test func test_bne_with_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, false)
@@ -993,7 +993,7 @@ struct TestBNE {
     }
     
     @Test func test_bne_with_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.zero, true)
@@ -1005,7 +1005,7 @@ struct TestBNE {
 
 struct TestLBNE {
     @Test func test_lbne_with_zero_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, false)
@@ -1015,7 +1015,7 @@ struct TestLBNE {
     }
     
     @Test func test_lbne_with_zero_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.zero, true)
@@ -1027,7 +1027,7 @@ struct TestLBNE {
 
 struct TestBPL {
     @Test func test_bpl_with_negative_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, false)
@@ -1037,7 +1037,7 @@ struct TestBPL {
     }
     
     @Test func test_bpl_with_negative_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.negative, true)
@@ -1049,7 +1049,7 @@ struct TestBPL {
 
 struct TestLBPL {
     @Test func test_lbpl_with_negative_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, false)
@@ -1059,7 +1059,7 @@ struct TestLBPL {
     }
     
     @Test func test_lbpl_with_negative_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.negative, true)
@@ -1071,7 +1071,7 @@ struct TestLBPL {
 
 struct TestBRA {
     @Test func test_bra() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         try cpu.perform(instruction: .bra, addressMode: .rel8)
@@ -1082,7 +1082,7 @@ struct TestBRA {
 
 struct TestLBRA {
     @Test func test_lbra() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         try cpu.perform(instruction: .lbra, addressMode: .rel16)
@@ -1093,7 +1093,7 @@ struct TestLBRA {
 
 struct TestBRN {
     @Test func test_brn() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         try cpu.perform(instruction: .brn, addressMode: .rel8)
@@ -1104,7 +1104,7 @@ struct TestBRN {
 
 struct TestLBRN {
     @Test func test_lbrn() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         try cpu.perform(instruction: .lbrn, addressMode: .rel16)
@@ -1115,7 +1115,7 @@ struct TestLBRN {
 
 struct TestBSR {
     @Test func test_bsr() async throws {
-        let cpu = CPU.create(ram: [0x01, 0x39, 0x00, 0x00], stackPointer: 0x0004)
+        let cpu = Turbo9CPU.create(ram: [0x01, 0x39, 0x00, 0x00], stackPointer: 0x0004)
         cpu.setupAddressing(using: .rel8)
         
         try cpu.perform(instruction: .bsr, addressMode: .rel8)
@@ -1127,7 +1127,7 @@ struct TestBSR {
     
 struct TestLBSR {
     @Test func test_bsr() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x02, 0x39, 0x00, 0x00], stackPointer: 0x0005)
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x02, 0x39, 0x00, 0x00], stackPointer: 0x0005)
         cpu.setupAddressing(using: .rel16)
         
         try cpu.perform(instruction: .lbsr, addressMode: .rel16)
@@ -1139,7 +1139,7 @@ struct TestLBSR {
     
 struct TestBVC {
     @Test func test_bvc_with_noverflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.overflow, false)
@@ -1149,7 +1149,7 @@ struct TestBVC {
     }
     
     @Test func test_bvc_with_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.overflow, true)
@@ -1161,7 +1161,7 @@ struct TestBVC {
 
 struct TestLBVC {
     @Test func test_lbvc_with_noverflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.overflow, false)
@@ -1171,7 +1171,7 @@ struct TestLBVC {
     }
     
     @Test func test_lbvc_with_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x10])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
         cpu.setupAddressing(using: .rel16)
         
         cpu.setCC(.overflow, true)
@@ -1183,7 +1183,7 @@ struct TestLBVC {
 
 struct TestBVS {
     @Test func test_bvs_with_noverflow_clear() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.overflow, false)
@@ -1193,7 +1193,7 @@ struct TestBVS {
     }
     
     @Test func test_bvs_with_overflow_set() async throws {
-        let cpu = CPU.create(ram: [0x10])
+        let cpu = Turbo9CPU.create(ram: [0x10])
         cpu.setupAddressing(using: .rel8)
         
         cpu.setCC(.overflow, true)
@@ -1204,7 +1204,7 @@ struct TestBVS {
     
     struct TesLBVS {
         @Test func test_lbvs_with_noverflow_clear() async throws {
-            let cpu = CPU.create(ram: [0x00, 0x10])
+            let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
             cpu.setupAddressing(using: .rel16)
             
             cpu.setCC(.overflow, false)
@@ -1214,7 +1214,7 @@ struct TestBVS {
         }
         
         @Test func test_blvs_with_overflow_set() async throws {
-            let cpu = CPU.create(ram: [0x00, 0x10])
+            let cpu = Turbo9CPU.create(ram: [0x00, 0x10])
             cpu.setupAddressing(using: .rel16)
             
             cpu.setCC(.overflow, true)

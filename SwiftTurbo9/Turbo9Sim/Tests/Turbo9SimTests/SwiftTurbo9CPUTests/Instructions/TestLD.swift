@@ -3,7 +3,7 @@ import Testing
 
 struct TestLDAB {
     @Test func test_A_it_loads_memory() async throws {
-        let cpu = CPU.create(ram: [0x0F])
+        let cpu = Turbo9CPU.create(ram: [0x0F])
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .lda, addressMode: .imm8)
@@ -14,7 +14,7 @@ struct TestLDAB {
     }
     
     @Test func test_B_it_loads_memory() async throws {
-        let cpu = CPU.create(ram: [0x0F])
+        let cpu = Turbo9CPU.create(ram: [0x0F])
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .ldb, addressMode: .imm8)
@@ -25,7 +25,7 @@ struct TestLDAB {
     }
     
     @Test func test_A_it_sets_zero_flag() async throws {
-        let cpu = CPU.create(ram: [0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00])
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .lda, addressMode: .imm8)
@@ -36,7 +36,7 @@ struct TestLDAB {
     }
     
     @Test func test_B_it_sets_zero_flag() async throws {
-        let cpu = CPU.create(ram: [0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00])
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .ldb, addressMode: .imm8)
@@ -47,7 +47,7 @@ struct TestLDAB {
     }
     
     @Test func test_A_it_sets_negative_flag() async throws {
-        let cpu = CPU.create(ram: [0xF0])
+        let cpu = Turbo9CPU.create(ram: [0xF0])
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .lda, addressMode: .imm8)
@@ -58,7 +58,7 @@ struct TestLDAB {
     }
     
     @Test func test_B_it_sets_negative_flag() async throws {
-        let cpu = CPU.create(ram: [0xF0])
+        let cpu = Turbo9CPU.create(ram: [0xF0])
         cpu.setupAddressing(using: .imm8)
 
         try cpu.perform(instruction: .ldb, addressMode: .imm8)
@@ -71,7 +71,7 @@ struct TestLDAB {
 
 struct TestLDD {
     @Test func test_D_immediate() async throws {
-        let cpu = CPU.create(ram: [0x0F, 0x30])
+        let cpu = Turbo9CPU.create(ram: [0x0F, 0x30])
         cpu.setupAddressing(using: .imm16)
         
         try cpu.perform(instruction: .ldd, addressMode: .imm16)

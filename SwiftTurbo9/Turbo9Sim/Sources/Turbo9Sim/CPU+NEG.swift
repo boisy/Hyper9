@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func negate(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         var value: UInt8
 

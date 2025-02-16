@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     // Increment memory or accumulator.
     private func increment(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         var value : UInt8

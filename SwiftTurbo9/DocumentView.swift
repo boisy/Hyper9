@@ -22,8 +22,11 @@ struct DocumentView: View {
             }
             .frame(width:640, height: 640)
 
-            RegisterView()
             VStack {
+            }
+
+            VStack {
+                RegisterView()
                 ZStack {
                     if model.running == true {
                         ProgressView()
@@ -36,7 +39,6 @@ struct DocumentView: View {
                 ControlView()
                 StatisticsView()
             }
-            .frame(width:640, height: 640)
             .padding()
             .task {
                 let _ = model.disassemble(instructionCount: 2)
@@ -63,6 +65,7 @@ class Turbo9ViewModel: ObservableObject {
     @Published var PC: UInt16 = 0x0000
     @Published var ccString: String = ""
     @Published var instructionsExecuted: UInt = 0
+    @Published var interruptsReceived: UInt = 0
     @Published var operations: [Disassembler.Turbo9Operation] = []
     @Published var memoryDump: String = ""
     public var turbo9 = Disassembler(program: [UInt8].init(repeating: 0x00, count: 65536), logPath: "/Users/boisy/turbo9.log")
@@ -103,14 +106,26 @@ class Turbo9ViewModel: ObservableObject {
         }
     }
 
+    public func invokeTimer() {
+        // Set the bit indicating the timer has fired
+        let value = turbo9.bus.read(0xFF01)
+        turbo9.bus.write(0xFF01, data: value | 0x01)
+        
+        // If the timer control register's "interrupt on timer fire" is set, assert the IRQ
+        if turbo9.bus.read(0xFF02) & 0x01 == 0x01 {
+            turbo9.assertIRQ()
+        }
+    }
+
     init() {
-        let outputHandler = BusHandler(address: 0xFF00, handler: { value in
+        let outputHandler = BusWriteHandler(address: 0xFF00, callback: { value in
             self.outputBuffer += String(format: "%c", value)
             DispatchQueue.main.async {
                 self.updateUI()
             }
         })
-        turbo9.bus.addHandler(handler: outputHandler)
+        reset()
+        turbo9.bus.addWriteHandler(handler: outputHandler)
         // Set the model’s update callback to update the published property.
         updateUI = { [weak self] in
             // Make sure to update on the main thread.
@@ -126,6 +141,7 @@ class Turbo9ViewModel: ObservableObject {
                     self.ccString = self.turbo9.ccString
                     self.PC = self.turbo9.PC
                     self.instructionsExecuted = self.turbo9.instructionsExecuted
+                    self.interruptsReceived = self.turbo9.interruptsReceived
                     self.memoryDump = self.turbo9.memoryDump
                     self.operations = self.turbo9.operations
                     self.outputString = self.outputBuffer
@@ -144,124 +160,6 @@ class Turbo9ViewModel: ObservableObject {
     }
 }
 
-struct StatisticsView: View {
-    @EnvironmentObject var model: Turbo9ViewModel
-
-    var body: some View {
-        HStack {
-            Text("Instruction count:")
-            TextField("",  value: $model.instructionsExecuted, format: .number)
-                .disabled(true)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-        }
-    }
-}
-
-struct ControlView: View {
-    @EnvironmentObject var model: Turbo9ViewModel
-    @State var gotoAddress : UInt16 = 0
-    @State var stepCount : UInt16 = 1
-    @State var go = false
-    @State var goLabel = "Go"
-    
-    var body: some View {
-        HStack {
-            Button("IRQ") {
-                model.turbo9.assertIRQ()
-                model.updateUI()
-            }
-            
-            Button("FIRQ") {
-                model.turbo9.assertFIRQ()
-                model.updateUI()
-            }
-            
-            Button("NMI") {
-                model.turbo9.assertNMI()
-                model.updateUI()
-            }
-            
-            Button("TimerIRQ") {
-                model.turbo9.bus.invokeTimer()
-                model.updateUI()
-            }
-            
-            Button("Step") {
-                if stepCount > 0 {
-                    for _ in 1...stepCount {
-                        model.step()
-                    }
-                    model.updateUI()
-                }
-            }
-            .disabled(go == true)
-            DecTextField(label: "Count:", number: $stepCount)
-            
-            HStack {
-                Hex16TextField(label: "Go to:", number: $gotoAddress)
-                
-                Button(goLabel) {
-                    if go == true {
-                        go = false
-                        goLabel = "Go"
-                        model.updateUI()
-                    } else {
-                        go = true
-                        goLabel = "Stop"
-                    }
-                    model.running = true
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        while go == true && model.turbo9.PC != UInt16(gotoAddress) {
-                            model.step()
-                        }
-                        
-                        DispatchQueue.main.async {
-                            model.running = false
-                            go = false
-                            goLabel = "Go"
-                            model.updateUI()
-                        }
-                    }
-                }
-                
-            }
-            
-            Button("Load") {
-                let openPanel = NSOpenPanel()
-                openPanel.title = "Choose an image file"
-                openPanel.showsHiddenFiles = false
-                openPanel.canChooseDirectories = false
-                openPanel.canChooseFiles = true
-                openPanel.allowsMultipleSelection = false
-                openPanel.allowedContentTypes = [UTType(filenameExtension: "img")!]
-
-                openPanel.begin { (result) in
-                    if result == .OK, let url = openPanel.url {
-                        // Use the selected file URL
-                        model.load(url: url)
-                    } else {
-                        // User canceled the selection
-                    }
-                }
-                model.reset()
-            }
-            .disabled(go == true)
-
-            Button("Reset") {
-                model.reset()
-                model.updateUI()
-            }
-            .disabled(go == true)
-        }
-        /*
-         .onChange(of: model.PC) { newValue in
-         print("Text changed to: \(newValue)")
-         model.turbo9.PC = newValue
-         // Perform any additional actions when the text changes.
-         }
-         */
-    }
-}
 
 #Preview {
     let model = Turbo9ViewModel()

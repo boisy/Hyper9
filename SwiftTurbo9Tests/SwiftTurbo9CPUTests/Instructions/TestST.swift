@@ -3,7 +3,7 @@ import Testing
 
 struct TestSTA {
     @Test func test_sta_negative() async throws {
-        let cpu = CPU.create(ram: [0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00])
         cpu.setupAddressing(using: .imm8)
         
         cpu.A = 0xFA
@@ -15,7 +15,7 @@ struct TestSTA {
     }
     
     @Test func test_sta_positive() async throws {
-        let cpu = CPU.create(ram: [0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00])
         cpu.setupAddressing(using: .imm8)
         
         cpu.A = 0x7A
@@ -27,7 +27,7 @@ struct TestSTA {
     }
     
     @Test func test_sta_zero() async throws {
-        let cpu = CPU.create(ram: [0x11])
+        let cpu = Turbo9CPU.create(ram: [0x11])
         cpu.setupAddressing(using: .imm8)
         
         cpu.A = 0x00
@@ -41,7 +41,7 @@ struct TestSTA {
 
 struct TestSTD {
     @Test func test_std_negative() async throws {
-        let cpu = CPU.create(ram: [0x11, 0x22])
+        let cpu = Turbo9CPU.create(ram: [0x11, 0x22])
         cpu.setupAddressing(using: .imm16)
         
         cpu.D = 0xF11F
@@ -53,7 +53,7 @@ struct TestSTD {
     }
     
     @Test func test_std_positive() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x00])
         cpu.setupAddressing(using: .imm16)
         
         cpu.D = 0x7118
@@ -65,7 +65,7 @@ struct TestSTD {
     }
     
     @Test func test_std_zero() async throws {
-        let cpu = CPU.create(ram: [0x11, 0x22])
+        let cpu = Turbo9CPU.create(ram: [0x11, 0x22])
         cpu.setupAddressing(using: .imm16)
         
         cpu.D = 0x0000

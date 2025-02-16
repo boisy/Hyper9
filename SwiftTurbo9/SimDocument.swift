@@ -4,6 +4,7 @@ import UniformTypeIdentifiers
 // Define your document type.
 struct SimDocument: FileDocument {
     // The document’s content; adjust as needed.
+    @StateObject var disassembler = Turbo9ViewModel()
     var text: String = "Hello, SwiftUI Document App!"
 
     // Specify the content types that your document supports.

@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Sign extend the 8-bit value in accumulator `B` to a 16-bit value in D.
     ///
     /// This instruction transforms a twos complement 8-bit value in accumulator `B` into a twos complement 16-bit value in the `D` accumulator.

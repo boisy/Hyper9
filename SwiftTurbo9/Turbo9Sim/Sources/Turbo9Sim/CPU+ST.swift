@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Store accumulator `A` to memory.
     ///
     /// ```

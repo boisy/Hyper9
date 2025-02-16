@@ -3,7 +3,7 @@ import Testing
 
 struct TestCLRAB {
     @Test func test_clra() async throws {
-        let cpu = CPU.create(ram: [0xFF])
+        let cpu = Turbo9CPU.create(ram: [0xFF])
 
         cpu.setupAddressing(using: .inh)
         cpu.setCC(.negative, true)
@@ -21,7 +21,7 @@ struct TestCLRAB {
     }
     
     @Test func test_clrb() async throws {
-        let cpu = CPU.create(ram: [0xFF])
+        let cpu = Turbo9CPU.create(ram: [0xFF])
 
         cpu.setupAddressing(using: .inh)
         cpu.setCC(.negative, true)

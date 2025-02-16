@@ -3,7 +3,7 @@ import Testing
 
 struct TestCOMA {
     @Test func test_coma_negative_true_carry_true() async throws {
-        let cpu = CPU.create(ram: [0xFF], acca: 0x00)
+        let cpu = Turbo9CPU.create(ram: [0xFF], acca: 0x00)
         
         cpu.setupAddressing(using: .inh)
         cpu.setCC(.negative, true)
@@ -21,7 +21,7 @@ struct TestCOMA {
     }
     
     @Test func test_coma_negative_true_overflow_true_carry_true() async throws {
-        let cpu = CPU.create(ram: [0xFF], acca: 0xFF)
+        let cpu = Turbo9CPU.create(ram: [0xFF], acca: 0xFF)
         
         cpu.setupAddressing(using: .inh)
         cpu.setCC(.negative, true)

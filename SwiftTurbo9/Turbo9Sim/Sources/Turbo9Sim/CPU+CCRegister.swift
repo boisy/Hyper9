@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     enum CCFlag: UInt8, CaseIterable {
         case entire       = 0b10000000  // Entire.
         case firq         = 0b01000000  // FIRQ mask.

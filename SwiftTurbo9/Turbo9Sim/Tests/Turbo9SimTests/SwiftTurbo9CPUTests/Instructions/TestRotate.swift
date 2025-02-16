@@ -4,7 +4,7 @@ import Testing
 struct TestROLA {
     @Test func test_rola_carry_set() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         cpu.setCC(.carry, true)
@@ -20,7 +20,7 @@ struct TestROLA {
     
     @Test func test_rola_carry_clear() async throws {
         let accumulator : UInt8 = 0x80
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         cpu.setCC(.carry, false)
@@ -38,7 +38,7 @@ struct TestROLA {
 struct TestRORA {
     @Test func test_rora_carry_clear() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         cpu.setCC(.carry, true)
@@ -53,7 +53,7 @@ struct TestRORA {
     
     @Test func test_rora_zero_false() async throws {
         let accumulator : UInt8 = 0x80
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         cpu.setCC(.carry, false)
@@ -65,7 +65,7 @@ struct TestRORA {
     
     @Test func test_rora_carry_true() async throws {
         let accumulator : UInt8 = 0x01
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         cpu.setCC(.carry, true)

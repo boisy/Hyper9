@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     typealias ShouldIncludeExtraClockCycles = Bool
 
     @discardableResult
@@ -151,7 +151,7 @@ extension CPU {
     }
 }
 
-extension CPU {
+extension Turbo9CPU {
     /// Decimal addition adjust.
     ///
     /// ```
@@ -298,7 +298,7 @@ extension CPU {
 
 // MARK: - Increment and decrement
 
-extension CPU {
+extension Turbo9CPU {
     enum IncrementOrDecrement {
         case inc
         case dec
@@ -337,7 +337,7 @@ extension CPU {
 
 // MARK: - Stack operations
 
-extension CPU {
+extension Turbo9CPU {
     func pushToS(byte: UInt8) {
         S = S &- 1
         writeByte(S, data: byte)
@@ -385,7 +385,7 @@ extension CPU {
 
 // MARK: - Flag operations
 
-extension CPU {
+extension Turbo9CPU {
     func setZeroFlag(using value: UInt8) {
         setCC(.zero, value == 0x00)
     }

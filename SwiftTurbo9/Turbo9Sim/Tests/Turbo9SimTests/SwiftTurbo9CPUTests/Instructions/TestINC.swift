@@ -3,7 +3,7 @@ import Testing
 
 struct TestINCA {
     @Test func test_inca() async throws {
-        let cpu = CPU.create(ram: [], acca: 0x0F)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0x0F)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .inca, addressMode: .inh)
@@ -15,7 +15,7 @@ struct TestINCA {
     }
     
     @Test func test_inca_negative_set() async throws {
-        let cpu = CPU.create(ram: [], acca: 0x81)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0x81)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .inca, addressMode: .inh)
@@ -27,7 +27,7 @@ struct TestINCA {
     }
     
     @Test func test_inca_zero_set() async throws {
-        let cpu = CPU.create(ram: [], acca:0xFF)
+        let cpu = Turbo9CPU.create(ram: [], acca:0xFF)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .inca, addressMode: .inh)
@@ -39,7 +39,7 @@ struct TestINCA {
     }
     
     @Test func test_inca_overflow_set() async throws {
-        let cpu = CPU.create(ram: [], acca:0x7F)
+        let cpu = Turbo9CPU.create(ram: [], acca:0x7F)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .inca, addressMode: .inh)

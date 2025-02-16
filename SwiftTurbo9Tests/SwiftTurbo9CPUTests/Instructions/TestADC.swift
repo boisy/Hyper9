@@ -5,7 +5,7 @@ struct TestADCA {
     @Test func test_adca_immediate_flags_false() async throws {
         let storedByte : UInt8 = 0x03
         let accumulator : UInt8 = 0x02
-        let cpu = CPU.create(ram: [storedByte], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], acca: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         cpu.setCC(.carry, false)
@@ -23,7 +23,7 @@ struct TestADCA {
     @Test func test_adca_immediate_overflow_true() async throws {
         let storedByte : UInt8 = 0x03
         let accumulator : UInt8 = 0x7E
-        let cpu = CPU.create(ram: [storedByte], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], acca: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         cpu.setCC(.carry, false)
@@ -41,7 +41,7 @@ struct TestADCA {
     @Test func test_adca_immediate_halfcarry_false() async throws {
         let storedByte : UInt8 = 0x00
         let accumulator : UInt8 = 0xFE
-        let cpu = CPU.create(ram: [storedByte], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], acca: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         cpu.setCC(.carry, false)
@@ -59,7 +59,7 @@ struct TestADCA {
     @Test func test_adca_immediate_halfcarry_true() async throws {
         let storedByte : UInt8 = 0x01
         let accumulator : UInt8 = 0x0F
-        let cpu = CPU.create(ram: [storedByte], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], acca: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         cpu.setCC(.carry, false)
@@ -77,7 +77,7 @@ struct TestADCA {
     @Test func test_adca_immediate_carry_true() async throws {
         let storedByte : UInt8 = 0x03
         let accumulator : UInt8 = 0x02
-        let cpu = CPU.create(ram: [storedByte], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], acca: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         cpu.setCC(.carry, true)

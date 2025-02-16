@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Test bits in accumulator `A`.
     ///
     /// This instruction performs the logical AND operation between the contents of accumulator `A` modifies the condition codes accordingly. The contents of accumulator `A` is affected.

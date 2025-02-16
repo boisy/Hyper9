@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func clr(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         if addressMode == .inh {
             register = 0

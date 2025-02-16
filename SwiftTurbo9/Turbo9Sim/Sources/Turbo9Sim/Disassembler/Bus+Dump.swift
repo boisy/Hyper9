@@ -35,7 +35,7 @@ extension Bus {
         
         output += "\n\n"
         if displayLabel {
-            output += "  Addr    "
+            output += "Addr  "
         }
         output += " 0 1  2 3  4 5  6 7  8 9  A B  C D  E F"
         if displayASCII {
@@ -44,7 +44,7 @@ extension Bus {
         output += "\n"
         
         if displayLabel {
-            output += "--------  "
+            output += "----  "
         }
         output += "---- ---- ---- ---- ---- ---- ---- ----"
         if displayASCII {
@@ -152,7 +152,7 @@ extension Bus {
     }
     
     func ramDump(address: UInt32, numBytes: Int, format: DumpFormat = .standard) -> String {
-        return dump(buffer: ram, offset: address, numBytes: numBytes, format: format)
+        return dump(buffer: memory, offset: address, numBytes: numBytes, format: format)
     }
     
     // MARK: - Main Dump Function
@@ -180,7 +180,7 @@ extension Bus {
             switch format {
             case .standard:
                 if displayLabel {
-                    output += String(format: "\n%08X  ", currentOffset)
+                    output += String(format: "\n%04X  ", currentOffset)
                 } else {
                     output += "\n"
                 }
@@ -201,7 +201,7 @@ extension Bus {
             // Determine the chunk size
             let remaining = numBytes - i
             let chunkSize = remaining > dumpChunk ? dumpChunk : remaining
-            let chunk = Array(ram[i..<(i + chunkSize)])
+            let chunk = Array(memory[i..<(i + chunkSize)])
             
             // Dump the line
             output += dumpLine(buffer: chunk, count: chunkSize, format: format)

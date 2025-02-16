@@ -1,101 +1,135 @@
 import Foundation
 
-public struct BusHandler {
-    public var address : UInt16
-    public var handler: (_ value: UInt8) -> Void
+/// The mechanism that calls back when an area of memory is read from.
+///
+/// Create a read handler when you want to respond to a read of an address in the memory mapped I/O area.
+public struct BusReadHandler {
+    var address : UInt16
+    var callback: () -> UInt8
     
-    public init(address: UInt16, handler: @escaping (_: UInt8) -> Void) {
+    /// Create a read handler.
+    ///
+    /// Parameters:
+    /// - address: The 16 bit address within the range of $FF00-$FFEF to respond to the read.
+    /// - callback: The closure ot call when a read occurs at the address. The closure returns an 8-bit value.
+    public init(address: UInt16, callback: @escaping () -> UInt8) {
         self.address = address
-        self.handler = handler
+        self.callback = callback
+    }
+}
+
+/// The mechanism that calls back when an area of memory is written to.
+///
+/// Create a read handler when you want to respond to a write to an address in the memory mapped I/O area.
+public struct BusWriteHandler {
+    var address : UInt16
+    var callback: (_ value: UInt8) -> Void
+    
+    /// Create a write handler.
+    ///
+    /// Parameters:
+    /// - address: The 16 bit address within the range of $FF00-$FFEF to respond to the write.
+    /// - callback: The closure ot call when a write occurs at the address. The closure receives the 8-bit value that was written.
+    public init(address: UInt16, callback: @escaping (_: UInt8) -> Void) {
+        self.address = address
+        self.callback = callback
     }
 }
 
 /// The system bus that defines the interface to the CPU.
 ///
-/// Memory mapped I/O begins at $FF00 and is mapped accordingly:
-///
-/// $FF00 (Read): last character written to terminal
-///      (Write): character goes to terminal
-///
-/// $FF01 (Read): timer status register
-///     - bit 0: 1=interrupt on timer fired; 0 = interrupt on timer didn't fire
-///      (Write):
-///     - bit 0: 1 = clear interrupt; 0 = no effect
-///
-/// $FF02 (Read): timer control register
-///     - bit 0: 1=interrupt on timer fire is set; 0 = interrupt on timer fire is clear
-///      (Write):
-///     - bit 0: 1=set interrupt on timer fire; 0 = don't interrupt on timer fire
+/// Memory mapped I/O begins at $FF00 and ends at $FFEF. To respond to reads from this area, register a `BusReadhandler`
+/// Likewise, to respond to writes to this area, register a `BusWriteHandler`.
 public class Bus {
-    var busHandlers : [BusHandler] = []
-    weak var cpu: CPU?
-    var clockInterrupt : Timer? = nil
-    var ram: [UInt8]
+    var busReadHandlers : [BusReadHandler] = []
+    var busWriteHandlers : [BusWriteHandler] = []
+    weak var cpu: Turbo9CPU?
+//    var clockInterrupt : Timer? = nil
+    var memory: [UInt8]
     var originalRam: [UInt8]
     var timerTriggersIRQ: Bool = false
-    private var timer: Timer?
+//    private var timer: Timer?
     
-    init(ram: [UInt8] = Array(repeating: UInt8(0x00), count: Int(UInt16.max) + 1)) {
-        self.ram = ram
-        self.originalRam = ram
+    init(memory: [UInt8] = []) {
+        if memory == [] {
+            self.memory = Array(repeating: UInt8(0x12), count: 0xFFF0)
+            self.memory.append(contentsOf: Array(repeating:UInt8(0x00), count: 0x10))
+        } else {
+            self.memory = memory
+        }
+        self.originalRam = self.memory
 //        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
 //            self?.invokeTimer()
 //        }
     }
     
-    public func addHandler(handler : BusHandler) {
-        self.busHandlers.append(handler)
+    /// Add a read handler.
+    ///
+    /// Parameters:
+    /// - handler: An object that contains the read address and callback.
+    public func addReadHandler(handler : BusReadHandler) {
+        self.busReadHandlers.append(handler)
     }
     
-    public func invokeTimer() {
-        // Set the bit indicating the timer has fired
-        ram[0xFF01] = ram[0xFF01] | 0x01
-        
-        // If the timer control register's "interrupt on timer fire" is set, assert the IRQ
-        if ram[0xFF02] & 0x01 == 0x01 {
-            cpu?.assertIRQ()
-        }
+    /// Add a write handler.
+    ///
+    /// Create a write handler to receive a notification when there is a write to a particular address.
+    ///
+    /// Parameters:
+    /// - handler: An object that contains the write address and callback.
+    public func addWriteHandler(handler : BusWriteHandler) {
+        self.busWriteHandlers.append(handler)
     }
     
-    func refresh() {
+/*
+ */
+    
+    /// Refresh the bus.
+    public func refresh() {
     }
 
-    func reset() {
-        self.ram = self.originalRam
+    /// Reset the bus.
+    public func reset() {
+        self.memory = self.originalRam
     }
 
-    func read(_ address: UInt16) -> UInt8 {
-        guard ram.indices.contains(Int(address)) else { return 0 }
+    /// Read a byte from memory.
+    public func read(_ address: UInt16) -> UInt8 {
+        guard memory.indices.contains(Int(address)) else { return 0 }
         if address >= 0xFF00 && address < 0xFFF0 {
-            // Call mapped I/O handler
+            // Call the mapped I/O read handler.
            return  mappedIOReadHandler(address)
         } else {
-            return ram[Int(address)]
+            // It's memory -- read the data.
+            return memory[Int(address)]
         }
     }
     
-    func write(_ address: UInt16, data: UInt8) {
-        guard ram.indices.contains(Int(address)) else { return }
+    /// Write a byte to memory.
+    public func write(_ address: UInt16, data: UInt8) {
+        guard memory.indices.contains(Int(address)) else { return }
         if address >= 0xFF00 && address < 0xFFF0 {
-            // Call mapped I/O handler
+            // Call the mapped I/O write handler.
             mappedIOWriteHandler(address, data: data)
         } else {
-            ram[Int(address)] = data
+            // It's memory -- write the data.
+            memory[Int(address)] = data
         }
     }
     
     func mappedIOWriteHandler(_ address: UInt16, data: UInt8) {
+        /*
         switch address {
         case 0xFF00:
-            ram[Int(address)] = data
+            memory[Int(address)] = data
         case 0xFF01:
             // Writing 1 to bit 0 deasserts IRQ
             if (data & 0x01) == 0x01 {
                 let v = read(0xFF01) & 0xFE
-                ram[0xFF01] = v
+                memory[0xFF01] = v
                 cpu?.deassertIRQ()
             } else {
-                ram[Int(address)] = data
+                memory[Int(address)] = data
             }
         case 0xFF02:
             // Writing 1 to bit 0 allows the timer to trigger the interrupt, otherwise writing 0 inhibits that behavior.
@@ -104,26 +138,28 @@ public class Bus {
             } else {
                 timerTriggersIRQ = false
             }
-            ram[Int(address)] = data
+            memory[Int(address)] = data
         default:
             break
         }
-        
-        for handler in busHandlers {
+        */
+        for handler in busWriteHandlers {
             if address == handler.address {
-                handler.handler(data)
+                handler.callback(data)
+                return
             }
         }
+
+        memory[Int(address)] = data
     }
 
     func mappedIOReadHandler(_ address: UInt16) -> UInt8 {
-        switch address {
-        case 0xFF00:
-            return ram[Int(address)]
-        case 0xFF01:
-            return ram[Int(address)]
-        default:
-            return ram[Int(address)]
+        for handler in busReadHandlers {
+            if address == handler.address {
+                return handler.callback()
+            }
         }
+        
+        return memory[Int(address)]
     }
 }

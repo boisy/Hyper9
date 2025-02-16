@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Push registers onto the system stack.
     ///
     /// All, some, or none of the processor registers are pushed onto the user stack (with the exception of the user stack pointer itself).

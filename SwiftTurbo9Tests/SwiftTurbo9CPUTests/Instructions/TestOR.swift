@@ -5,7 +5,7 @@ struct TestORA {
     @Test func test_ora_immediate() async throws {
         let storedByte : UInt8 = 0x11
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [storedByte], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], acca: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .ora, addressMode: .imm8)
@@ -22,7 +22,7 @@ struct TestORB {
     @Test func test_orb_immediate() async throws {
         let storedByte : UInt8 = 0x81
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [storedByte], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], accb: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .orb, addressMode: .imm8)
@@ -38,7 +38,7 @@ struct TestORB {
 struct TestORCC {
     @Test func test_orcc_immediate_1() async throws {
         let storedByte : UInt8 = 0xF0
-        let cpu = CPU.create(ram: [storedByte])
+        let cpu = Turbo9CPU.create(ram: [storedByte])
         
         cpu.setupAddressing(using: .imm8)
 
@@ -65,7 +65,7 @@ struct TestORCC {
     
     @Test func test_orcc_immediate_2() async throws {
         let storedByte : UInt8 = 0x18
-        let cpu = CPU.create(ram: [storedByte])
+        let cpu = Turbo9CPU.create(ram: [storedByte])
         
         cpu.setupAddressing(using: .imm8)
 

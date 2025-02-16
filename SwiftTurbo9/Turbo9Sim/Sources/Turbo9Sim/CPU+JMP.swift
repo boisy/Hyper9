@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Unconditional jump.
     ///
     /// ```

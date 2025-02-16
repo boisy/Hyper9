@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Clear condition code bits and wait for interrupt.
     ///
     /// ```

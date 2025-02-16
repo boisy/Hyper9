@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Retrieve the value of a 16-bit register.
     private func getRegister16(_ reg: Register) throws -> UInt16 {
         switch reg {

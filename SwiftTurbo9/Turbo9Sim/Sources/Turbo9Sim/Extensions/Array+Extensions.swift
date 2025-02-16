@@ -6,7 +6,7 @@ extension Array where Element == UInt8 {
     }
 
     static func createRam(withProgram program: [UInt8], loadAddress : UInt16 = 0x0000) -> [UInt8] {
-        Array(repeating: 0x00, count: Int(loadAddress)) +
-        program + Array(repeating: 0x00, count: 0xFFFF + 1 - program.count - Int(loadAddress))
+        Array(repeating: 0x12, count: Int(loadAddress)) +
+        program + Array(repeating: 0x12, count: 0xFFFF + 1 - program.count - Int(loadAddress))
     }
 }

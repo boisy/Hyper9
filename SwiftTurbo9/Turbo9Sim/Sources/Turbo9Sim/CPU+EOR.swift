@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func eor(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         var value: UInt8
 

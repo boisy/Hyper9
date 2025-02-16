@@ -3,7 +3,7 @@ import Testing
 
 struct TestTSTA {
     @Test func test_tsta_negative() async throws {
-        let cpu = CPU.create(ram: [])
+        let cpu = Turbo9CPU.create(ram: [])
         cpu.setupAddressing(using: .inh)
         
         cpu.A = 0xFA
@@ -16,7 +16,7 @@ struct TestTSTA {
     }
     
     @Test func test_tsta_positive() async throws {
-        let cpu = CPU.create(ram: [])
+        let cpu = Turbo9CPU.create(ram: [])
         cpu.setupAddressing(using: .inh)
         
         cpu.A = 0x3A
@@ -29,7 +29,7 @@ struct TestTSTA {
     }
     
     @Test func test_tsta_zero() async throws {
-        let cpu = CPU.create(ram: [])
+        let cpu = Turbo9CPU.create(ram: [])
         cpu.setupAddressing(using: .inh)
         
         cpu.A = 0x00

@@ -3,7 +3,7 @@ import Testing
 
 struct TestRTI {
     @Test func test_pshs_cc() async throws {
-        let cpu = CPU.create(ram: [0x80, 0xAA, 0xBB, 0xDD, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xEE, 0xAA])
+        let cpu = Turbo9CPU.create(ram: [0x80, 0xAA, 0xBB, 0xDD, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xEE, 0xAA])
         cpu.CC = 0x40
         cpu.S = 0x00
         cpu.setupAddressing(using: .inh)
@@ -23,7 +23,7 @@ struct TestRTI {
 
 struct TestRTS {
     @Test func test_pshs_cc() async throws {
-        let cpu = CPU.create(ram: [0xAB, 0xCD])
+        let cpu = Turbo9CPU.create(ram: [0xAB, 0xCD])
         cpu.setupAddressing(using: .inh)
         
         cpu.S = 0x0000

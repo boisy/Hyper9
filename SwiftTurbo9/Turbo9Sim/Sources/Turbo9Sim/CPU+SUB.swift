@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func sbc(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         // Overflow using `UInt8` results in an exception being thrown.
         // "Cheat" and use `UInt16` when adding instead.

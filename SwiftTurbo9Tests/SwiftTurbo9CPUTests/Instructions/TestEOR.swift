@@ -3,7 +3,7 @@ import Testing
 
 struct TestEORA {
     @Test func test_eora_negative_true() async throws {
-        let cpu = CPU.create(ram: [0xF0], acca: 0x0F)
+        let cpu = Turbo9CPU.create(ram: [0xF0], acca: 0x0F)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .eora, addressMode: .imm8)
@@ -15,7 +15,7 @@ struct TestEORA {
     }
     
     @Test func test_eora_negative_false() async throws {
-        let cpu = CPU.create(ram: [0x01], acca: 0xF1)
+        let cpu = Turbo9CPU.create(ram: [0x01], acca: 0xF1)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .eora, addressMode: .imm8)

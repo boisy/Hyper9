@@ -54,7 +54,7 @@ enum Register {
     }
 }
 
-public class CPU {
+public class Turbo9CPU {
     let SWI3Vector: UInt16 = 0xFFF2
     let SWI2Vector: UInt16 = 0xFFF4
     let FIRQVector: UInt16 = 0xFFF6
@@ -122,6 +122,7 @@ public class CPU {
     var clockCycles: UInt = 0
     var totalInstructionCycles: Int = 0
     public var instructionsExecuted: UInt = 0
+    public var interruptsReceived: UInt = 0
     let cyclesPerInterrupt: UInt = 1000
     public var syncToInterrupt = false
     
@@ -165,7 +166,7 @@ public class CPU {
     // MARK: - Init
     
     init(
-        bus: Bus = Bus(ram: []),
+        bus: Bus = Bus(memory: []),
         pc: UInt16 = 0x0000,
         stackPointer: UInt16 = 0xFF,
         A: UInt8 = 0x00,
@@ -176,9 +177,7 @@ public class CPU {
         DP: UInt8 = 0x00,
         flags: UInt8 = 0x00
     ) {
-        let ram = [UInt8].init(repeating: 0x12, count: 65536)
         self.bus = bus
-        self.bus.ram = ram
         self.bus.cpu = self
         self.PC = pc
         self.S = stackPointer
@@ -226,6 +225,7 @@ public class CPU {
         CC = 0
         PC = addr
         instructionsExecuted = 0
+        interruptsReceived = 0
         syncToInterrupt = false
         
         // Reset the bus.
@@ -251,6 +251,7 @@ public class CPU {
         PC = readWord(IRQVector)
         IRQ = true
         syncToInterrupt = false
+        interruptsReceived = interruptsReceived + 1
         deassertIRQ()
     }
 
@@ -267,6 +268,7 @@ public class CPU {
         PC = readWord(FIRQVector)
         FIRQ = true
         syncToInterrupt = false
+        interruptsReceived = interruptsReceived + 1
         deassertFIRQ()
     }
 
@@ -289,6 +291,7 @@ public class CPU {
         PC = readWord(NMIVector)
         NMI = true
         syncToInterrupt = false
+        interruptsReceived = interruptsReceived + 1
         deassertNMI()
     }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-public class Disassembler: CPU {
+public class Disassembler: Turbo9CPU {
 
     // MARK: - Private properties
 
@@ -12,7 +12,7 @@ public class Disassembler: CPU {
 
     // MARK: - Init
 
-    public init(program: [UInt8], pc: UInt16 = 0x00, logPath: String = "") {
+    public init(program: [UInt8] = [], pc: UInt16 = 0x00, logPath: String = "") {
         self.program = program
         self.logPath = logPath
 
@@ -27,7 +27,7 @@ public class Disassembler: CPU {
         }
 
         super.init(
-            bus: Bus(ram: .createRam(withProgram: program)),
+            bus: Bus(memory: .createRam(withProgram: program)),
             pc: pc
         )
     }
@@ -53,7 +53,7 @@ public class Disassembler: CPU {
         }
         
         super.init(
-            bus: Bus(ram: .createRam(withProgram: program)),
+            bus: Bus(memory: .createRam(withProgram: program)),
             pc: pc
         )
     }
@@ -63,7 +63,7 @@ public class Disassembler: CPU {
             let program = try Data(contentsOf: url)
             self.program = [UInt8](program)
             let newRam = [UInt8].createRam(withProgram: self.program, loadAddress: UInt16(0x10000 - program.count))
-            bus.ram = newRam
+            bus.memory = newRam
             bus.originalRam = newRam
             try self.reset()
         } catch {
@@ -79,7 +79,7 @@ public class Disassembler: CPU {
             fatalError("Could not read file \(url)")
         }
         super.init(
-            bus: Bus(ram: .createRam(withProgram: self.program)),
+            bus: Bus(memory: .createRam(withProgram: self.program)),
             pc: pc
         )
     }

@@ -3,7 +3,7 @@ import Testing
 
 struct TestMUL {
     @Test func test_multiply_negative_result() async throws {
-        let cpu = CPU.create(ram: [0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00])
         cpu.setupAddressing(using: .imm8)
         
         cpu.A = 128
@@ -17,7 +17,7 @@ struct TestMUL {
     }
 
     @Test func test_multiply_positive_result() async throws {
-        let cpu = CPU.create(ram: [0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00])
         cpu.setupAddressing(using: .imm8)
         
         cpu.A = 3
@@ -31,7 +31,7 @@ struct TestMUL {
     }
     
     @Test func test_multiply_zero_result() async throws {
-        let cpu = CPU.create(ram: [0x00])
+        let cpu = Turbo9CPU.create(ram: [0x00])
         cpu.setupAddressing(using: .imm8)
         
         cpu.A = 0

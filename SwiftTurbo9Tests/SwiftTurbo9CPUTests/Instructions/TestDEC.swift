@@ -3,7 +3,7 @@ import Testing
 
 struct TestDECA {
     @Test func test_deca() async throws {
-        let cpu = CPU.create(ram: [], acca: 0x0F)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0x0F)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .deca, addressMode: .inh)
@@ -15,7 +15,7 @@ struct TestDECA {
     }
     
     @Test func test_deca_negative_set() async throws {
-        let cpu = CPU.create(ram: [], acca: 0x00)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0x00)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .deca, addressMode: .inh)
@@ -27,7 +27,7 @@ struct TestDECA {
     }
     
     @Test func test_deca_zero_set() async throws {
-        let cpu = CPU.create(ram: [], acca:0x01)
+        let cpu = Turbo9CPU.create(ram: [], acca:0x01)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .deca, addressMode: .inh)
@@ -39,7 +39,7 @@ struct TestDECA {
     }
     
     @Test func test_deca_overflow_set() async throws {
-        let cpu = CPU.create(ram: [], acca:0x80)
+        let cpu = Turbo9CPU.create(ram: [], acca:0x80)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .deca, addressMode: .inh)

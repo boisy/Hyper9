@@ -4,7 +4,7 @@ import Testing
 struct TestASLA {
     @Test func test_asla() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .asla, addressMode: .inh)
@@ -18,7 +18,7 @@ struct TestASLA {
     
     @Test func test_asla_zero_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x80
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .asla, addressMode: .inh)
@@ -31,7 +31,7 @@ struct TestASLA {
     
     @Test func test_asla_negative_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x40
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .asla, addressMode: .inh)
@@ -46,7 +46,7 @@ struct TestASLA {
 struct TestASLB {
     @Test func test_aslb() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [0], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .aslb, addressMode: .inh)
@@ -60,7 +60,7 @@ struct TestASLB {
     
     @Test func test_aslb_zero_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x80
-        let cpu = CPU.create(ram: [0], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .aslb, addressMode: .inh)
@@ -74,7 +74,7 @@ struct TestASLB {
     
     @Test func test_aslb_negative_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x40
-        let cpu = CPU.create(ram: [0], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .aslb, addressMode: .inh)
@@ -89,7 +89,7 @@ struct TestASLB {
 
 struct TestASL {
     @Test func test_asl_direct() async throws {
-        let cpu = CPU.create(ram: [0x01, 0x33])
+        let cpu = Turbo9CPU.create(ram: [0x01, 0x33])
         cpu.setupAddressing(using: .dir)
         
         try cpu.perform(instruction: .asl, addressMode: .dir)
@@ -102,7 +102,7 @@ struct TestASL {
     }
     
     @Test func test_asl_extended() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x02, 0x02])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x02, 0x02])
         cpu.setupAddressing(using: .ext)
         
         try cpu.perform(instruction: .asl, addressMode: .ext)

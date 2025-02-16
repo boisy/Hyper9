@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     /// Branch if carry clear.
     ///
     /// Tests the state of the C (carry) bit and causes a branch if it is clear.

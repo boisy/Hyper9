@@ -4,7 +4,7 @@ import Testing
 struct TestLSLA {
     @Test func test_lsla() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lsla, addressMode: .inh)
@@ -18,7 +18,7 @@ struct TestLSLA {
     
     @Test func test_lsla_zero_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x80
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lsla, addressMode: .inh)
@@ -31,7 +31,7 @@ struct TestLSLA {
     
     @Test func test_lsla_negative_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x40
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lsla, addressMode: .inh)
@@ -46,7 +46,7 @@ struct TestLSLA {
 struct TestLSRA {
     @Test func test_lsra() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lsra, addressMode: .inh)
@@ -58,7 +58,7 @@ struct TestLSRA {
     
     @Test func test_lsra_zero_false() async throws {
         let accumulator : UInt8 = 0x80
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lsra, addressMode: .inh)
@@ -69,7 +69,7 @@ struct TestLSRA {
     
     @Test func test_lsra_carry_true() async throws {
         let accumulator : UInt8 = 0x01
-        let cpu = CPU.create(ram: [0], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], acca: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lsra, addressMode: .inh)
@@ -82,7 +82,7 @@ struct TestLSRA {
 struct TestLSLB {
     @Test func test_lslb() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [0], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lslb, addressMode: .inh)
@@ -96,7 +96,7 @@ struct TestLSLB {
     
     @Test func test_lslb_zero_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x80
-        let cpu = CPU.create(ram: [0], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lslb, addressMode: .inh)
@@ -110,7 +110,7 @@ struct TestLSLB {
     
     @Test func test_lslb_negative_true_overflow_true() async throws {
         let accumulator : UInt8 = 0x40
-        let cpu = CPU.create(ram: [0], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [0], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .lslb, addressMode: .inh)
@@ -125,7 +125,7 @@ struct TestLSLB {
 
 struct TestLSL {
     @Test func test_lsl_direct() async throws {
-        let cpu = CPU.create(ram: [0x01, 0x33])
+        let cpu = Turbo9CPU.create(ram: [0x01, 0x33])
         cpu.setupAddressing(using: .dir)
         
         try cpu.perform(instruction: .lsl, addressMode: .dir)
@@ -138,7 +138,7 @@ struct TestLSL {
     }
     
     @Test func test_lsl_extended() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x02, 0x02])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x02, 0x02])
         cpu.setupAddressing(using: .ext)
         
         try cpu.perform(instruction: .lsl, addressMode: .ext)

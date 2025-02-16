@@ -3,7 +3,7 @@ import Testing
 
 struct TestCMPA {
     @Test func test_cmpa_negative_true_carry_true() async throws {
-        let cpu = CPU.create(ram: [0xFF], acca: 0x00)
+        let cpu = Turbo9CPU.create(ram: [0xFF], acca: 0x00)
         
         cpu.setupAddressing(using: .imm8)
         cpu.setCC(.negative, true)
@@ -21,7 +21,7 @@ struct TestCMPA {
     }
     
     @Test func test_cmpa_negative_true_overflow_true_carry_true() async throws {
-        let cpu = CPU.create(ram: [0xFF], acca: 0xFE)
+        let cpu = Turbo9CPU.create(ram: [0xFF], acca: 0xFE)
         
         cpu.setupAddressing(using: .imm8)
         cpu.setCC(.negative, true)
@@ -39,7 +39,7 @@ struct TestCMPA {
     }
     
     @Test func test_cmpd_negative_true_carry_true() async throws {
-        let cpu = CPU.create(ram: [0xFF, 0xFF], acca: 0x00, accb: 0x00)
+        let cpu = Turbo9CPU.create(ram: [0xFF, 0xFF], acca: 0x00, accb: 0x00)
         
         cpu.setupAddressing(using: .imm16)
         cpu.setCC(.negative, true)
@@ -57,7 +57,7 @@ struct TestCMPA {
     }
     
     @Test func test_cmpd_negative_true_overflow_true_carry_true() async throws {
-        let cpu = CPU.create(ram: [0xFF, 0xFF], acca: 0xFF, accb: 0xFE)
+        let cpu = Turbo9CPU.create(ram: [0xFF, 0xFF], acca: 0xFF, accb: 0xFE)
 
         cpu.setupAddressing(using: .imm16)
         cpu.setCC(.negative, true)

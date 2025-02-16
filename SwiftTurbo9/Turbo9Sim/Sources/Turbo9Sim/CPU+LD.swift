@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func ld16(addressMode: AddressMode, register: inout UInt16) {
         switch addressMode {
         case .imm16:

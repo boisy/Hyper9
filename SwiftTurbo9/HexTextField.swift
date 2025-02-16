@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Hex8TextField: View {
+struct LabeledHex8TextField: View {
     var label = "??"
     @Binding var number: UInt8
     public var update: (() -> Void) = {}
@@ -8,7 +8,7 @@ struct Hex8TextField: View {
     var body: some View {
         HStack {
             Text(label)
-                .frame(width: 28)
+                .frame(width: 22)
                 .multilineTextAlignment(.trailing)
             TextField("", text: Binding<String>(
                 get: {
@@ -50,7 +50,7 @@ struct Hex8TextField: View {
     }
 }
 
-struct Hex16TextField: View {
+struct LabeledHex16TextField: View {
     var label = "??"
     @Binding var number: UInt16
     public var update: (() -> Void) = {}
@@ -58,8 +58,19 @@ struct Hex16TextField: View {
     var body: some View {
         HStack {
             Text(label)
-                .frame(width: 28)
+                .frame(width: 22)
                 .multilineTextAlignment(.trailing)
+            Hex16TextField(number: $number)
+        }
+    }
+}
+
+struct Hex16TextField: View {
+    @Binding var number: UInt16
+    public var update: (() -> Void) = {}
+
+    var body: some View {
+        HStack {
             TextField("", text: Binding<String>(
                 get: {
                     // Display the number as a hex string with leading "$"
@@ -101,14 +112,25 @@ struct Hex16TextField: View {
     }
 }
 
-struct DecTextField: View {
+struct LabeledDecTextField: View {
     var label = "??"
     @Binding var number: UInt16
 
     var body: some View {
         HStack {
             Text(label)
-                .frame(width: 28)
+                .frame(width: 22)
+                .multilineTextAlignment(.trailing)
+            DecTextField(number: $number)
+        }
+    }
+}
+
+struct DecTextField: View {
+    @Binding var number: UInt16
+
+    var body: some View {
+        HStack {
             TextField("", text: Binding<String>(
                 get: {
                     // Display the number as a decimal string
@@ -124,15 +146,28 @@ struct DecTextField: View {
                 }
             ))
             .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 64)
         }
     }
 }
 
 struct HexBoundTextField_Previews: PreviewProvider {
     static var previews: some View {
-        @State var n8 : UInt8 = 23
-        @State var n16 : UInt16 = 3233
-        Hex8TextField(number: $n8)
-        Hex16TextField(number: $n16)
+        VStack {
+            @State var n8 : UInt8 = 23
+            @State var n16 : UInt16 = 65535
+            LabeledHex8TextField(label: "A:", number: $n8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            LabeledHex8TextField(label: "DP:", number: $n8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            LabeledHex16TextField(label: "X:", number: $n16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Hex16TextField(number: $n16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            LabeledDecTextField(label: "X:", number: $n16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            DecTextField(number: $n16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
     }
 }

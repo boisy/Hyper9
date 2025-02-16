@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func test(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         var value: UInt8 = 0
         if addressMode == .inh {

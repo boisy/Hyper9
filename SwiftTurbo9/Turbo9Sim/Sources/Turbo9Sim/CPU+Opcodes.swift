@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     typealias OpCode = (Instruction, AddressMode, Int)
     
     /// An array of supported opcodes.
@@ -601,8 +601,8 @@ extension CPU {
 */
 }
 
-extension [CPU.OpCode] {
-    func get(_ opcode: UInt8) -> CPU.OpCode? {
+extension [Turbo9CPU.OpCode] {
+    func get(_ opcode: UInt8) -> Turbo9CPU.OpCode? {
         guard indices.contains(Int(opcode)) else { return nil }
         return self[Int(opcode)]
     }

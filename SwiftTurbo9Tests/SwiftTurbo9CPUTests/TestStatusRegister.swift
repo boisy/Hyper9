@@ -2,7 +2,7 @@ import Testing
 @testable import Turbo9Sim
 
 struct TestStatusRegister {
-    private var cpu = CPU(flags: 0x00)
+    private var cpu = Turbo9CPU(flags: 0x00)
 
     @Test func test_entire_flag() {
         #expect(0b0000_0000 == cpu.CC)

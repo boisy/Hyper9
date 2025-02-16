@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func and(addressMode: AddressMode, register: inout UInt8) -> ShouldIncludeExtraClockCycles {
         let value = readByte(addressAbsolute)
 

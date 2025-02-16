@@ -3,7 +3,7 @@ import Testing
 
 struct TestEXG {
     @Test func test_exg_a_b() async throws {
-        let cpu = CPU.create(ram: [0x89], acca: 0x0F, accb: 0xA1)
+        let cpu = Turbo9CPU.create(ram: [0x89], acca: 0x0F, accb: 0xA1)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .exg, addressMode: .imm8)
@@ -13,7 +13,7 @@ struct TestEXG {
     }
     
     @Test func test_exg_x_y() async throws {
-        let cpu = CPU.create(ram: [0x12], X: 0xDEAD, Y: 0xBEEF)
+        let cpu = Turbo9CPU.create(ram: [0x12], X: 0xDEAD, Y: 0xBEEF)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .exg, addressMode: .imm8)
@@ -23,7 +23,7 @@ struct TestEXG {
     }
     
     @Test func test_exg_u_s() async throws {
-        let cpu = CPU.create(ram: [0x34], stackPointer: 0xBEEF, U: 0xDEAD)
+        let cpu = Turbo9CPU.create(ram: [0x34], stackPointer: 0xBEEF, U: 0xDEAD)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .exg, addressMode: .imm8)

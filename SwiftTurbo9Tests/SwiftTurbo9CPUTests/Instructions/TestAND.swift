@@ -5,7 +5,7 @@ struct TestANDA {
     @Test func test_anda_immediate() async throws {
         let storedByte : UInt8 = 0x11
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [storedByte], acca: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], acca: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .anda, addressMode: .imm8)
@@ -22,7 +22,7 @@ struct TestANDB {
     @Test func test_andb_immediate() async throws {
         let storedByte : UInt8 = 0x11
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [storedByte], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [storedByte], accb: accumulator)
         cpu.setupAddressing(using: .imm8)
         
         try cpu.perform(instruction: .andb, addressMode: .imm8)
@@ -38,7 +38,7 @@ struct TestANDB {
 struct TestANDCC {
     @Test func test_andcc_immediate_1() async throws {
         let storedByte : UInt8 = 0xF0
-        let cpu = CPU.create(ram: [storedByte])
+        let cpu = Turbo9CPU.create(ram: [storedByte])
         
         cpu.setupAddressing(using: .imm8)
 
@@ -65,7 +65,7 @@ struct TestANDCC {
     
     @Test func test_andcc_immediate_2() async throws {
         let storedByte : UInt8 = 0x18
-        let cpu = CPU.create(ram: [storedByte])
+        let cpu = Turbo9CPU.create(ram: [storedByte])
         
         cpu.setupAddressing(using: .imm8)
 

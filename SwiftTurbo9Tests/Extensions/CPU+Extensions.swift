@@ -1,6 +1,6 @@
 @testable import Turbo9Sim
 
-extension CPU {
+extension Turbo9CPU {
     static func create(
         ram: [UInt8],
         acca: UInt8 = 0x00,
@@ -11,9 +11,9 @@ extension CPU {
         Y: UInt16 = 0x0000,
         U: UInt16 = 0x0000,
         DP: UInt8 = 0x00
-    ) -> CPU {
-        CPU(
-            bus: Bus(ram: ram),
+    ) -> Turbo9CPU {
+        Turbo9CPU(
+            bus: Bus(memory: ram),
             pc: pc,
             stackPointer: stackPointer,
             A: acca,

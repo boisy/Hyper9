@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU {
+extension Turbo9CPU {
     private func ashift(addressMode: AddressMode, register: inout UInt8, left: Bool) -> ShouldIncludeExtraClockCycles {
         var value: UInt8
 

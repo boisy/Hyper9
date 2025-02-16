@@ -11,7 +11,7 @@ import Testing
 struct TestNOP {
 
     @Test func NOP() async throws {
-        let cpu = CPU.create(ram: [], acca: 0x08)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0x08)
         cpu.setupAddressing(using: .inh)
 
         try cpu.perform(instruction: .nop, addressMode: .inh)

@@ -3,7 +3,7 @@ import Testing
 
 struct TestNEGA {
     @Test func test_nega_0x00() async throws {
-        let cpu = CPU.create(ram: [], acca: 0x00)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0x00)
         
         cpu.setupAddressing(using: .inh)
         
@@ -17,7 +17,7 @@ struct TestNEGA {
     }
     
     @Test func test_nega_0xFF() async throws {
-        let cpu = CPU.create(ram: [], acca: 0xFF)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0xFF)
         
         cpu.setupAddressing(using: .inh)
         
@@ -31,7 +31,7 @@ struct TestNEGA {
     }
     
     @Test func test_nega_0x80() async throws {
-        let cpu = CPU.create(ram: [], acca: 0x80)
+        let cpu = Turbo9CPU.create(ram: [], acca: 0x80)
         
         cpu.setupAddressing(using: .inh)
         

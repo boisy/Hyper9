@@ -4,7 +4,7 @@ import Testing
 struct TestSEX {
     @Test func test_sex_positive() async throws {
         let accumulator : UInt8 = 0x10
-        let cpu = CPU.create(ram: [], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .sex, addressMode: .inh)
@@ -17,7 +17,7 @@ struct TestSEX {
     
     @Test func test_sex_negative() async throws {
         let accumulator : UInt8 = 0x9E
-        let cpu = CPU.create(ram: [], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .sex, addressMode: .inh)
@@ -30,7 +30,7 @@ struct TestSEX {
     
     @Test func test_sex_zero() async throws {
         let accumulator : UInt8 = 0x00
-        let cpu = CPU.create(ram: [], accb: accumulator)
+        let cpu = Turbo9CPU.create(ram: [], accb: accumulator)
         cpu.setupAddressing(using: .inh)
         
         try cpu.perform(instruction: .sex, addressMode: .inh)

@@ -3,7 +3,7 @@ import Testing
 
 struct TestJMP {
     @Test func test_jmp() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x02])
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x02])
         cpu.setupAddressing(using: .ext)
         
         try cpu.perform(instruction: .jmp, addressMode: .ext)
@@ -14,7 +14,7 @@ struct TestJMP {
 
 struct TestJSR {
     @Test func test_jsr() async throws {
-        let cpu = CPU.create(ram: [0x00, 0x00, 0x02, 0x00, 0x00], stackPointer: 0x0005)
+        let cpu = Turbo9CPU.create(ram: [0x00, 0x00, 0x02, 0x00, 0x00], stackPointer: 0x0005)
         cpu.PC = 0x0001
         cpu.setupAddressing(using: .ext)
         
