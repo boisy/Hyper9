@@ -48,7 +48,6 @@ public class Bus {
     var memory: [UInt8]
     var originalRam: [UInt8]
     var timerTriggersIRQ: Bool = false
-//    private var timer: Timer?
     
     init(memory: [UInt8] = []) {
         if memory == [] {
@@ -58,9 +57,6 @@ public class Bus {
             self.memory = memory
         }
         self.originalRam = self.memory
-//        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
-//            self?.invokeTimer()
-//        }
     }
     
     /// Add a read handler.
@@ -143,14 +139,13 @@ public class Bus {
             break
         }
         */
+        memory[Int(address)] = data
         for handler in busWriteHandlers {
             if address == handler.address {
                 handler.callback(data)
                 return
             }
         }
-
-        memory[Int(address)] = data
     }
 
     func mappedIOReadHandler(_ address: UInt16) -> UInt8 {

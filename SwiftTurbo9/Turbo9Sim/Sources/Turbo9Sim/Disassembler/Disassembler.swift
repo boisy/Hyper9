@@ -180,16 +180,16 @@ public class Disassembler: Turbo9CPU {
     }
 
     override public func step() throws {
-        let oldPC = PC
         let op = disassemble(pc: PC)
-        PC = oldPC
         try super.step()
-        if let fh = self.fileHandle, let op = op {
-//            let data = (String(format:"%@ DP=%02X CC=%@ A=%02X B=%02X X=%04X Y=%04X U=%04X S=%04X\n",
-//                               op[0].asCode, DP, ccString, A, B, X, Y, U, S)).data(using: .utf8)!
-            let data = (String(format:"%@ \n",
-                               op.asCode)).data(using: .utf8)!
-            fh.write(data)
+        if syncToInterrupt == false {
+            if let fh = self.fileHandle, let op = op {
+                //            let data = (String(format:"%@ DP=%02X CC=%@ A=%02X B=%02X X=%04X Y=%04X U=%04X S=%04X\n",
+                //                               op[0].asCode, DP, ccString, A, B, X, Y, U, S)).data(using: .utf8)!
+                let data = (String(format:"%@ \n",
+                                   op.asCode)).data(using: .utf8)!
+                fh.write(data)
+            }
         }
     }
     

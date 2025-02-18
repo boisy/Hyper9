@@ -119,7 +119,7 @@ public class Turbo9CPU {
     var NMI : Bool = false
     private var previousInstructionNMIState: Bool = false
 
-    var clockCycles: UInt = 0
+    public var clockCycles: UInt = 0
     var totalInstructionCycles: Int = 0
     public var instructionsExecuted: UInt = 0
     public var interruptsReceived: UInt = 0

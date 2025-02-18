@@ -19,28 +19,36 @@ struct ControlView: View {
             GroupBox {
                 HStack {
                     Button(action: {
+                        model.running = false
                         model.turbo9.assertIRQ()
+                        model.turbo9.checkDisassembly()
                         model.updateUI()
                     }) {
                         Image(systemName: "i.circle")
                     }
                     
                     Button(action: {
+                        model.running = false
                         model.turbo9.assertFIRQ()
+                        model.turbo9.checkDisassembly()
                         model.updateUI()
                     }) {
                         Image(systemName: "f.circle")
                     }
                     
                     Button(action: {
+                        model.running = false
                         model.turbo9.assertNMI()
+                        model.turbo9.checkDisassembly()
                         model.updateUI()
                     }) {
                         Image(systemName: "n.circle")
                     }
                     
                     Button(action: {
+                        model.running = false
                         model.invokeTimer()
+                        model.turbo9.checkDisassembly()
                         model.updateUI()
                     }) {
                         Image(systemName: "timer")
@@ -57,6 +65,7 @@ struct ControlView: View {
                             for _ in 1...stepCount {
                                 model.step()
                             }
+                            model.turbo9.checkDisassembly()
                             model.updateUI()
                         }
                     }) {
@@ -80,9 +89,18 @@ struct ControlView: View {
                         } else {
                             model.running = true
                             goLabel = "pause.fill"
-                            DispatchQueue.global(qos: .userInitiated).async {
+                            DispatchQueue.global(qos: .background).async {
                                 while model.running == true && model.turbo9.PC != UInt16(gotoAddress) {
                                     model.step()
+                                    if model.timerRunning == true && model.turbo9.clockCycles % 3000 == 0 {
+                                        model.invokeTimer()
+                                    }
+                                }
+                                DispatchQueue.main.async {
+                                    model.running = false
+                                    goLabel = "play.fill"
+                                    model.turbo9.checkDisassembly()
+                                    model.updateUI()
                                 }
                             }
                         }
