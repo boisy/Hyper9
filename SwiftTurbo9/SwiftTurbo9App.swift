@@ -17,6 +17,21 @@ struct SwiftTurbo9App: App {
                 .environmentObject(file.document.disassembler)
         }
     }
+    
+    func openAuxiliaryWindow(disassembler: Turbo9ViewModel) {
+        let window = NSWindow(
+            contentRect: NSRect(x: 100, y: 100, width: 400, height: 300),
+            styleMask: [.titled, .closable, .resizable],
+            backing: .buffered,
+            defer: false
+        )
+        window.title = "TurbOS Globals"
+        window.contentView = NSHostingView(
+            rootView: TurbOSGlobalsView()
+                .environmentObject(disassembler) // Inject the environment object
+        )
+        window.makeKeyAndOrderFront(nil)
+    }
 }
 
 

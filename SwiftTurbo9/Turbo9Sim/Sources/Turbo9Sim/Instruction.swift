@@ -124,7 +124,7 @@ enum Instruction: String {
     case sbca = "SBCA"
     case sbcb = "SBCB"
     case sbcd = "SBCD"
-    case sex = "sex"
+    case sex = "SEX"
     case sta = "STA"
     case stb = "STB"
     case std = "STD"

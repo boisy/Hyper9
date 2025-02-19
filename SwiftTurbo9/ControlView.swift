@@ -13,8 +13,9 @@ struct ControlView: View {
     @State var gotoAddress : UInt16 = 0
     @State var stepCount : UInt16 = 1
     @State var goLabel = "play.fill"
-    
+
     var body: some View {
+        let cyclesPerTick : UInt = 1000
         HStack {
             GroupBox {
                 HStack {
@@ -62,6 +63,7 @@ struct ControlView: View {
                 HStack {
                     Button(action: {
                         if stepCount > 0 {
+                            model.updateCPU()
                             for _ in 1...stepCount {
                                 model.step()
                             }
@@ -90,12 +92,18 @@ struct ControlView: View {
                             model.running = true
                             goLabel = "pause.fill"
                             DispatchQueue.global(qos: .background).async {
-                                while model.running == true && model.turbo9.PC != UInt16(gotoAddress) {
+                                repeat {
                                     model.step()
-                                    if model.timerRunning == true && model.turbo9.clockCycles % 3000 == 0 {
+                                    if model.timerRunning == true && model.turbo9.clockCycles % cyclesPerTick == 0 {
                                         model.invokeTimer()
                                     }
-                                }
+                                    if model.timerRunning == true && model.turbo9.clockCycles % (cyclesPerTick * 50) == 0 {
+                                        DispatchQueue.main.sync {
+//                                            model.turbo9.checkDisassembly()
+//                                            model.updateUI()
+                                        }
+                                    }
+                                } while model.running == true && model.turbo9.PC != UInt16(gotoAddress)
                                 DispatchQueue.main.async {
                                     model.running = false
                                     goLabel = "play.fill"
@@ -129,6 +137,8 @@ struct ControlView: View {
                             if result == .OK, let url = openPanel.url {
                                 // Use the selected file URL
                                 model.load(url: url)
+                                model.turbo9.checkDisassembly()
+                                model.updateUI()
                             } else {
                                 // User canceled the selection
                             }
@@ -141,6 +151,7 @@ struct ControlView: View {
                     
                     Button(action: {
                         model.reset()
+                        model.turbo9.checkDisassembly()
                         model.updateUI()
                     }) {
                         Image(systemName: "button.horizontal.top.press")

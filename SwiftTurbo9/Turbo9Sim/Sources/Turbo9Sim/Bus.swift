@@ -48,7 +48,7 @@ public class Bus {
     var memory: [UInt8]
     var originalRam: [UInt8]
     var timerTriggersIRQ: Bool = false
-    
+
     init(memory: [UInt8] = []) {
         if memory == [] {
             self.memory = Array(repeating: UInt8(0x12), count: 0xFFF0)
@@ -90,9 +90,9 @@ public class Bus {
     }
 
     /// Read a byte from memory.
-    public func read(_ address: UInt16) -> UInt8 {
+    public func read(_ address: UInt16, readThroughIO: Bool = false) -> UInt8 {
         guard memory.indices.contains(Int(address)) else { return 0 }
-        if address >= 0xFF00 && address < 0xFFF0 {
+        if address >= 0xFF00 && address < 0xFFF0 && readThroughIO == false {
             // Call the mapped I/O read handler.
            return  mappedIOReadHandler(address)
         } else {
@@ -102,9 +102,9 @@ public class Bus {
     }
     
     /// Write a byte to memory.
-    public func write(_ address: UInt16, data: UInt8) {
+    public func write(_ address: UInt16, data: UInt8, writeThroughIO: Bool = false) {
         guard memory.indices.contains(Int(address)) else { return }
-        if address >= 0xFF00 && address < 0xFFF0 {
+        if address >= 0xFF00 && address < 0xFFF0 && writeThroughIO == false {
             // Call the mapped I/O write handler.
             mappedIOWriteHandler(address, data: data)
         } else {
@@ -114,31 +114,6 @@ public class Bus {
     }
     
     func mappedIOWriteHandler(_ address: UInt16, data: UInt8) {
-        /*
-        switch address {
-        case 0xFF00:
-            memory[Int(address)] = data
-        case 0xFF01:
-            // Writing 1 to bit 0 deasserts IRQ
-            if (data & 0x01) == 0x01 {
-                let v = read(0xFF01) & 0xFE
-                memory[0xFF01] = v
-                cpu?.deassertIRQ()
-            } else {
-                memory[Int(address)] = data
-            }
-        case 0xFF02:
-            // Writing 1 to bit 0 allows the timer to trigger the interrupt, otherwise writing 0 inhibits that behavior.
-            if (data & 0x01) == 0x01 {
-                timerTriggersIRQ = true
-            } else {
-                timerTriggersIRQ = false
-            }
-            memory[Int(address)] = data
-        default:
-            break
-        }
-        */
         memory[Int(address)] = data
         for handler in busWriteHandlers {
             if address == handler.address {

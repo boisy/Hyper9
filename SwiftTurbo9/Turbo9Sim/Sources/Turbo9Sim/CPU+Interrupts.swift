@@ -25,6 +25,7 @@ extension Turbo9CPU {
         pushToS(byte: A)
         setCC(.entire, true)
         pushToS(byte:CC)
+        PC = PC &- 2
         syncToInterrupt = true
         return result
     }

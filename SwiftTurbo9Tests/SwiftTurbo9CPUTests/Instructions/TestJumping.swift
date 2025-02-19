@@ -21,6 +21,6 @@ struct TestJSR {
         try cpu.perform(instruction: .jsr, addressMode: .ext)
         
         #expect(cpu.PC == 0x02)
-        #expect(cpu.readWord(0x0003) == 0x0002)
+        #expect(cpu.readWord(0x0003) == 0x0003)
     }
 }

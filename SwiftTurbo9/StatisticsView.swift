@@ -14,12 +14,22 @@ struct StatisticsView: View {
         GroupBox {
             HStack {
                 Text("Instructions:")
-                TextField("",  value: $model.instructionsExecuted, format: .number)
+                TextField("",  value: $model.turbo9.instructionsExecuted, format: .number)
                     .disabled(true)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 90)
                 Text("Interrupts:")
-                TextField("",  value: $model.interruptsReceived, format: .number)
+                TextField("",  value: $model.turbo9.interruptsReceived, format: .number)
+                    .disabled(true)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(width: 90)
+                Text("Clock Cycles:")
+                TextField("",  value: $model.turbo9.clockCycles, format: .number)
+                    .disabled(true)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(width: 90)
+                Text("IPS:")
+                TextField("",  value: $model.turbo9.secondsPerInstruction, format: .number)
                     .disabled(true)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 90)
@@ -27,6 +37,7 @@ struct StatisticsView: View {
         } label: {
             Label("Statistics", systemImage: "chart.bar.fill")
         }
+        .frame(width:620)
     }
 }
 

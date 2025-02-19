@@ -3,12 +3,13 @@ import SwiftUI
 struct LabeledHex8TextField: View {
     var label = "??"
     @Binding var number: UInt8
+    var labelWidth = 22.0
     public var update: (() -> Void) = {}
 
     var body: some View {
         HStack {
             Text(label)
-                .frame(width: 22)
+                .frame(width: labelWidth)
                 .multilineTextAlignment(.trailing)
             TextField("", text: Binding<String>(
                 get: {
@@ -53,12 +54,13 @@ struct LabeledHex8TextField: View {
 struct LabeledHex16TextField: View {
     var label = "??"
     @Binding var number: UInt16
+    var labelWidth = 22.0
     public var update: (() -> Void) = {}
 
     var body: some View {
         HStack {
             Text(label)
-                .frame(width: 22)
+                .frame(width: labelWidth)
                 .multilineTextAlignment(.trailing)
             Hex16TextField(number: $number)
         }

@@ -136,7 +136,7 @@ extension Turbo9CPU {
     /// - V    -    Set if an overflow is generated; cleared otherwise.
     /// - C    -    Set if a carry is generated; cleared otherwise.
     func adda(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
-        return add(addressMode: addressMode, register: &self.A, useCarry: true)
+        return add(addressMode: addressMode, register: &self.A, useCarry: false)
     }
 
     /// Add memory byte to accumulator `B`.
@@ -160,7 +160,7 @@ extension Turbo9CPU {
     /// - V    -    Set if an overflow is generated; cleared otherwise.
     /// - C    -    Set if a carry is generated; cleared otherwise.
     func addb(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
-        return add(addressMode: addressMode, register: &self.B, useCarry: true)
+        return add(addressMode: addressMode, register: &self.B, useCarry: false)
     }
 
     /// Add memory byte to accumulator `D`.

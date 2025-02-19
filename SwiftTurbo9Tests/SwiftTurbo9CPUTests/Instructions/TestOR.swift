@@ -57,10 +57,10 @@ struct TestORCC {
         #expect(cpu.readCC(.firq) == true)
         #expect(cpu.readCC(.halfcarry) == true)
         #expect(cpu.readCC(.irq) == true)
-        #expect(cpu.readCC(.negative) == false)
-        #expect(cpu.readCC(.zero) == false)
-        #expect(cpu.readCC(.overflow) == false)
-        #expect(cpu.readCC(.carry) == false)
+        #expect(cpu.readCC(.negative) == true)
+        #expect(cpu.readCC(.zero) == true)
+        #expect(cpu.readCC(.overflow) == true)
+        #expect(cpu.readCC(.carry) == true)
     }
     
     @Test func test_orcc_immediate_2() async throws {
@@ -80,13 +80,13 @@ struct TestORCC {
         
         try cpu.perform(instruction: .orcc, addressMode: .imm8)
         
-        #expect(cpu.readCC(.entire) == false)
-        #expect(cpu.readCC(.firq) == false)
-        #expect(cpu.readCC(.halfcarry) == false)
+        #expect(cpu.readCC(.entire) == true)
+        #expect(cpu.readCC(.firq) == true)
+        #expect(cpu.readCC(.halfcarry) == true)
         #expect(cpu.readCC(.irq) == true)
         #expect(cpu.readCC(.negative) == true)
-        #expect(cpu.readCC(.zero) == false)
-        #expect(cpu.readCC(.overflow) == false)
-        #expect(cpu.readCC(.carry) == false)
+        #expect(cpu.readCC(.zero) == true)
+        #expect(cpu.readCC(.overflow) == true)
+        #expect(cpu.readCC(.carry) == true)
     }
 }

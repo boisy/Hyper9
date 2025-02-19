@@ -254,16 +254,13 @@ extension Turbo9CPU {
         // Set zero flag.
         setZeroFlag(using: newValue)
 
-        // Set overflow flag.
-        // This flag should be set if the addition overflow in `Int16`, aka. if the result goes out of bounds of (-32768 <-> +32767).
-        // Cast both `D` and `valueToAdd` to `Int16`, add them and check if there's an overflow.
-        let addResult = Int16(bitPattern: D).addingReportingOverflow(Int16(bitPattern: valueToSubtract))
-        setCC(.overflow, addResult.overflow)
+        let result = Int16(bitPattern: D).subtractingReportingOverflow(Int16(bitPattern: valueToSubtract))
+        setCC(.overflow, result.overflow)
 
         // Set carry flag.
-        setCC(.carry, newValue > 0xFFFF)
+        setCC(.carry, valueToSubtract > D)
 
-        D = UInt16(newValue & 0xFFFF)
+        D = newValue
 
         return true
     }

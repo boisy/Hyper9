@@ -123,6 +123,7 @@ public class Turbo9CPU {
     var totalInstructionCycles: Int = 0
     public var instructionsExecuted: UInt = 0
     public var interruptsReceived: UInt = 0
+    public var secondsPerInstruction = 0.0
     let cyclesPerInterrupt: UInt = 1000
     public var syncToInterrupt = false
     
@@ -220,7 +221,7 @@ public class Turbo9CPU {
         X = 0
         Y = 0
         U = 0
-        S = 0
+        S = 0x500
         DP = 0
         CC = 0
         PC = addr
@@ -296,24 +297,26 @@ public class Turbo9CPU {
     }
 
     /// Deassert the interrupt.
-    func deassertIRQ() {
+    public func deassertIRQ() {
         previousInstructionIRQState = false
         IRQ = false
     }
 
     /// Deassert the fast Interrupt.
-    func deassertFIRQ() {
+    public func deassertFIRQ() {
         previousInstructionFIRQState = false
         FIRQ = false
     }
 
     /// Deassert the non-maskable Interrupt.
-    func deassertNMI() {
+    public func deassertNMI() {
         previousInstructionNMIState = false
         NMI = false
     }
 
     func step() throws {
+        let startTime = Date()
+        
         // Increment clock cycles.
         clockCycles = clockCycles + 1
         
@@ -363,6 +366,7 @@ public class Turbo9CPU {
         setupAddressing(using: opcode.1)
         try perform(instruction: opcode.0, addressMode: opcode.1)
         instructionsExecuted = instructionsExecuted + 1
+        secondsPerInstruction = 1.0 / Date().timeIntervalSince(startTime)
     }
     
     /// Start a program.

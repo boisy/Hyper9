@@ -17,13 +17,19 @@ struct DocumentView: View {
     var body: some View {
         HStack {
             VStack {
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        TurbOSGlobalsView()
+                    }
+                }
+            }
+//            .frame(width:140, height: .infinity)
+
+            VStack {
                 MemoryView()
                 TerminalView()
             }
             .frame(width:640, height: 640)
-
-            VStack {
-            }
 
             VStack {
                 RegisterView()
@@ -64,12 +70,11 @@ class Turbo9ViewModel: ObservableObject {
     @Published var S: UInt16 = 0x0000
     @Published var PC: UInt16 = 0x0000
     @Published var ccString: String = ""
-    @Published var instructionsExecuted: UInt = 0
-    @Published var interruptsReceived: UInt = 0
     @Published var operations: [Disassembler.Turbo9Operation] = []
     @Published var memoryDump: String = ""
     public var turbo9 = Disassembler(program: [UInt8].init(repeating: 0x00, count: 65536), logPath: "/Users/boisy/turbo9.log")
     public var updateUI: (() -> Void) = {}
+    public var updateCPU: (() -> Void) = {}
     public var output : UInt8 = 0
     @Published public var outputString = ""
     private var outputBuffer = ""
@@ -121,25 +126,36 @@ class Turbo9ViewModel: ObservableObject {
     init() {
         let outputHandler = BusWriteHandler(address: 0xFF00, callback: { value in
             self.outputBuffer += String(format: "%c", value)
-            DispatchQueue.main.sync {
-                self.updateUI()
+//                self.updateUI()
+        })
+
+        let timerStatusHandler = BusWriteHandler(address: 0xFF01, callback: { value in
+            // Writing 1 to bit 0 deasserts IRQ
+            if (value & 0x01) == 0x01 {
+                let v = self.turbo9.bus.read(0xFF01, readThroughIO: true) & 0xFE
+//                self.turbo9.bus.write(0xFF01, data: v, writeThroughIO: true)
+                self.turbo9.deassertIRQ()
             }
         })
 
-        let timerHandler = BusWriteHandler(address: 0xFF02, callback: { value in
+        let timerControlHandler = BusWriteHandler(address: 0xFF02, callback: { value in
             if (value & 0x01) == 0x01 {
                 self.timerRunning = true
+            } else {
+                self.timerRunning = false
             }
         })
-
-        reset()
-        turbo9.bus.addWriteHandler(handler: outputHandler)
-        turbo9.bus.addWriteHandler(handler: timerHandler)
         
+        reset()
+        
+        turbo9.bus.addWriteHandler(handler: outputHandler)
+        turbo9.bus.addWriteHandler(handler: timerStatusHandler)
+        turbo9.bus.addWriteHandler(handler: timerControlHandler)
+
         // Set the model’s update callback to update the published property.
         updateUI = { [weak self] in
             // Make sure to update on the main thread.
-//            DispatchQueue.main.async {
+           DispatchQueue.main.async {
                 if let self = self {
                     self.A = self.turbo9.A
                     self.B = self.turbo9.B
@@ -150,13 +166,26 @@ class Turbo9ViewModel: ObservableObject {
                     self.S = self.turbo9.S
                     self.ccString = self.turbo9.ccString
                     self.PC = self.turbo9.PC
-                    self.instructionsExecuted = self.turbo9.instructionsExecuted
-                    self.interruptsReceived = self.turbo9.interruptsReceived
                     self.memoryDump = self.turbo9.memoryDump
                     self.operations = self.turbo9.operations
                     self.outputString = self.outputBuffer
                 }
-//            }
+            }
+        }
+
+        updateCPU = { [weak self] in
+            // Make sure to update on the main thread.
+                if let self = self {
+                    self.turbo9.A = self.A
+                    self.turbo9.B = self.B
+                    self.turbo9.DP = self.DP
+                    self.turbo9.X = self.X
+                    self.turbo9.Y = self.Y
+                    self.turbo9.U = self.U
+                    self.turbo9.S = self.S
+                    self.turbo9.ccString = self.ccString
+                    self.turbo9.PC = self.PC
+            }
         }
     }
 

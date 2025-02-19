@@ -172,17 +172,17 @@ private extension Turbo9CPU {
                 effectiveAddress = UInt16(truncatingIfNeeded: result)
             case 20: // indirect constant offset from register (2s complement - no offset) no offset
                 let result = Int(registerValue)
-                effectiveAddress = UInt16(truncatingIfNeeded: result)
+                effectiveAddress = readWord(UInt16(truncatingIfNeeded: result))
             case 24: // indirect constant offset from register (2s complement - no offset) 8 bit offset
                 let nextValue = Int8(bitPattern: readByte(PC))
                 PC = PC &+ 1
                 let result = Int(registerValue) &+ Int(nextValue)
-                effectiveAddress = UInt16(truncatingIfNeeded: result)
+                effectiveAddress = readWord(UInt16(truncatingIfNeeded: result))
             case 25: // indirect constant offset from register (2s complement - no offset) 16 bit offset
                 let nextValue = Int16(bitPattern: readWord(PC))
                 PC = PC &+ 2
                 let result = Int(registerValue) &+ Int(nextValue)
-                effectiveAddress = UInt16(truncatingIfNeeded: result)
+                effectiveAddress = readWord(UInt16(truncatingIfNeeded: result))
             case 21: // indirect B accumulator offset from register (2s complement offset)
                 let result = Int(registerValue) &+ Int(B)
                 effectiveAddress = readWord(readWord(UInt16(truncatingIfNeeded: result)))
