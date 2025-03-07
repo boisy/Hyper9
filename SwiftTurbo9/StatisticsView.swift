@@ -29,7 +29,7 @@ struct StatisticsView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 90)
                 Text("IPS:")
-                TextField("",  value: $model.turbo9.secondsPerInstruction, format: .number)
+                TextField("",  value: $model.instructionsPerSecond, format: .number)
                     .disabled(true)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 90)

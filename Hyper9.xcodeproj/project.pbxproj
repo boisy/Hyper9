@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6837DB752D5309300081A040 /* Turbo9Sim in Frameworks */ = {isa = PBXBuildFile; productRef = 6837DB742D5309300081A040 /* Turbo9Sim */; };
+		689C2FE92D7B556A00B1952E /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 689C2FE82D7B556A00B1952E /* CocoaLumberjack */; };
+		689C2FEB2D7B556A00B1952E /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 689C2FEA2D7B556A00B1952E /* CocoaLumberjackSwift */; };
+		689C2FED2D7B556A00B1952E /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 689C2FEC2D7B556A00B1952E /* CocoaLumberjackSwiftLogBackend */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,9 +32,9 @@
 
 /* Begin PBXFileReference section */
 		684F6DC92D60CB3200EF4315 /* Turbo9.pxd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Turbo9.pxd; sourceTree = "<group>"; };
-		6888ABF32D413E9F004DC040 /* SwiftTurbo9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTurbo9.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6888AC042D413EA2004DC040 /* SwiftTurbo9Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftTurbo9Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6888AC0E2D413EA2004DC040 /* SwiftTurbo9UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftTurbo9UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6888ABF32D413E9F004DC040 /* Hyper9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hyper9.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6888AC042D413EA2004DC040 /* Hyper9Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AD362D414B30004DC040 /* SwiftTurbo9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftTurbo9.xctestplan; sourceTree = "<group>"; };
 		68C437BF2D6C958D004B98CE /* SwiftTurbo9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftTurbo9.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,7 +62,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689C2FE92D7B556A00B1952E /* CocoaLumberjack in Frameworks */,
 				6837DB752D5309300081A040 /* Turbo9Sim in Frameworks */,
+				689C2FED2D7B556A00B1952E /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				689C2FEB2D7B556A00B1952E /* CocoaLumberjackSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,9 +102,9 @@
 		6888ABF42D413E9F004DC040 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6888ABF32D413E9F004DC040 /* SwiftTurbo9.app */,
-				6888AC042D413EA2004DC040 /* SwiftTurbo9Tests.xctest */,
-				6888AC0E2D413EA2004DC040 /* SwiftTurbo9UITests.xctest */,
+				6888ABF32D413E9F004DC040 /* Hyper9.app */,
+				6888AC042D413EA2004DC040 /* Hyper9Tests.xctest */,
+				6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,9 +112,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6888ABF22D413E9F004DC040 /* SwiftTurbo9 */ = {
+		6888ABF22D413E9F004DC040 /* Hyper9 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6888AC182D413EA2004DC040 /* Build configuration list for PBXNativeTarget "SwiftTurbo9" */;
+			buildConfigurationList = 6888AC182D413EA2004DC040 /* Build configuration list for PBXNativeTarget "Hyper9" */;
 			buildPhases = (
 				6888ABEF2D413E9F004DC040 /* Sources */,
 				6888ABF02D413E9F004DC040 /* Frameworks */,
@@ -121,17 +127,20 @@
 			fileSystemSynchronizedGroups = (
 				6888ABF52D413E9F004DC040 /* SwiftTurbo9 */,
 			);
-			name = SwiftTurbo9;
+			name = Hyper9;
 			packageProductDependencies = (
 				6837DB742D5309300081A040 /* Turbo9Sim */,
+				689C2FE82D7B556A00B1952E /* CocoaLumberjack */,
+				689C2FEA2D7B556A00B1952E /* CocoaLumberjackSwift */,
+				689C2FEC2D7B556A00B1952E /* CocoaLumberjackSwiftLogBackend */,
 			);
 			productName = SwiftTurbo9;
-			productReference = 6888ABF32D413E9F004DC040 /* SwiftTurbo9.app */;
+			productReference = 6888ABF32D413E9F004DC040 /* Hyper9.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6888AC032D413EA2004DC040 /* SwiftTurbo9Tests */ = {
+		6888AC032D413EA2004DC040 /* Hyper9Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6888AC1B2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "SwiftTurbo9Tests" */;
+			buildConfigurationList = 6888AC1B2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "Hyper9Tests" */;
 			buildPhases = (
 				6888AC002D413EA2004DC040 /* Sources */,
 				6888AC012D413EA2004DC040 /* Frameworks */,
@@ -145,16 +154,16 @@
 			fileSystemSynchronizedGroups = (
 				6888AC072D413EA2004DC040 /* SwiftTurbo9Tests */,
 			);
-			name = SwiftTurbo9Tests;
+			name = Hyper9Tests;
 			packageProductDependencies = (
 			);
 			productName = SwiftTurbo9Tests;
-			productReference = 6888AC042D413EA2004DC040 /* SwiftTurbo9Tests.xctest */;
+			productReference = 6888AC042D413EA2004DC040 /* Hyper9Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6888AC0D2D413EA2004DC040 /* SwiftTurbo9UITests */ = {
+		6888AC0D2D413EA2004DC040 /* Hyper9UITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6888AC1E2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "SwiftTurbo9UITests" */;
+			buildConfigurationList = 6888AC1E2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "Hyper9UITests" */;
 			buildPhases = (
 				6888AC0A2D413EA2004DC040 /* Sources */,
 				6888AC0B2D413EA2004DC040 /* Frameworks */,
@@ -168,11 +177,11 @@
 			fileSystemSynchronizedGroups = (
 				6888AC112D413EA2004DC040 /* SwiftTurbo9UITests */,
 			);
-			name = SwiftTurbo9UITests;
+			name = Hyper9UITests;
 			packageProductDependencies = (
 			);
 			productName = SwiftTurbo9UITests;
-			productReference = 6888AC0E2D413EA2004DC040 /* SwiftTurbo9UITests.xctest */;
+			productReference = 6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -183,7 +192,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					6888ABF22D413E9F004DC040 = {
 						CreatedOnToolsVersion = 16.2;
@@ -198,7 +207,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6888ABEE2D413E9F004DC040 /* Build configuration list for PBXProject "SwiftTurbo9" */;
+			buildConfigurationList = 6888ABEE2D413E9F004DC040 /* Build configuration list for PBXProject "Hyper9" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -209,15 +218,16 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6837DB732D5309300081A040 /* XCLocalSwiftPackageReference "SwiftTurbo9/Turbo9Sim" */,
+				689C2FE72D7B556A00B1952E /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6888ABF42D413E9F004DC040 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6888ABF22D413E9F004DC040 /* SwiftTurbo9 */,
-				6888AC032D413EA2004DC040 /* SwiftTurbo9Tests */,
-				6888AC0D2D413EA2004DC040 /* SwiftTurbo9UITests */,
+				6888ABF22D413E9F004DC040 /* Hyper9 */,
+				6888AC032D413EA2004DC040 /* Hyper9Tests */,
+				6888AC0D2D413EA2004DC040 /* Hyper9UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -273,12 +283,12 @@
 /* Begin PBXTargetDependency section */
 		6888AC062D413EA2004DC040 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6888ABF22D413E9F004DC040 /* SwiftTurbo9 */;
+			target = 6888ABF22D413E9F004DC040 /* Hyper9 */;
 			targetProxy = 6888AC052D413EA2004DC040 /* PBXContainerItemProxy */;
 		};
 		6888AC102D413EA2004DC040 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6888ABF22D413E9F004DC040 /* SwiftTurbo9 */;
+			target = 6888ABF22D413E9F004DC040 /* Hyper9 */;
 			targetProxy = 6888AC0F2D413EA2004DC040 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -318,6 +328,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -379,6 +390,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -406,6 +418,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftTurbo9/SwiftTurbo9.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftTurbo9/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -443,6 +456,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftTurbo9/SwiftTurbo9.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftTurbo9/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -478,6 +492,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -489,7 +504,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftTurbo9.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftTurbo9";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hyper9.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hyper9";
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Debug;
@@ -500,6 +515,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -511,7 +527,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftTurbo9.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftTurbo9";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hyper9.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hyper9";
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
@@ -521,6 +537,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -542,6 +559,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -561,7 +579,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6888ABEE2D413E9F004DC040 /* Build configuration list for PBXProject "SwiftTurbo9" */ = {
+		6888ABEE2D413E9F004DC040 /* Build configuration list for PBXProject "Hyper9" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6888AC162D413EA2004DC040 /* Debug */,
@@ -570,7 +588,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6888AC182D413EA2004DC040 /* Build configuration list for PBXNativeTarget "SwiftTurbo9" */ = {
+		6888AC182D413EA2004DC040 /* Build configuration list for PBXNativeTarget "Hyper9" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6888AC192D413EA2004DC040 /* Debug */,
@@ -579,7 +597,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6888AC1B2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "SwiftTurbo9Tests" */ = {
+		6888AC1B2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "Hyper9Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6888AC1C2D413EA2004DC040 /* Debug */,
@@ -588,7 +606,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6888AC1E2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "SwiftTurbo9UITests" */ = {
+		6888AC1E2D413EA2004DC040 /* Build configuration list for PBXNativeTarget "Hyper9UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6888AC1F2D413EA2004DC040 /* Debug */,
@@ -606,10 +624,36 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		689C2FE72D7B556A00B1952E /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.8.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		6837DB742D5309300081A040 /* Turbo9Sim */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Turbo9Sim;
+		};
+		689C2FE82D7B556A00B1952E /* CocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 689C2FE72D7B556A00B1952E /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjack;
+		};
+		689C2FEA2D7B556A00B1952E /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 689C2FE72D7B556A00B1952E /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		689C2FEC2D7B556A00B1952E /* CocoaLumberjackSwiftLogBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 689C2FE72D7B556A00B1952E /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwiftLogBackend;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

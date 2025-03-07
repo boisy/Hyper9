@@ -64,9 +64,12 @@ struct ControlView: View {
                     Button(action: {
                         if stepCount > 0 {
                             model.updateCPU()
+                            let startTime = Date()
+                            
                             for _ in 1...stepCount {
                                 model.step()
                             }
+                            model.instructionsPerSecond = Double(stepCount) / Date().timeIntervalSince(startTime)
                             model.turbo9.checkDisassembly()
                             model.updateUI()
                         }
@@ -91,9 +94,13 @@ struct ControlView: View {
                         } else {
                             model.running = true
                             goLabel = "pause.fill"
+                            model.updateCPU()
                             DispatchQueue.global(qos: .background).async {
+                                let startTime = Date()
+                                var instructionCount = 0
                                 repeat {
                                     model.step()
+                                    instructionCount += 1
                                     if model.timerRunning == true && model.turbo9.clockCycles % cyclesPerTick == 0 {
                                         model.invokeTimer()
                                     }
@@ -105,6 +112,7 @@ struct ControlView: View {
                                     }
                                 } while model.running == true && model.turbo9.PC != UInt16(gotoAddress)
                                 DispatchQueue.main.async {
+                                    model.instructionsPerSecond = Double(instructionCount) / Date().timeIntervalSince(startTime)
                                     model.running = false
                                     goLabel = "play.fill"
                                     model.turbo9.checkDisassembly()
@@ -157,6 +165,8 @@ struct ControlView: View {
                         Image(systemName: "button.horizontal.top.press")
                     }
                     .disabled(model.running == true)
+                    Toggle("log", systemImage: "text.alignleft", isOn: $model.logging)
+                        .toggleStyle(.checkbox)
                 }
             } label: {
                 Label("Control", systemImage: "gamecontroller.fill")

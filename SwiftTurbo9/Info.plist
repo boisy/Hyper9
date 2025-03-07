@@ -13,7 +13,7 @@
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.pitre.SwiftTurbo9.document</string>
+				<string>org.pitre.Hyper9.document</string>
 			</array>
 		</dict>
 	</array>

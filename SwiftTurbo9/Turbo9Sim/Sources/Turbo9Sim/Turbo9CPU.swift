@@ -123,7 +123,6 @@ public class Turbo9CPU {
     var totalInstructionCycles: Int = 0
     public var instructionsExecuted: UInt = 0
     public var interruptsReceived: UInt = 0
-    public var secondsPerInstruction = 0.0
     let cyclesPerInterrupt: UInt = 1000
     public var syncToInterrupt = false
     
@@ -228,6 +227,7 @@ public class Turbo9CPU {
         instructionsExecuted = 0
         interruptsReceived = 0
         syncToInterrupt = false
+        clockCycles = 0
         
         // Reset the bus.
         bus.reset()
@@ -366,7 +366,6 @@ public class Turbo9CPU {
         setupAddressing(using: opcode.1)
         try perform(instruction: opcode.0, addressMode: opcode.1)
         instructionsExecuted = instructionsExecuted + 1
-        secondsPerInstruction = 1.0 / Date().timeIntervalSince(startTime)
     }
     
     /// Start a program.

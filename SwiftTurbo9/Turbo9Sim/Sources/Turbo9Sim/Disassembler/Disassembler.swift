@@ -1,30 +1,19 @@
 import Foundation
 
 public class Disassembler: Turbo9CPU {
-
     // MARK: - Private properties
 
     private var program: [UInt8] = []
     public var operations = [Turbo9Operation]()
     private var filePath : String = ""
-    private var logPath : String = ""
+    public var logging : Bool = true
     private var fileHandle : FileHandle?
+    public var instructionClosure : ((String) -> Void)?
 
     // MARK: - Init
 
-    public init(program: [UInt8] = [], pc: UInt16 = 0x00, logPath: String = "") {
+    public init(program: [UInt8] = [], pc: UInt16 = 0x00) {
         self.program = program
-        self.logPath = logPath
-
-        if !FileManager.default.fileExists(atPath: self.logPath) {
-            // Create an empty file
-            FileManager.default.createFile(atPath: self.logPath, contents: nil, attributes: nil)
-        }
-        do {
-            let logURL = URL(fileURLWithPath: self.logPath)
-            self.fileHandle = try FileHandle(forWritingTo: logURL)
-        } catch {
-        }
 
         super.init(
             bus: Bus(memory: .createRam(withProgram: program)),
@@ -32,9 +21,8 @@ public class Disassembler: Turbo9CPU {
         )
     }
 
-    public init(filePath: String, pc: UInt16 = 0x00, logPath: String = "") {
+    public init(filePath: String, pc: UInt16 = 0x00, logging : Bool = true) {
         self.filePath = filePath
-        self.logPath = logPath
         let fileURL = URL(fileURLWithPath: self.filePath)
         do {
             program = try [UInt8](Data(contentsOf: fileURL))
@@ -42,16 +30,6 @@ public class Disassembler: Turbo9CPU {
             program = []
         }
 
-        if !FileManager.default.fileExists(atPath: self.logPath) {
-            // Create an empty file
-            FileManager.default.createFile(atPath: self.logPath, contents: nil, attributes: nil)
-        }
-        do {
-            let logURL = URL(fileURLWithPath: self.logPath)
-            self.fileHandle = try FileHandle(forWritingTo: logURL)
-        } catch {
-        }
-        
         super.init(
             bus: Bus(memory: .createRam(withProgram: program)),
             pc: pc
@@ -179,19 +157,33 @@ public class Disassembler: Turbo9CPU {
         return operations.map { $0.asCode }
     }
 
+    private func registerLine() -> String {
+        let A = String(format: "%02X", A)
+        let B = String(format: "%02X", B)
+        let DP = String(format: "%02X", DP)
+        let CC = ccString
+        let X = String(format: "%04X", X)
+        let Y = String(format: "%04X", Y)
+        let U = String(format: "%04X", U)
+        let S = String(format: "%04X", S)
+        return "A:\(A) B:\(B) DP:\(DP) CC:\(CC) X:\(X) Y:\(Y) U:\(U) S:\(S)"
+    }
+    
     override public func step() throws {
-        try super.step()
-        if syncToInterrupt == false {
-/*
-        let op = disassemble(pc: PC)
-        if let fh = self.fileHandle, let op = op {
-                //            let data = (String(format:"%@ DP=%02X CC=%@ A=%02X B=%02X X=%04X Y=%04X U=%04X S=%04X\n",
-                //                               op[0].asCode, DP, ccString, A, B, X, Y, U, S)).data(using: .utf8)!
-                let data = (String(format:"%@ \n",
-                                   op.asCode)).data(using: .utf8)!
-                fh.write(data)
+        var logLine = ""
+        if syncToInterrupt == false && logging == true {
+            if let op = disassemble(pc: PC) {
+                logLine = op.asCode
             }
-*/
+        }
+        try super.step()
+        if syncToInterrupt == false && logging == true {
+            logLine = logLine.padding(toLength: 40, withPad: " ", startingAt: 0)
+            let registers = registerLine()
+            logLine += registers
+            if let c = instructionClosure {
+                c(logLine)
+            }
         }
     }
     

@@ -8,6 +8,7 @@
 import SwiftUI
 import Turbo9Sim
 import UniformTypeIdentifiers
+import CocoaLumberjackSwift
 
 struct DocumentView: View {
     // Bind to the document so changes are automatically saved.
@@ -72,7 +73,8 @@ class Turbo9ViewModel: ObservableObject {
     @Published var ccString: String = ""
     @Published var operations: [Disassembler.Turbo9Operation] = []
     @Published var memoryDump: String = ""
-    public var turbo9 = Disassembler(program: [UInt8].init(repeating: 0x00, count: 65536), logPath: "/Users/boisy/turbo9.log")
+    @Published var logging : Bool = true
+    public var turbo9 = Disassembler(program: [UInt8].init(repeating: 0x00, count: 65536))
     public var updateUI: (() -> Void) = {}
     public var updateCPU: (() -> Void) = {}
     public var output : UInt8 = 0
@@ -80,6 +82,9 @@ class Turbo9ViewModel: ObservableObject {
     private var outputBuffer = ""
     @Published var running = false
     public var timerRunning = false
+    public var instructionsPerSecond = 0.0
+    private let fileLogger: DDFileLogger = DDFileLogger() // File Logger
+    private var logBuffer : String = ""
 
     func disassemble(instructionCount: UInt) {
         let _ = turbo9.disassemble(instructionCount: instructionCount)
@@ -97,7 +102,7 @@ class Turbo9ViewModel: ObservableObject {
     func load(url: URL) {
         do {
             try turbo9.load(url: url)
-            outputString = ""
+            outputBuffer = ""
             updateUI()
         } catch {
             
@@ -107,6 +112,8 @@ class Turbo9ViewModel: ObservableObject {
     func reset() {
         do {
             try turbo9.reset()
+            outputBuffer = ""
+            instructionsPerSecond = 0.0
         } catch {
             
         }
@@ -114,11 +121,11 @@ class Turbo9ViewModel: ObservableObject {
 
     public func invokeTimer() {
         // Set the bit indicating the timer has fired
-        let value = turbo9.bus.read(0xFF01)
-        turbo9.bus.write(0xFF01, data: value | 0x01)
+        let value = turbo9.bus.read(0xFF02)
+        turbo9.bus.write(0xFF02, data: value | 0x01)
         
         // If the timer control register's "interrupt on timer fire" is set, assert the IRQ
-        if (turbo9.bus.read(0xFF02) & 0x01) == 0x01 {
+        if (turbo9.bus.read(0xFF03) & 0x01) == 0x01 {
             turbo9.assertIRQ()
         }
     }
@@ -129,16 +136,15 @@ class Turbo9ViewModel: ObservableObject {
 //                self.updateUI()
         })
 
-        let timerStatusHandler = BusWriteHandler(address: 0xFF01, callback: { value in
+        let timerStatusHandler = BusWriteHandler(address: 0xFF02, callback: { value in
             // Writing 1 to bit 0 deasserts IRQ
             if (value & 0x01) == 0x01 {
-                let v = self.turbo9.bus.read(0xFF01, readThroughIO: true) & 0xFE
-//                self.turbo9.bus.write(0xFF01, data: v, writeThroughIO: true)
+                let _ = self.turbo9.bus.read(0xFF02, readThroughIO: true) & 0xFE
                 self.turbo9.deassertIRQ()
             }
         })
 
-        let timerControlHandler = BusWriteHandler(address: 0xFF02, callback: { value in
+        let timerControlHandler = BusWriteHandler(address: 0xFF03, callback: { value in
             if (value & 0x01) == 0x01 {
                 self.timerRunning = true
             } else {
@@ -185,8 +191,23 @@ class Turbo9ViewModel: ObservableObject {
                     self.turbo9.S = self.S
                     self.turbo9.ccString = self.ccString
                     self.turbo9.PC = self.PC
+                    self.turbo9.logging = self.logging
             }
         }
+        
+        fileLogger.rollingFrequency = 60 * 60 * 24 // 24 hours
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
+        DDLog.add(fileLogger)
+
+        func log(_ message: String) {
+            logBuffer += message + "\n"
+            if (logBuffer.count > 10000) {
+                DDLogInfo(logBuffer)
+                logBuffer = ""
+            }
+        }
+        
+        turbo9.instructionClosure = log
     }
 
     func startTask() {

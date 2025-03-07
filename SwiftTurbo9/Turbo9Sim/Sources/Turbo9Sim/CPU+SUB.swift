@@ -249,13 +249,17 @@ extension Turbo9CPU {
         newValue = UInt16(truncatingIfNeeded: Int(D) &- Int(valueToSubtract))
 
         // Set negative flag, if highest bit is set.
-        setNegativeFlag(using: newValue >> 8)
+        setNegativeFlag(using: newValue)
 
         // Set zero flag.
         setZeroFlag(using: newValue)
 
-        let result = Int16(bitPattern: D).subtractingReportingOverflow(Int16(bitPattern: valueToSubtract))
-        setCC(.overflow, result.overflow)
+        if D < valueToSubtract {
+            //        let result = Int16(bitPattern: D).subtractingReportingOverflow(Int16(bitPattern: valueToSubtract))
+            setCC(.overflow, true)
+        } else {
+            setCC(.overflow, false)
+        }
 
         // Set carry flag.
         setCC(.carry, valueToSubtract > D)
