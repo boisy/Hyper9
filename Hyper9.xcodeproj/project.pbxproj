@@ -11,6 +11,7 @@
 		689C2FE92D7B556A00B1952E /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 689C2FE82D7B556A00B1952E /* CocoaLumberjack */; };
 		689C2FEB2D7B556A00B1952E /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 689C2FEA2D7B556A00B1952E /* CocoaLumberjackSwift */; };
 		689C2FED2D7B556A00B1952E /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 689C2FEC2D7B556A00B1952E /* CocoaLumberjackSwiftLogBackend */; };
+		68BF43B42D7DB52500F3B3A8 /* Turbo9Sim in Frameworks */ = {isa = PBXBuildFile; productRef = 68BF43B32D7DB52500F3B3A8 /* Turbo9Sim */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,12 +31,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		68BF43A92D7DB50C00F3B3A8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		684F6DC92D60CB3200EF4315 /* Turbo9.pxd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Turbo9.pxd; sourceTree = "<group>"; };
 		6888ABF32D413E9F004DC040 /* Hyper9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hyper9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC042D413EA2004DC040 /* Hyper9Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AD362D414B30004DC040 /* SwiftTurbo9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftTurbo9.xctestplan; sourceTree = "<group>"; };
+		68BF43AB2D7DB50C00F3B3A8 /* hyper9-cmd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "hyper9-cmd"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C437BF2D6C958D004B98CE /* SwiftTurbo9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftTurbo9.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,6 +67,11 @@
 		6888AC112D413EA2004DC040 /* SwiftTurbo9UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SwiftTurbo9UITests;
+			sourceTree = "<group>";
+		};
+		68BF43AC2D7DB50C00F3B3A8 /* hyper9-cmd */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "hyper9-cmd";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -83,6 +102,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		68BF43A82D7DB50C00F3B3A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68BF43B42D7DB52500F3B3A8 /* Turbo9Sim in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -95,6 +122,8 @@
 				6888ABF52D413E9F004DC040 /* SwiftTurbo9 */,
 				6888AC072D413EA2004DC040 /* SwiftTurbo9Tests */,
 				6888AC112D413EA2004DC040 /* SwiftTurbo9UITests */,
+				68BF43AC2D7DB50C00F3B3A8 /* hyper9-cmd */,
+				68BF43B22D7DB52500F3B3A8 /* Frameworks */,
 				6888ABF42D413E9F004DC040 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,8 +134,16 @@
 				6888ABF32D413E9F004DC040 /* Hyper9.app */,
 				6888AC042D413EA2004DC040 /* Hyper9Tests.xctest */,
 				6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */,
+				68BF43AB2D7DB50C00F3B3A8 /* hyper9-cmd */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		68BF43B22D7DB52500F3B3A8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +221,29 @@
 			productReference = 6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		68BF43AA2D7DB50C00F3B3A8 /* hyper9-cmd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68BF43AF2D7DB50C00F3B3A8 /* Build configuration list for PBXNativeTarget "hyper9-cmd" */;
+			buildPhases = (
+				68BF43A72D7DB50C00F3B3A8 /* Sources */,
+				68BF43A82D7DB50C00F3B3A8 /* Frameworks */,
+				68BF43A92D7DB50C00F3B3A8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				68BF43AC2D7DB50C00F3B3A8 /* hyper9-cmd */,
+			);
+			name = "hyper9-cmd";
+			packageProductDependencies = (
+				68BF43B32D7DB52500F3B3A8 /* Turbo9Sim */,
+			);
+			productName = "hyper9-cmd";
+			productReference = 68BF43AB2D7DB50C00F3B3A8 /* hyper9-cmd */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -191,7 +251,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					6888ABF22D413E9F004DC040 = {
@@ -204,6 +264,9 @@
 					6888AC0D2D413EA2004DC040 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 6888ABF22D413E9F004DC040;
+					};
+					68BF43AA2D7DB50C00F3B3A8 = {
+						CreatedOnToolsVersion = 16.3;
 					};
 				};
 			};
@@ -228,6 +291,7 @@
 				6888ABF22D413E9F004DC040 /* Hyper9 */,
 				6888AC032D413EA2004DC040 /* Hyper9Tests */,
 				6888AC0D2D413EA2004DC040 /* Hyper9UITests */,
+				68BF43AA2D7DB50C00F3B3A8 /* hyper9-cmd */,
 			);
 		};
 /* End PBXProject section */
@@ -272,6 +336,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6888AC0A2D413EA2004DC040 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68BF43A72D7DB50C00F3B3A8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -576,6 +647,32 @@
 			};
 			name = Release;
 		};
+		68BF43B02D7DB50C00F3B3A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SZZ6T94TQD;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		68BF43B12D7DB50C00F3B3A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SZZ6T94TQD;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -611,6 +708,15 @@
 			buildConfigurations = (
 				6888AC1F2D413EA2004DC040 /* Debug */,
 				6888AC202D413EA2004DC040 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68BF43AF2D7DB50C00F3B3A8 /* Build configuration list for PBXNativeTarget "hyper9-cmd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68BF43B02D7DB50C00F3B3A8 /* Debug */,
+				68BF43B12D7DB50C00F3B3A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -654,6 +760,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 689C2FE72D7B556A00B1952E /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwiftLogBackend;
+		};
+		68BF43B32D7DB52500F3B3A8 /* Turbo9Sim */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6837DB732D5309300081A040 /* XCLocalSwiftPackageReference "SwiftTurbo9/Turbo9Sim" */;
+			productName = Turbo9Sim;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
