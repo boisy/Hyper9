@@ -109,15 +109,12 @@ public class Turbo9CPU {
     
     /// The interrupt input line
     var IRQ: Bool = false
-    private var previousInstructionIRQState: Bool = false
     
     /// The fast interrupt input line
     var FIRQ : Bool = false
-    private var previousInstructionFIRQState: Bool = false
 
     /// The non-maskable interrupt input line
     var NMI : Bool = false
-    private var previousInstructionNMIState: Bool = false
 
     public var clockCycles: UInt = 0
     var totalInstructionCycles: Int = 0
@@ -235,110 +232,85 @@ public class Turbo9CPU {
 
     /// Assert the interrupt
     public func assertIRQ() {
-        if syncToInterrupt == false {
-            pushToS(word: PC)
-            pushToS(word: U)
-            pushToS(word: Y)
-            pushToS(word: X)
-            pushToS(byte: DP)
-            pushToS(byte: B)
-            pushToS(byte: A)
-            setCC(.entire, true)
-            pushToS(byte: CC)
-        }
-        // Mask the IRQ and FIRQ after pushing the CC onto the stack
-        setCC(.irq, true)
-        setCC(.firq, true)
-        PC = readWord(IRQVector)
         IRQ = true
-        syncToInterrupt = false
-        interruptsReceived = interruptsReceived + 1
-        deassertIRQ()
     }
 
     /// Assert the fast interrupt
     public func assertFIRQ() {
-        if syncToInterrupt == false {
-            pushToS(word: PC)
-            setCC(.entire, false)
-            pushToS(byte: CC)
-        }
-        // Mask the IRQ and FIRQ after pushing the CC onto the stack
-        setCC(.irq, true)
-        setCC(.firq, true)
-        PC = readWord(FIRQVector)
         FIRQ = true
-        syncToInterrupt = false
-        interruptsReceived = interruptsReceived + 1
-        deassertFIRQ()
     }
 
     /// Assert the non-maskable interrupt
     public func assertNMI() {
-        if syncToInterrupt == false {
-            pushToS(word: PC)
-            pushToS(word: U)
-            pushToS(word: Y)
-            pushToS(word: X)
-            pushToS(byte: DP)
-            pushToS(byte: B)
-            pushToS(byte: A)
-            setCC(.entire, true)
-            pushToS(byte: CC)
-        }
-        // Mask the IRQ and FIRQ after pushing the CC onto the stack
-        setCC(.irq, true)
-        setCC(.firq, true)
-        PC = readWord(NMIVector)
         NMI = true
-        syncToInterrupt = false
-        interruptsReceived = interruptsReceived + 1
-        deassertNMI()
     }
 
     /// Deassert the interrupt.
     public func deassertIRQ() {
-        previousInstructionIRQState = false
         IRQ = false
     }
 
     /// Deassert the fast Interrupt.
     public func deassertFIRQ() {
-        previousInstructionFIRQState = false
         FIRQ = false
     }
 
     /// Deassert the non-maskable Interrupt.
     public func deassertNMI() {
-        previousInstructionNMIState = false
         NMI = false
     }
 
     func step() throws {
-        let startTime = Date()
-        
+        // Increment instructions executed.
+        instructionsExecuted = instructionsExecuted + 1
+
         // Increment clock cycles.
         clockCycles = clockCycles + 1
         
         bus.refresh()
         
         // Check if non-maskable interrupt preempts our execution
-        if previousInstructionNMIState == false && NMI == true {
-            // NMI is TRUE and we aren't currently in an NMI state
-            previousInstructionNMIState = true
+        if NMI == true {
+            // NMI is TRUE
             PC = readWord(NMIVector)
         } else
         // Check if interrupt preempts our execution
-        if readCC(.irq) == false && previousInstructionIRQState == false && IRQ == true {
+        if readCC(.irq) == false && IRQ == true {
             // IRQ is TRUE, IRQs are unmasked, and we aren't currently in an IRQ state
-            // Push all registers on the stack.
-            previousInstructionIRQState = true
+            if syncToInterrupt == false {
+                pushToS(word: PC)
+                pushToS(word: U)
+                pushToS(word: Y)
+                pushToS(word: X)
+                pushToS(byte: DP)
+                pushToS(byte: B)
+                pushToS(byte: A)
+                setCC(.entire, true)
+                pushToS(byte: CC)
+            }
+            // Mask the IRQ and FIRQ after pushing the CC onto the stack
+            setCC(.irq, true)
+            setCC(.firq, true)
+            syncToInterrupt = false
+            interruptsReceived = interruptsReceived + 1
+            deassertIRQ()
             PC = readWord(IRQVector)
+            return
         } else
         // Check if fast interrupt preempts our execution
-        if readCC(.firq) == false && previousInstructionFIRQState == false && FIRQ == true {
-            // IFRQ is FTRUE, IRQs are unmasked, and we aren't currently in a FIRQ state
-            previousInstructionFIRQState = true
+        if readCC(.firq) == false && FIRQ == true {
+            // FIRQ is TRUE, FIRQs are unmasked, and we aren't currently in anF IRQ state
+            if syncToInterrupt == false {
+                pushToS(word: PC)
+                setCC(.entire, false)
+                pushToS(byte: CC)
+            }
+            // Mask the IRQ and FIRQ after pushing the CC onto the stack
+            setCC(.irq, true)
+            setCC(.firq, true)
+            syncToInterrupt = false
+            interruptsReceived = interruptsReceived + 1
+            deassertFIRQ()
             PC = readWord(FIRQVector)
         }
         
@@ -365,7 +337,6 @@ public class Turbo9CPU {
         
         setupAddressing(using: opcode.1)
         try perform(instruction: opcode.0, addressMode: opcode.1)
-        instructionsExecuted = instructionsExecuted + 1
     }
     
     /// Start a program.

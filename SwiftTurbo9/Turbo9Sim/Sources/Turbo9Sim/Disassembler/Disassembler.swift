@@ -176,8 +176,10 @@ public class Disassembler: Turbo9CPU {
                 logLine = op.asCode
             }
         }
+        let syncToInterruptPre = syncToInterrupt
         try super.step()
-        if syncToInterrupt == false && logging == true {
+        let syncToInterruptPost = syncToInterrupt
+        if (syncToInterrupt == false || syncToInterruptPre != syncToInterruptPost) && logging == true {
             logLine = logLine.padding(toLength: 40, withPad: " ", startingAt: 0)
             let registers = registerLine()
             logLine += registers

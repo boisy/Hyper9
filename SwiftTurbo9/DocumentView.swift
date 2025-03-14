@@ -73,7 +73,7 @@ class Turbo9ViewModel: ObservableObject {
     @Published var ccString: String = ""
     @Published var operations: [Disassembler.Turbo9Operation] = []
     @Published var memoryDump: String = ""
-    @Published var logging : Bool = true
+    @Published var logging : Bool = false
     public var turbo9 = Disassembler(program: [UInt8].init(repeating: 0x00, count: 65536))
     public var updateUI: (() -> Void) = {}
     public var updateCPU: (() -> Void) = {}
@@ -196,7 +196,7 @@ class Turbo9ViewModel: ObservableObject {
         }
         
         fileLogger.rollingFrequency = 60 * 60 * 24 // 24 hours
-        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 20
         DDLog.add(fileLogger)
 
         func log(_ message: String) {

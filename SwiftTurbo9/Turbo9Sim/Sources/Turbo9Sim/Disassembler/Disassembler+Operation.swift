@@ -206,7 +206,7 @@ extension Disassembler {
 
                // 3 is the number of bytes between offset and the next instruction, which is where
                // the relative location should be calculated from.
-               let location = offset &+ 3 &+ value
+               let location = offset &+ size &+ value
                return "\(location.asHex)"
 
            case .direct(let value):
