@@ -5,6 +5,14 @@ extension Int16 {
         Int8(self >> 8)
     }
     
+    var asHex: String {
+        String(format: "$%04hX", self)
+    }
+    
+    var asHexNoDollar: String {
+        String(format: "%04hX", self)
+    }
+
     var lowByte: Int8 {
         Int8(self & 0xFF)
     }

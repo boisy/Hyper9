@@ -1,5 +1,34 @@
 import Foundation
 
+private class Symbol {
+    let label : String
+    let file : String
+    let address : UInt16
+    
+    init(label: String, file: String, address: UInt16) {
+        self.label = label
+        self.file = file
+        self.address = address
+    }
+    
+    init(line: String) {
+        let tokens = line.components(separatedBy: " ")
+        var theLabel = tokens[1]
+        if theLabel.hasPrefix(".static.function.") {
+            theLabel = String(theLabel.dropFirst(".static.function.".count))
+        }
+        if theLabel.hasPrefix(".local.static.") {
+            theLabel = String(theLabel.dropFirst(".local.static.".count))
+        }
+        if theLabel.hasPrefix(".global.static.variable.") {
+            theLabel = String(theLabel.dropFirst(".global.static.variable.".count))
+        }
+        self.label = theLabel
+        self.file = tokens[2]
+        self.address = UInt16(tokens[4], radix: 16)!
+    }
+}
+
 public class Disassembler: Turbo9CPU {
     // MARK: - Private properties
 
@@ -9,6 +38,7 @@ public class Disassembler: Turbo9CPU {
     public var logging : Bool = true
     private var fileHandle : FileHandle?
     public var instructionClosure : ((String) -> Void)?
+    var symbolTable : SymbolTable = SymbolTable()
 
     // MARK: - Init
 
@@ -19,6 +49,36 @@ public class Disassembler: Turbo9CPU {
             bus: Bus(memory: .createRam(withProgram: program)),
             pc: pc
         )
+    }
+
+    struct SymbolTable {
+        fileprivate var symbols : [Symbol] = []
+        
+        init() {
+            
+        }
+        
+        init(symbolFileURL: URL) {
+            do {
+                let symbolFileContents = try String(contentsOf: symbolFileURL)
+                let lines = symbolFileContents.components(separatedBy: .newlines)
+                for line in lines {
+                    if line.hasPrefix("Symbol:") {
+                        symbols.append(Symbol(line: line))
+                    }
+                }
+            } catch {
+            }
+        }
+
+        func lookup(address : UInt16) -> String {
+            for symbol in symbols {
+                if symbol.address == address {
+                    return symbol.label
+                }
+            }
+            return ""
+        }
     }
 
     public init(filePath: String, pc: UInt16 = 0x00, logging : Bool = true) {
@@ -39,6 +99,7 @@ public class Disassembler: Turbo9CPU {
     public func load(url : URL) throws {
         do {
             let program = try Data(contentsOf: url)
+            symbolTable = SymbolTable(symbolFileURL: url.deletingPathExtension().appendingPathExtension("map"))
             self.program = [UInt8](program)
             let newRam = [UInt8].createRam(withProgram: self.program, loadAddress: UInt16(0x10000 - program.count))
             bus.memory = newRam
@@ -120,13 +181,14 @@ public class Disassembler: Turbo9CPU {
                 } else {
                 }
 
+                let label = symbolTable.lookup(address: offset)
                 if opcode.0 == .swi2 {
                     PC = PC &+ 1
                     let operand = getOperand(using: .imm8, offset: PC)
                     let os9 = OpCode(.swi2, .imm8, 1)
-                    operation = Turbo9Operation(offset: offset, preByte: prebyte, opcode: opcodeByte, instruction: os9.0, operand: operand, postOperand: postOperand, size: PC &- oldPC)
+                    operation = Turbo9Operation(label: label, offset: offset, preByte: prebyte, opcode: opcodeByte, instruction: os9.0, addressMode: opcode.1, operand: operand, postOperand: postOperand, size: PC &- oldPC)
                 } else {
-                    operation = Turbo9Operation(offset: offset, preByte: prebyte, opcode: opcodeByte, instruction: opcode.0, operand: operand, postOperand: postOperand, size: PC &- oldPC)
+                    operation = Turbo9Operation(label: label, offset: offset, preByte: prebyte, opcode: opcodeByte, instruction: opcode.0, addressMode: opcode.1, operand: operand, postOperand: postOperand, size: PC &- oldPC)
                 }
             }
         }

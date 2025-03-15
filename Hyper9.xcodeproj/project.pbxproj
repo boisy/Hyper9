@@ -53,9 +53,22 @@
 		68C437BF2D6C958D004B98CE /* SwiftTurbo9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftTurbo9.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		68EF50222D86F74A00C528CA /* Exceptions for "SwiftTurbo9" folder in "Hyper9" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Hyper9 Logo.pxd",
+			);
+			target = 6888ABF22D413E9F004DC040 /* Hyper9 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6888ABF52D413E9F004DC040 /* SwiftTurbo9 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				68EF50222D86F74A00C528CA /* Exceptions for "SwiftTurbo9" folder in "Hyper9" target */,
+			);
 			path = SwiftTurbo9;
 			sourceTree = "<group>";
 		};

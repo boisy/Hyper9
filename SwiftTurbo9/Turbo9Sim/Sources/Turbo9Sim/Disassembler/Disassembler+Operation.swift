@@ -49,17 +49,19 @@ extension Disassembler {
     }
 
     public struct Turbo9Operation {
+        let label: String
         public let offset: UInt16
         let preByte: PreByte
-        let opcode: UInt8
+        public let opcode: UInt8
         let instruction: Instruction
+        public let addressMode: AddressMode
         let operand: Operand
         let postOperand: PostOperand
-        let size: UInt16
+        public let size: UInt16
         
         public var asCode: String {
-            let paddedString = instructionBytes().padding(toLength: 10, withPad: " ", startingAt: 0)
-            return [String(format: "%04X  %@  ", offset, paddedString), instruction.rawValue.padding(toLength: 6, withPad: " ", startingAt: 0), operandAsString].compactMap { $0 }.joined(separator: " ")
+            let paddedString = instructionBytes().padding(toLength: 8, withPad: " ", startingAt: 0)
+            return [String(format: "%04X  %@  ", offset, paddedString), label.padding(toLength: 24, withPad: " ", startingAt: 0), instruction.rawValue.padding(toLength: 6, withPad: " ", startingAt: 0), operandAsString].compactMap { $0 }.joined(separator: " ")
         }
         
         private func instructionBytes() -> String {
@@ -175,10 +177,10 @@ extension Disassembler {
                } else if instruction == .pshu || instruction == .pulu {
                     return pshpulOperandAsString(postByte: value, register: .U)
                }
-               return "#\(value.asHex)"
+               return "#\(value.asSigned)"
 
            case .immediate16(let value):
-               return "#\(value.asHex)"
+               return "#\(value.asSigned)"
 
            case .relative8(let value):
                var value = value.asWord
@@ -280,12 +282,12 @@ extension Disassembler {
                 case 12: // direct constant offset from program counter 8-bit
                     if var value = Int(postOperand.description) {
                         value = value & 0xFF
-                        offset = Int8(bitPattern: UInt8(value)).asHex
+                        offset = String(Int8(bitPattern: UInt8(value)))
                     }
                     register = "PC"
                 case 13: // direct constant offset from program counter 16-bit
                     if let value = UInt16(postOperand.description) {
-                        offset = Int16(bitPattern: value).asHex
+                        offset = String(Int16(bitPattern: value))
                     }
                     register = "PC"
                 case 20: // indirect constant offset from register (2s complement - no offset) no offset
@@ -296,13 +298,13 @@ extension Disassembler {
                     rightBracket = "]"
                     if var value = Int(postOperand.description) {
                         value = value & 0xFF
-                        offset = Int8(bitPattern: UInt8(value)).asHex
+                        offset = String(Int8(bitPattern: UInt8(value)))
                     }
                 case 25: // indirect constant offset from register (2s complement - no offset) 16 bit offset
                     leftBracket = "["
                     rightBracket = "]"
                     if let value = UInt16(postOperand.description) {
-                        offset = Int16(bitPattern: value).asHex
+                        offset = String(Int16(bitPattern: value))
                     }
                 case 21: // indirect B accumulator offset from register (2s complement offset)
                     leftBracket = "["
@@ -327,18 +329,18 @@ extension Disassembler {
                 case 28: // indirect constant offset from program counter 8-bit offset
                     leftBracket = "["
                     rightBracket = "]"
-                    offset = Int8(bitPattern: UInt8(postOperand.description)!).asHex
+                    offset = String(Int8(bitPattern: UInt8(postOperand.description)!))
                     register = "PC"
                 case 29: // indirect constant offset from program counter 16-bit offset
                     leftBracket = "["
                     rightBracket = "]"
-                    offset = Int16(bitPattern: UInt16(postOperand.description)!).asHex
+                    offset = String(Int16(bitPattern: UInt16(postOperand.description)!))
                     register = "PC"
                 case 31: // extended indirect 16-bit address
                     leftBracket = "["
                     rightBracket = "]"
                     if let value = UInt16(postOperand.description) {
-                        offset = Int16(bitPattern: value).asHex
+                        offset = String(Int16(bitPattern: value))
                     }
                     register = ""
                 default:
@@ -356,36 +358,4 @@ extension Disassembler {
         }
 
    }
-}
-
-// MARK: - Private extensions
-
-private extension Int {
-    var asHex: String {
-        String(format: "$%04hX", self)
-    }
-}
-
-private extension UInt8 {
-    var asHex: String {
-        String(format: "$%02hhX", self)
-    }
-}
-
-private extension UInt16 {
-    var asHex: String {
-        String(format: "$%04hX", self)
-    }
-}
-
-private extension Int8 {
-    var asHex: String {
-        String(format: "$%02hhX", self)
-    }
-}
-
-private extension Int16 {
-    var asHex: String {
-        String(format: "$%04hX", self)
-    }
 }

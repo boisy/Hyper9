@@ -1,6 +1,6 @@
 import Foundation
 
-enum AddressMode {
+public enum AddressMode {
     case inh    // Inherent.
     case imm8   // Immediate 8-bit.
     case imm16  // Immediate 16-bit.

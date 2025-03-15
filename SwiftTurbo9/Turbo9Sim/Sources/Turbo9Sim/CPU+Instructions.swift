@@ -221,24 +221,19 @@ extension Turbo9CPU {
     /// - V    -    Not affected.
     /// - C    -    Set if `B` bit 7 of result is set; cleared otherwise.
     func mul(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
-        // Convert accumulator values to signed 8-bit integers using their bit patterns.
-        let signedA = Int8(bitPattern: A)
-        let signedB = Int8(bitPattern: B)
-        
-        // Perform multiplication in 16-bit to prevent overflow.
-        let result = Int16(signedA) * Int16(signedB)
+        // Perform multiplication
+        let result = A * B
         
         // Convert result to unsigned 16-bit to extract high and low bytes.
-        let resultUInt16 = UInt16(bitPattern: result)
-        let highByte = UInt8(resultUInt16 >> 8)
-        let lowByte = UInt8(resultUInt16 & 0xFF)
+        let highByte = UInt8(result >> 8)
+        let lowByte = UInt8(result & 0xFF)
         
         // Store the high and low bytes back into acca and accb.
         A = highByte
         B = lowByte
 
         // Update flags based on the result.
-        setZeroFlag(using: resultUInt16)
+        setZeroFlag(using: result)
         setCC(.carry, (B & 0x80) == 0x80)
 
         return true

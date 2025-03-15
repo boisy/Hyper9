@@ -16,6 +16,54 @@ struct ControlView: View {
 
     var body: some View {
         let cyclesPerTick : UInt = 1000
+        let stepClosure :() -> Void = {
+            if stepCount > 0 {
+                model.updateCPU()
+                let startTime = Date()
+                
+                for _ in 1...stepCount {
+                    model.step()
+                }
+                model.instructionsPerSecond = Double(stepCount) / Date().timeIntervalSince(startTime)
+                model.turbo9.checkDisassembly()
+                model.updateUI()
+            }
+        }
+        let runClosure : () -> Void = {
+            if model.running == true {
+                model.running = false
+                goLabel = "play.fill"
+                model.updateUI()
+            } else {
+                model.running = true
+                goLabel = "pause.fill"
+                model.updateCPU()
+                DispatchQueue.global(qos: .background).async {
+                    let startTime = Date()
+                    var instructionCount = 0
+                    repeat {
+                        model.step()
+                        instructionCount += 1
+                        if model.timerRunning == true && model.turbo9.clockCycles % cyclesPerTick == 0 {
+                            model.invokeTimer()
+                        }
+                        if model.timerRunning == true && model.turbo9.clockCycles % (cyclesPerTick * 50) == 0 {
+                            DispatchQueue.main.sync {
+                                //                                            model.turbo9.checkDisassembly()
+                                //                                            model.updateUI()
+                            }
+                        }
+                    } while model.running == true && model.turbo9.PC != UInt16(gotoAddress)
+                    DispatchQueue.main.async {
+                        model.instructionsPerSecond = Double(instructionCount) / Date().timeIntervalSince(startTime)
+                        model.running = false
+                        goLabel = "play.fill"
+                        model.turbo9.checkDisassembly()
+                        model.updateUI()
+                    }
+                }
+            }
+        }
         HStack {
             GroupBox {
                 HStack {
@@ -62,19 +110,29 @@ struct ControlView: View {
             GroupBox {
                 HStack {
                     Button(action: {
-                        if stepCount > 0 {
-                            model.updateCPU()
-                            let startTime = Date()
-                            
-                            for _ in 1...stepCount {
-                                model.step()
+                        if let operation = model.turbo9.disassemble() {
+                            if operation.addressMode == .rel8 || operation.addressMode == .rel16 {
+                                gotoAddress = model.turbo9.PC &+ UInt16(operation.size)
+                                runClosure()
+                            } else {
+                                stepClosure()
                             }
-                            model.instructionsPerSecond = Double(stepCount) / Date().timeIntervalSince(startTime)
-                            model.turbo9.checkDisassembly()
-                            model.updateUI()
                         }
                     }) {
                         Image(systemName: "arrow.right")
+                    }
+                    .disabled(model.running == true)
+                    
+                    Button(action: {
+                        stepClosure()
+                    }) {
+                        Image(systemName: "arrow.down")
+                    }
+                    .disabled(model.running == true)
+                    
+                    Button(action: {
+                    }) {
+                        Image(systemName: "arrow.up")
                     }
                     .disabled(model.running == true)
                     
@@ -86,41 +144,8 @@ struct ControlView: View {
 
             GroupBox {
                 HStack {
-                    Button(action: {
-                        if model.running == true {
-                            model.running = false
-                            goLabel = "play.fill"
-                            model.updateUI()
-                        } else {
-                            model.running = true
-                            goLabel = "pause.fill"
-                            model.updateCPU()
-                            DispatchQueue.global(qos: .background).async {
-                                let startTime = Date()
-                                var instructionCount = 0
-                                repeat {
-                                    model.step()
-                                    instructionCount += 1
-                                    if model.timerRunning == true && model.turbo9.clockCycles % cyclesPerTick == 0 {
-                                        model.invokeTimer()
-                                    }
-                                    if model.timerRunning == true && model.turbo9.clockCycles % (cyclesPerTick * 50) == 0 {
-                                        DispatchQueue.main.sync {
-//                                            model.turbo9.checkDisassembly()
-//                                            model.updateUI()
-                                        }
-                                    }
-                                } while model.running == true && model.turbo9.PC != UInt16(gotoAddress)
-                                DispatchQueue.main.async {
-                                    model.instructionsPerSecond = Double(instructionCount) / Date().timeIntervalSince(startTime)
-                                    model.running = false
-                                    goLabel = "play.fill"
-                                    model.turbo9.checkDisassembly()
-                                    model.updateUI()
-                                }
-                            }
-                        }
-                    }) {
+                    Button(action: runClosure
+                    ) {
                         Image(systemName: goLabel)
                     }
                     
