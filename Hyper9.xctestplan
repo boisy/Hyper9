@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "4719F867-BFF6-4097-B506-2F8AF6E0B6A7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SwiftTurbo9.xcodeproj",
+      "identifier" : "6888ABF22D413E9F004DC040",
+      "name" : "SwiftTurbo9"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:SwiftTurbo9.xcodeproj",
+        "identifier" : "6888AC032D413EA2004DC040",
+        "name" : "SwiftTurbo9Tests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:SwiftTurbo9.xcodeproj",
+        "identifier" : "6888AC0D2D413EA2004DC040",
+        "name" : "SwiftTurbo9UITests"
+      }
+    }
+  ],
+  "version" : 1
+}

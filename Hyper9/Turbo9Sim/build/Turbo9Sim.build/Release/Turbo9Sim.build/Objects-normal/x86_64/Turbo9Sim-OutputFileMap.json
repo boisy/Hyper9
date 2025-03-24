@@ -1,0 +1,245 @@
+{
+  "" : {
+    "const-values" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim-master.swiftconstvalues",
+    "dependencies" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim-master.d",
+    "diagnostics" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim-master.dia",
+    "emit-module-dependencies" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim-master-emit-module.dia",
+    "swift-dependencies" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim-master.swiftdeps"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/AddressMode.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/AddressMode.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/AddressMode.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/AddressMode.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Bus.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bus.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bus.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bus.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+ADD.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ADD.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ADD.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ADD.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+AND.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+AND.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+AND.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+AND.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+AddressModes.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+AddressModes.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+AddressModes.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+AddressModes.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+ArithmeticShift.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ArithmeticShift.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ArithmeticShift.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ArithmeticShift.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+BIT.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+BIT.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+BIT.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+BIT.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+Branch.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Branch.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Branch.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Branch.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+CCRegister.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CCRegister.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CCRegister.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CCRegister.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+CLR.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CLR.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CLR.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CLR.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+CMP.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CMP.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CMP.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+CMP.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+COM.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+COM.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+COM.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+COM.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+DEC.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+DEC.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+DEC.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+DEC.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+EOR.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+EOR.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+EOR.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+EOR.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+EXG.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+EXG.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+EXG.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+EXG.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+INC.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+INC.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+INC.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+INC.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+Instructions.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Instructions.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Instructions.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Instructions.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+Interrupts.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Interrupts.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Interrupts.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Interrupts.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+JMP.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+JMP.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+JMP.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+JMP.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+LD.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LD.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LD.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LD.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+LEA.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LEA.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LEA.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LEA.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+LogicalShift.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LogicalShift.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LogicalShift.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+LogicalShift.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+NEG.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+NEG.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+NEG.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+NEG.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+OR.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+OR.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+OR.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+OR.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+Opcodes.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Opcodes.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Opcodes.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Opcodes.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+PUSH_PULL.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+PUSH_PULL.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+PUSH_PULL.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+PUSH_PULL.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+Rotate.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Rotate.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Rotate.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+Rotate.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+SEX.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SEX.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SEX.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SEX.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+ST.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ST.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ST.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+ST.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+SUB.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SUB.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SUB.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SUB.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+SWI.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SWI.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SWI.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+SWI.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+TFR.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TFR.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TFR.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TFR.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+TST.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TST.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TST.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TST.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/CPU+TurbOS.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TurbOS.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TurbOS.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/CPU+TurbOS.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Disassembler/Bus+Dump.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bus+Dump.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bus+Dump.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bus+Dump.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Disassembler/Disassembler+Operand.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler+Operand.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler+Operand.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler+Operand.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Disassembler/Disassembler+Operation.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler+Operation.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler+Operation.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler+Operation.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Disassembler/Disassembler.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Disassembler.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Extensions/Array+Extensions.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Array+Extensions.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Array+Extensions.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Array+Extensions.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Extensions/Bool+Extensions.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bool+Extensions.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bool+Extensions.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Bool+Extensions.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Extensions/Int16+Extensions.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Int16+Extensions.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Int16+Extensions.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Int16+Extensions.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Extensions/Int8+Extensions.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Int8+Extensions.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Int8+Extensions.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Int8+Extensions.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Extensions/UInt16+Extensions.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/UInt16+Extensions.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/UInt16+Extensions.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/UInt16+Extensions.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Extensions/UInt8+Extensions.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/UInt8+Extensions.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/UInt8+Extensions.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/UInt8+Extensions.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Instruction.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Instruction.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Instruction.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Instruction.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Turbo9CPU.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9CPU.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9CPU.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9CPU.o"
+  },
+  "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/Sources/Turbo9Sim/Turbo9Sim.swift" : {
+    "index-unit-output-path" : "/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim.o",
+    "llvm-bc" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim.bc",
+    "object" : "/Users/boisy/Projects/Hyper9/Hyper9/Turbo9Sim/build/Turbo9Sim.build/Release/Turbo9Sim.build/Objects-normal/x86_64/Turbo9Sim.o"
+  }
+}

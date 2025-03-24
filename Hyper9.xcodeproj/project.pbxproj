@@ -48,38 +48,24 @@
 		6888ABF32D413E9F004DC040 /* Hyper9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hyper9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC042D413EA2004DC040 /* Hyper9Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6888AD362D414B30004DC040 /* SwiftTurbo9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftTurbo9.xctestplan; sourceTree = "<group>"; };
 		68BF43AB2D7DB50C00F3B3A8 /* hyper9-cmd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "hyper9-cmd"; sourceTree = BUILT_PRODUCTS_DIR; };
-		68C437BF2D6C958D004B98CE /* SwiftTurbo9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftTurbo9.xctestplan; sourceTree = "<group>"; };
+		68C437BF2D6C958D004B98CE /* Hyper9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hyper9.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		68EF50222D86F74A00C528CA /* Exceptions for "SwiftTurbo9" folder in "Hyper9" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Hyper9 Logo.pxd",
-			);
-			target = 6888ABF22D413E9F004DC040 /* Hyper9 */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		6888ABF52D413E9F004DC040 /* SwiftTurbo9 */ = {
+		6888ABF52D413E9F004DC040 /* Hyper9 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				68EF50222D86F74A00C528CA /* Exceptions for "SwiftTurbo9" folder in "Hyper9" target */,
-			);
-			path = SwiftTurbo9;
+			path = Hyper9;
 			sourceTree = "<group>";
 		};
-		6888AC072D413EA2004DC040 /* SwiftTurbo9Tests */ = {
+		6888AC072D413EA2004DC040 /* Hyper9Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftTurbo9Tests;
+			path = Hyper9Tests;
 			sourceTree = "<group>";
 		};
-		6888AC112D413EA2004DC040 /* SwiftTurbo9UITests */ = {
+		6888AC112D413EA2004DC040 /* Hyper9UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftTurbo9UITests;
+			path = Hyper9UITests;
 			sourceTree = "<group>";
 		};
 		68BF43AC2D7DB50C00F3B3A8 /* hyper9-cmd */ = {
@@ -129,12 +115,11 @@
 		6888ABEA2D413E9F004DC040 = {
 			isa = PBXGroup;
 			children = (
-				68C437BF2D6C958D004B98CE /* SwiftTurbo9.xctestplan */,
+				68C437BF2D6C958D004B98CE /* Hyper9.xctestplan */,
 				684F6DC92D60CB3200EF4315 /* Turbo9.pxd */,
-				6888AD362D414B30004DC040 /* SwiftTurbo9.xctestplan */,
-				6888ABF52D413E9F004DC040 /* SwiftTurbo9 */,
-				6888AC072D413EA2004DC040 /* SwiftTurbo9Tests */,
-				6888AC112D413EA2004DC040 /* SwiftTurbo9UITests */,
+				6888ABF52D413E9F004DC040 /* Hyper9 */,
+				6888AC072D413EA2004DC040 /* Hyper9Tests */,
+				6888AC112D413EA2004DC040 /* Hyper9UITests */,
 				68BF43AC2D7DB50C00F3B3A8 /* hyper9-cmd */,
 				68BF43B22D7DB52500F3B3A8 /* Frameworks */,
 				6888ABF42D413E9F004DC040 /* Products */,
@@ -175,7 +160,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				6888ABF52D413E9F004DC040 /* SwiftTurbo9 */,
+				6888ABF52D413E9F004DC040 /* Hyper9 */,
 			);
 			name = Hyper9;
 			packageProductDependencies = (
@@ -202,7 +187,7 @@
 				6888AC062D413EA2004DC040 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				6888AC072D413EA2004DC040 /* SwiftTurbo9Tests */,
+				6888AC072D413EA2004DC040 /* Hyper9Tests */,
 			);
 			name = Hyper9Tests;
 			packageProductDependencies = (
@@ -225,7 +210,7 @@
 				6888AC102D413EA2004DC040 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				6888AC112D413EA2004DC040 /* SwiftTurbo9UITests */,
+				6888AC112D413EA2004DC040 /* Hyper9UITests */,
 			);
 			name = Hyper9UITests;
 			packageProductDependencies = (
@@ -499,11 +484,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SwiftTurbo9/SwiftTurbo9.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Hyper9/Hyper9.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftTurbo9/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Hyper9/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -521,7 +506,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.pitre.SwiftTurbo9;
+				PRODUCT_BUNDLE_IDENTIFIER = org.pitre.Hyper9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -537,11 +522,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SwiftTurbo9/SwiftTurbo9.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Hyper9/Hyper9.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftTurbo9/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Hyper9/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -559,7 +544,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.pitre.SwiftTurbo9;
+				PRODUCT_BUNDLE_IDENTIFIER = org.pitre.Hyper9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
