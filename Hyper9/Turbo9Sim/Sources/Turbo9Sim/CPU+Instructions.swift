@@ -222,7 +222,7 @@ extension Turbo9CPU {
     /// - C    -    Set if `B` bit 7 of result is set; cleared otherwise.
     func mul(addressMode: AddressMode) -> ShouldIncludeExtraClockCycles {
         // Perform multiplication
-        let result = A * B
+        let result = UInt16(A) * UInt16(B)
         
         // Convert result to unsigned 16-bit to extract high and low bytes.
         let highByte = UInt8(result >> 8)
