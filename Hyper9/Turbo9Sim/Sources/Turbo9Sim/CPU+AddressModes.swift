@@ -19,7 +19,7 @@ private extension Turbo9CPU {
     /// Inherent addressing mode.
     private func inh() {
     }
-
+    
     /// Immediate 8-bit.
     ///
     /// The addressing mode will read the next byte as the data.
@@ -28,7 +28,7 @@ private extension Turbo9CPU {
         addressAbsolute = PC
         PC = PC &+ 1
     }
-
+    
     /// Immediate 16-bit.
     ///
     /// The addressing mode will read the next word as the data.
@@ -37,7 +37,7 @@ private extension Turbo9CPU {
         addressAbsolute = PC
         PC = PC &+ 2
     }
-
+    
     /// Direct.
     ///
     /// Point a direct page address.
@@ -45,40 +45,40 @@ private extension Turbo9CPU {
         addressAbsolute = (UInt16(readByte(PC)) &+ (UInt16(DP) * 256))
         PC = PC &+ 1
     }
-
+    
     /// Relative 8-bit.
     ///
     /// Relative addressing allows for a navigating to an address within -128 to +127 of the program counter.
     private func rel8() {
         var addressRelative = readByte(PC).asWord
         PC = PC &+ 1
-
+        
         // If the relative offset is negative, we need to flip the highest bits so a "subtraction" will occur.
         if addressRelative & 0x80 == 0x80 {
             addressRelative |= 0xFF00
         }
-
+        
         // Add the relative offset to the current program counter.
         addressAbsolute = PC &+ addressRelative
     }
-
+    
     /// Relative 16-bit.
     ///
     /// Relative addressing allows for a navigating to an address within -32768 to +32767 of the program counter.
     private func rel16() {
         var addressRelative = readWord(PC)
         PC = PC &+ 2
-
+        
         // If the relative offset is negative, we need to flip the highest bits so a "subtraction" will occur.
         if addressRelative & 0x8000 == 0x8000 {
             let result = Int16(bitPattern: addressRelative)
             addressRelative = UInt16(truncatingIfNeeded: result)
         }
-
+        
         // Add the relative offset to the current program counter.
         addressAbsolute = PC &+ addressRelative
     }
-
+    
     /// Absolute.
     ///
     /// Will read the two next bytes and form them into an address.
@@ -86,7 +86,7 @@ private extension Turbo9CPU {
         addressAbsolute = readWord(PC)
         PC = PC &+ 2
     }
-
+    
     /// Indirect, aka. pointer.
     ///
     /// The next byte forms a postbyte which dictates what byte or bytes follow.
@@ -123,15 +123,19 @@ private extension Turbo9CPU {
             case 0: // direct auto increment by 1
                 effectiveAddress = UInt16(truncatingIfNeeded:Int(registerValue) + Int(registerAddAmount))
                 registerAddAmount = 1
+                performRegisterAdd(registerNo, registerAddAmount: registerAddAmount)
             case 1: // direct auto increment by 2
                 effectiveAddress = UInt16(truncatingIfNeeded:Int(registerValue) + Int(registerAddAmount))
                 registerAddAmount = 2
+                performRegisterAdd(registerNo, registerAddAmount: registerAddAmount)
             case 2: // direct auto decrement by 1
                 registerAddAmount = -1
                 effectiveAddress = UInt16(truncatingIfNeeded:Int(registerValue) + Int(registerAddAmount))
+                performRegisterAdd(registerNo, registerAddAmount: registerAddAmount)
             case 3: // direct auto decrement by 2
                 registerAddAmount = -2
                 effectiveAddress = UInt16(truncatingIfNeeded:Int(registerValue) + Int(registerAddAmount))
+                performRegisterAdd(registerNo, registerAddAmount: registerAddAmount)
             case 4: // direct constant offset from register (2s complement) no offset
                 effectiveAddress = registerValue
             case 5: // direct B accumulator offset from register (2s complement)
@@ -191,8 +195,10 @@ private extension Turbo9CPU {
                 let result = Int(registerValue) &+ Int(D)
                 effectiveAddress = readWord(readWord(UInt16(truncatingIfNeeded: result)))
             case 17: // indirect auto increment by 2 from register
+                performRegisterAdd(registerNo, registerAddAmount: 2)
                 effectiveAddress = readWord(registerValue)
             case 19: // indirect auto decrement by 2 from register
+                performRegisterAdd(registerNo, registerAddAmount: -2)
                 effectiveAddress = readWord(registerValue)
             case 28: // indirect constant offset from program counter 8-bit offset
                 let nextValue = Int8(bitPattern: readByte(PC))
@@ -213,19 +219,21 @@ private extension Turbo9CPU {
             default:
                 effectiveAddress = 0
             }
-            
-            switch registerNo {
-            case 0:
-                X = X &+ UInt16(bitPattern: registerAddAmount)
-            case 1:
-                Y = Y &+ UInt16(bitPattern: registerAddAmount)
-            case 2:
-                U = U &+ UInt16(bitPattern: registerAddAmount)
-            default:
-                S = S &+ UInt16(bitPattern: registerAddAmount)
-            }
         }
         
         addressAbsolute = effectiveAddress
+    }
+
+    func performRegisterAdd(_ registerNo : UInt8, registerAddAmount: Int16) {
+        switch registerNo {
+        case 0:
+            X = X &+ UInt16(bitPattern: registerAddAmount)
+        case 1:
+            Y = Y &+ UInt16(bitPattern: registerAddAmount)
+        case 2:
+            U = U &+ UInt16(bitPattern: registerAddAmount)
+        default:
+            S = S &+ UInt16(bitPattern: registerAddAmount)
+        }
     }
 }
