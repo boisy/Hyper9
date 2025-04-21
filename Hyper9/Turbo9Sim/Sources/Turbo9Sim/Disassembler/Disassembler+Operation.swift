@@ -269,7 +269,7 @@ extension Disassembler {
                     let comp = ~least5 & 0x0F
                     least5 = -(comp + 1)
                 }
-                offset = least5.asHex
+                offset = least5.asSignedString
             } else {
                 offset = "0"
                 switch least5 {
@@ -289,21 +289,21 @@ extension Disassembler {
                     offset = "A"
                 case 8: // direct constant offset from register 8-bit
                     if let value = UInt8(postOperand.description) {
-                        offset = Int8(bitPattern: value).asHex
+                        offset = Int8(bitPattern: value).asSignedString
                     }
                 case 9: // direct constant offset from register 16-bit
-                    offset = Int16(bitPattern: UInt16(postOperand.description)!).asHex
+                    offset = Int16(bitPattern: UInt16(postOperand.description)!).asSignedString
                 case 11: // direct D accumulator offset from register (2s complement)
                     offset = "D"
                 case 12: // direct constant offset from program counter 8-bit
                     if var value = Int(postOperand.description) {
                         value = value & 0xFF
-                        offset = String(Int8(bitPattern: UInt8(value)))
+                        offset = Int8(bitPattern: UInt8(value)).asSignedString
                     }
                     register = "PC"
                 case 13: // direct constant offset from program counter 16-bit
                     if let value = UInt16(postOperand.description) {
-                        offset = String(Int16(bitPattern: value))
+                        offset = Int16(bitPattern: value).asSignedString
                     }
                     register = "PC"
                 case 20: // indirect constant offset from register (2s complement - no offset) no offset
@@ -314,13 +314,13 @@ extension Disassembler {
                     rightBracket = "]"
                     if var value = Int(postOperand.description) {
                         value = value & 0xFF
-                        offset = String(Int8(bitPattern: UInt8(value)))
+                        offset = Int8(bitPattern: UInt8(value)).asSignedString
                     }
                 case 25: // indirect constant offset from register (2s complement - no offset) 16 bit offset
                     leftBracket = "["
                     rightBracket = "]"
                     if let value = UInt16(postOperand.description) {
-                        offset = String(Int16(bitPattern: value))
+                        offset = Int16(bitPattern: value).asSignedString
                     }
                 case 21: // indirect B accumulator offset from register (2s complement offset)
                     leftBracket = "["
@@ -345,18 +345,18 @@ extension Disassembler {
                 case 28: // indirect constant offset from program counter 8-bit offset
                     leftBracket = "["
                     rightBracket = "]"
-                    offset = String(Int8(bitPattern: UInt8(postOperand.description)!))
+                    offset = Int8(bitPattern: UInt8(postOperand.description)!).asSignedString
                     register = "PC"
                 case 29: // indirect constant offset from program counter 16-bit offset
                     leftBracket = "["
                     rightBracket = "]"
-                    offset = String(Int16(bitPattern: UInt16(postOperand.description)!))
+                    offset = Int16(bitPattern: UInt16(postOperand.description)!).asSignedString
                     register = "PC"
                 case 31: // extended indirect 16-bit address
                     leftBracket = "["
                     rightBracket = "]"
                     if let value = UInt16(postOperand.description) {
-                        offset = String(Int16(bitPattern: value))
+                        offset = Int16(bitPattern: value).asSignedString
                     }
                     register = ""
                 default:

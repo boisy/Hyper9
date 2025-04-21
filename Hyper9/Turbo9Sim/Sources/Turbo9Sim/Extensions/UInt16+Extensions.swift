@@ -13,6 +13,14 @@ extension UInt16 {
         Int16(bitPattern: self)
     }
 
+    var asSignedString: String {
+        String(Int16(bitPattern: self))
+    }
+
+    var asUnsignedString: String {
+        String(self)
+    }
+
     var asHex: String {
         String(format: "$%04hX", self)
     }

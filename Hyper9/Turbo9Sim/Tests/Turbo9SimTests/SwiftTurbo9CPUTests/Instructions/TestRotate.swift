@@ -30,8 +30,8 @@ struct TestROLA {
 
         #expect(cpu.readCC(.negative) == false)
         #expect(cpu.readCC(.zero) == true)
-        #expect(cpu.readCC(.overflow) == false)
-        #expect(cpu.readCC(.carry) == false)
+        #expect(cpu.readCC(.overflow) == true)
+        #expect(cpu.readCC(.carry) == true)
     }
 }
 

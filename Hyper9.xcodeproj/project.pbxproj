@@ -32,24 +32,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		68BF43A92D7DB50C00F3B3A8 /* CopyFiles */ = {
+		68BF43A92D7DB50C00F3B3A8 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		68440D692DA2C88800890262 /* Hyper9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hyper9.xctestplan; sourceTree = "<group>"; };
 		684F6DC92D60CB3200EF4315 /* Turbo9.pxd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Turbo9.pxd; sourceTree = "<group>"; };
 		6888ABF32D413E9F004DC040 /* Hyper9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hyper9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC042D413EA2004DC040 /* Hyper9Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6888AC0E2D413EA2004DC040 /* Hyper9UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Hyper9UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68BF43AB2D7DB50C00F3B3A8 /* hyper9-cmd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "hyper9-cmd"; sourceTree = BUILT_PRODUCTS_DIR; };
-		68C437BF2D6C958D004B98CE /* Hyper9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hyper9.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -115,7 +116,7 @@
 		6888ABEA2D413E9F004DC040 = {
 			isa = PBXGroup;
 			children = (
-				68C437BF2D6C958D004B98CE /* Hyper9.xctestplan */,
+				68440D692DA2C88800890262 /* Hyper9.xctestplan */,
 				684F6DC92D60CB3200EF4315 /* Turbo9.pxd */,
 				6888ABF52D413E9F004DC040 /* Hyper9 */,
 				6888AC072D413EA2004DC040 /* Hyper9Tests */,
@@ -225,7 +226,7 @@
 			buildPhases = (
 				68BF43A72D7DB50C00F3B3A8 /* Sources */,
 				68BF43A82D7DB50C00F3B3A8 /* Frameworks */,
-				68BF43A92D7DB50C00F3B3A8 /* CopyFiles */,
+				68BF43A92D7DB50C00F3B3A8 /* Copy Files */,
 			);
 			buildRules = (
 			);

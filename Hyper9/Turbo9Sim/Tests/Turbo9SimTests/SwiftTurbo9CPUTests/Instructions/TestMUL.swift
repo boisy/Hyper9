@@ -10,7 +10,7 @@ struct TestMUL {
         cpu.B = 1
         try cpu.perform(instruction: .mul, addressMode: .imm8)
         
-        #expect(cpu.A == 0xFF)
+        #expect(cpu.A == 0x00)
         #expect(cpu.B == 0x80)
         #expect(cpu.readCC(.zero) == false)
         #expect(cpu.readCC(.carry) == true)

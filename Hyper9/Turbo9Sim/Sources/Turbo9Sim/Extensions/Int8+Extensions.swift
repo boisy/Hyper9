@@ -5,6 +5,14 @@ extension Int8 {
         Int16(self)
     }
 
+    var asSignedString: String {
+        String(self)
+    }
+
+    var asUnsignedString: String {
+        String(UInt8(bitPattern: self))
+    }
+
     var asHex: String {
         String(format: "$%02hhX", self)
     }

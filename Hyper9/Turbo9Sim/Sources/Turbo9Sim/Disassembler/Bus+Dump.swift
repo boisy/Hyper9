@@ -201,7 +201,7 @@ extension Bus {
             // Determine the chunk size
             let remaining = numBytes - i
             let chunkSize = remaining > dumpChunk ? dumpChunk : remaining
-            let chunk = Array(memory[i..<(i + chunkSize)])
+            let chunk = Array(memory[i + Int(offset)..<(i + Int(offset) + chunkSize)])
             
             // Dump the line
             output += dumpLine(buffer: chunk, count: chunkSize, format: format)

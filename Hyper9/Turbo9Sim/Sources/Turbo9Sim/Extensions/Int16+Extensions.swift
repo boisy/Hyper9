@@ -5,6 +5,14 @@ extension Int16 {
         Int8(self >> 8)
     }
     
+    var asSignedString: String {
+        String(Int16(self))
+    }
+
+    var asUnsignedString: String {
+        String(UInt16(self))
+    }
+
     var asHex: String {
         String(format: "$%04hX", self)
     }

@@ -9,9 +9,8 @@ import Foundation
 import Darwin
 import Turbo9Sim
 
-var inputBuffer = ""
+// MARK: - Terminal Mode Functions
 
-// Set terminal to raw mode to capture individual key presses
 func enableRawMode() {
     let attrs = UnsafeMutablePointer<termios>.allocate(capacity: 1)
     tcgetattr(STDIN_FILENO, attrs)
@@ -21,7 +20,6 @@ func enableRawMode() {
     attrs.deallocate()
 }
 
-// Restore terminal to original mode
 func disableRawMode() {
     let attrs = UnsafeMutablePointer<termios>.allocate(capacity: 1)
     tcgetattr(STDIN_FILENO, attrs)
@@ -30,6 +28,8 @@ func disableRawMode() {
     tcsetattr(STDIN_FILENO, TCSANOW, &cooked)
     attrs.deallocate()
 }
+
+// MARK: - IRQ Handlers
 
 public func invokeTimerIRQ() {
     // Set the bit indicating the timer has fired
@@ -53,83 +53,105 @@ public func invokeInputIRQ() {
     }
 }
 
+// MARK: - Globals
 
 var timerRunning = false
 var inputIRQEnabled = false
 let turbo9 = Disassembler()
-try turbo9.load(url: URL(fileURLWithPath: "/Users/boisy/Projects/turbos/ports/turbo9sim/turbos_full.img"))
 
+// MARK: - Main Execution
+
+// 1. Parse Arguments
+let arguments = CommandLine.arguments
+if arguments.count < 2 {
+    print("Usage: \(arguments[0]) <image-file-path>")
+    exit(EXIT_FAILURE)
+}
+
+let filePath = arguments[1]
+
+// 2. Attempt to Load the Specified File
+do {
+    try turbo9.load(url: URL(fileURLWithPath: filePath))
+} catch {
+    print("Error loading file at path \(filePath): \(error)")
+    exit(EXIT_FAILURE)
+}
+
+// 3. Prepare I/O Handlers
 let outputHandler = BusWriteHandler(address: 0xFF00, callback: { value in
     print(String(format: "%c", value), terminator: "")
+    fflush(stdout)
 })
 
 let irqStatusHandler = BusWriteHandler(address: 0xFF02, callback: { value in
     // Writing 1 to bit 0 deasserts timer IRQ
     if (value & 0x01) == 0x01 {
-        let _ = turbo9.bus.read(0xFF02, readThroughIO: true) & 0xFE
+        _ = turbo9.bus.read(0xFF02, readThroughIO: true) & 0xFE
         turbo9.deassertIRQ()
     }
-
     // Writing 1 to bit 1 deasserts input IRQ
     if (value & 0x02) == 0x02 {
-        let _ = turbo9.bus.read(0xFF02, readThroughIO: true) & 0xFD
+        _ = turbo9.bus.read(0xFF02, readThroughIO: true) & 0xFD
         turbo9.deassertIRQ()
     }
 })
 
 let irqControlHandler = BusWriteHandler(address: 0xFF03, callback: { value in
-    if (value & 0x01) == 0x01 {
-        timerRunning = true
-    } else {
-        timerRunning = false
-    }
-    
-    if (value & 0x02) == 0x02 {
-        inputIRQEnabled = true
-    } else {
-        inputIRQEnabled = false
-    }
+    timerRunning = (value & 0x01) == 0x01
+    inputIRQEnabled = (value & 0x02) == 0x02
 })
 
+// If you want to track specific writes for debugging, uncomment the following:
+/*
+let check0x503Handler = BusWriteHandler(address: 0x0503, callback: { value in
+    print("0x503 written: \(value)")
+})
+*/
 
+// 4. Set Up Terminal and Handlers
 enableRawMode()
 
 let flags = fcntl(STDIN_FILENO, F_GETFL)
-fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK)
+let _ = fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK)
 
 turbo9.bus.addWriteHandler(handler: outputHandler)
 turbo9.bus.addWriteHandler(handler: irqStatusHandler)
 turbo9.bus.addWriteHandler(handler: irqControlHandler)
+// turbo9.bus.addWriteHandler(handler: check0x503Handler)
 
-try turbo9.reset()
-
-func log(_ message: String) {
-//    print(message)
+// 5. Reset and Begin Execution
+do {
+    try turbo9.reset()
+} catch {
+    print("Error during reset: \(error)")
+    exit(EXIT_FAILURE)
 }
 
-turbo9.instructionClosure = log
+// Optional: If you'd like to log or trace instructions, uncomment and implement:
+//func log(_ message: String) {
+//    print(message)
+//}
+// turbo9.instructionClosure = log
 
+// 6. Main Emulation Loop
 repeat {
-    if turbo9.PC == 0xf6c4 {
-        turbo9.instructionClosure = log
-    }
     try turbo9.step()
-    if turbo9.clockCycles % 3000 == 0 {
+    
+    if turbo9.clockCycles % 300 == 0 {
         invokeTimerIRQ()
     }
     
     var char: UInt8 = 0
     let readBytes = read(STDIN_FILENO, &char, 1)
-
     if readBytes == 1 {
-        if char == 10 { // Enter key (LF, \n)
+        if char == 10 {  // Enter key (LF) -> convert to CR
             char = 13
-//            break
         }
-//        inputBuffer.append(Character(UnicodeScalar(char)))
+        
         turbo9.bus.write(0xFF01, data: char)
         invokeInputIRQ()
     }
-} while (true == true)
+} while true
 
 disableRawMode()
