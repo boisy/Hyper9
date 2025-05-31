@@ -45,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6838F59B2DE6710C007577CF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		68440D692DA2C88800890262 /* Hyper9.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hyper9.xctestplan; sourceTree = "<group>"; };
 		684F6DC92D60CB3200EF4315 /* Turbo9.pxd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Turbo9.pxd; sourceTree = "<group>"; };
 		6888ABF32D413E9F004DC040 /* Hyper9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hyper9.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +117,7 @@
 		6888ABEA2D413E9F004DC040 = {
 			isa = PBXGroup;
 			children = (
+				6838F59B2DE6710C007577CF /* README.md */,
 				68440D692DA2C88800890262 /* Hyper9.xctestplan */,
 				684F6DC92D60CB3200EF4315 /* Turbo9.pxd */,
 				6888ABF52D413E9F004DC040 /* Hyper9 */,

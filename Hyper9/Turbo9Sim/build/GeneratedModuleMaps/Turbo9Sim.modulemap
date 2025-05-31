@@ -1,4 +1,0 @@
-module Turbo9Sim {
-header "Turbo9Sim-Swift.h"
-export *
-}
