@@ -21,5 +21,5 @@ Hyper9 is a simulator written in Swift. It emulates the [Turbo9 microprocessor](
 
 ### $FF03: IRQ Control Register
 * Bit 0: 1=Timer IRQ enabled; 0=Timer IRQ disabled
-* Bit 1: 1=Temrinal input IRQ enabled; 0=Termianl input IRQ disabled
+* Bit 1: 1=Terminal input IRQ enabled; 0=Termianl input IRQ disabled
 
