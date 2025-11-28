@@ -299,7 +299,7 @@ public class Turbo9CPU {
         } else
         // Check if fast interrupt preempts our execution
         if readCC(.firq) == false && FIRQ == true {
-            // FIRQ is TRUE, FIRQs are unmasked, and we aren't currently in anF IRQ state
+            // FIRQ is TRUE, FIRQs are unmasked, and we aren't currently in an FIRQ state
             if syncToInterrupt == false {
                 pushToS(word: PC)
                 setCC(.entire, false)
